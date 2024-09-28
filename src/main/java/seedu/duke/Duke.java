@@ -1,5 +1,8 @@
 package seedu.duke;
 
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+
 import ui.UI;
 
 public class Duke {
@@ -7,6 +10,7 @@ public class Duke {
      * Main entry-point for the java.duke.Duke application.
      */
     public static void main(String[] args) {
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
         uiTestRun();
     }
 
