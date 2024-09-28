@@ -23,7 +23,7 @@ public class Duke {
         String input = UI.getUserInput();
 
         UI.println("You typed: " + input);
-        UI.println("Anyways, here is the sample table: ");
+        UI.println("Anyways, here is the sample table:");
         UI.printTable(); // Prints sample table to console
         UI.printBye();
     }
