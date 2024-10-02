@@ -3,12 +3,12 @@ package university;
 public class University {
     private String fullName;
     private String acronym;
-    private int SpotsLeft;
+    private int spotsLeft;
 
     public University(String fullName, String acronym, int spotsLeft) {
         this.fullName = fullName;
         this.acronym = acronym;
-        this.SpotsLeft = spotsLeft;
+        this.spotsLeft = spotsLeft;
     }
 
     public String getFullName() {
@@ -20,11 +20,11 @@ public class University {
     }
 
     public int getSpotsLeft() {
-        return SpotsLeft;
+        return spotsLeft;
     }
 
     public void removeASpot(){
-        this.SpotsLeft--;
+        this.spotsLeft--;
     }
 
     @Override
