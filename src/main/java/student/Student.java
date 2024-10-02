@@ -2,24 +2,24 @@ package student;
 
 public class Student {
     private String name;
-    private int ID;
-    private float GPA;
+    private int id;
+    private float gpa;
     private int[] uniPreferences = new int[3];
-    private boolean successfullyAllocated = false;
+    private boolean isSuccessfullyAllocated = false;
 
-    Student(String name, int ID, float GPA, int[] uniPreferences){
+    Student(String name, int id, float gpa, int[] uniPreferences){
         this.name = name;
-        this.ID = ID;
-        this.GPA = GPA;
+        this.id = id;
+        this.gpa = gpa;
         this.uniPreferences = uniPreferences;
     }
 
-    public float getGPA() {
-        return GPA;
+    public float getGpa() {
+        return gpa;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -31,10 +31,10 @@ public class Student {
     }
 
     public boolean getSuccessfullyAllocated(){
-        return successfullyAllocated;
+        return isSuccessfullyAllocated;
     }
 
     public void setSuccessfullyAllocated(boolean success){
-        successfullyAllocated = success;
+        isSuccessfullyAllocated = success;
     }
 }

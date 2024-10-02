@@ -1,10 +1,9 @@
 package university;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class UniversityRepository{
-    private static final Map<Integer, University> universityMap = new HashMap<>();
+    private static final HashMap<Integer, University> universityMap = new HashMap<>();
 
     static {
         universityMap.put(1, new University("The Uni of Western Australia", "UWA",1 ));
