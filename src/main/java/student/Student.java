@@ -12,7 +12,7 @@ public class Student {
     public Student(String id, float gpa, ArrayList<Integer> uniPreferences){
         this.id = id;
         this.gpa = gpa;
-        this.uniPreferences = new ArrayList<>();
+        this.uniPreferences = uniPreferences;
     }
 
     public float getGpa() {

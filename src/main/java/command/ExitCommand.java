@@ -13,6 +13,6 @@ public class ExitCommand extends Command {
 
     @Override
     public void run() {
-        this.ui.printBye();
+        this.ui.cleanupAndExit();
     }
 }

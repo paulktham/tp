@@ -27,8 +27,10 @@ public class StudentList {
         }
 
         // Trim spaces and braces, then split the preferences
+        System.out.println(parts[3]);
         String preferencesData = parts[3].trim().replaceAll("[{}]", "");
         String[] numberStrings = preferencesData.split(",");
+        System.out.println(preferencesData);
 
         ArrayList<Integer> preferences = new ArrayList<>();
         for (String numberString : numberStrings) {
@@ -52,7 +54,7 @@ public class StudentList {
     }
 
     public void printStudentList() {
-        ui.printStudentList(students);
+        ui.printStudentList(this.students);
     }
 
     public void generateReport() {
