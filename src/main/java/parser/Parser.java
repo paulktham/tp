@@ -1,24 +1,26 @@
 package parser;
 
-import Command.GenerateCommand;
-import Command.AddCommand;
-import Command.AllocateCommand;
-import Command.DeleteCommand;
-import Command.ExitCommand;
-import Command.HelpCommand;
-import Command.ListCommand;
+import command.GenerateCommand;
+import command.AddCommand;
+import command.AllocateCommand;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.HelpCommand;
+import command.ListCommand;
+import studentlist.StudentList;
 import ui.UI;
 
 /**
  * The Parser class is the main class responsible for parsing the user's input and executing the corresponding command.
  */
 public class Parser {
+    private StudentList studentList;
     private UI ui;
 
-    public Parser(UI ui) {
+    public Parser(StudentList studentList, UI ui) {
+        this.studentList = studentList;
         this.ui = ui;
     }
-
 
     /**
      * Parses the user's input and execute the corresponding command.
@@ -30,28 +32,29 @@ public class Parser {
         String[] parts = input.split(" ");
         switch (parts[0].toLowerCase()) {
         case "add":
-            new AddCommand(this.ui).run();
+            new AddCommand(this.studentList,input).run();
             break;
         case "delete":
-            new DeleteCommand(this.ui).run();
+            new DeleteCommand(this.studentList,input).run();
             break;
         case "list":
-            new ListCommand(this.ui).run();
+            new ListCommand(this.studentList).run();
             break;
         case "allocate":
-            new AllocateCommand(this.ui).run();
+            new AllocateCommand(this.studentList).run();
             break;
         case "exit":
-            new ExitCommand(this.ui).run();
+            new ExitCommand(this.studentList,this.ui).run();
             return false;
         case "help":
-            new HelpCommand(this.ui).run();
+            new HelpCommand(this.studentList,this.ui).run();
             break;
         case "generate":
-            new GenerateCommand(this.ui).run();
+            new GenerateCommand(this.studentList).run();
             break;
         default:
-            this.ui.println("Invalid command");
+            //this.ui.println("Invalid command");
+            System.out.println(input);
             break;
         }
         return true;

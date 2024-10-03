@@ -1,2 +1,6 @@
-Invalid command
+1 students remaining
+2 students remaining
+3 students remaining
+2 students remaining
+1 students remaining
 Goodbye, amigo!
