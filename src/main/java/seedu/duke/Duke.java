@@ -1,17 +1,30 @@
 package seedu.duke;
 
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
-
 import ui.UI;
+import parser.Parser;
 
 public class Duke {
+    private UI ui;
+    private Parser parser;
+
+    /**
+     * Constructs a new Duke object.
+     * This constructor initializes the Duke's UI and parser.
+     */
+    public Duke() {
+        this.ui = new UI();
+        this.parser = new Parser(this.ui);
+    }
+    
     /**
      * Main entry-point for the java.duke.Duke application.
      */
     public static void main(String[] args) {
-        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        uiTestRun();
+        Duke bob = new Duke();
+        boolean isRunning = true;
+        while (isRunning) {
+            isRunning = bob.parser.parseInput();
+        }
     }
 
     /**
@@ -21,14 +34,14 @@ public class Duke {
      * Print sample ASCII table
      * Print farewell message
      */
-    public static void uiTestRun() {
-        UI.printGreeting();
-        UI.println("Type something...");
-        String input = UI.getUserInput();
+    public void uiTestRun() {
+        this.ui.printGreeting();
+        this.ui.println("Type something...");
+        String input = this.ui.getUserInput();
 
-        UI.println("You typed: " + input);
-        UI.println("Anyways, here is the sample table:");
-        UI.printTable(); // Prints sample table to console
-        UI.printBye();
+        this.ui.println("You typed: " + input);
+        this.ui.println("Anyways, here is the sample table:");
+        this.ui.printTable(); // Prints sample table to console
+        this.ui.printBye();
     }
 }
