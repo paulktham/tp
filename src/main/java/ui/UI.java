@@ -77,4 +77,24 @@ public class UI {
         table.addRule();
         println(table.render());
     }
+
+    public void printStudentList() {
+        // to-do
+    }
+
+    public void addStudent() {
+        // to-do
+    }
+
+    public void deleteStudent() {
+        // to-do
+    }
+
+    public void generateReport() {
+        // to-do
+    }
+
+    public void printHelp() {
+        // to-do
+    }
 }
