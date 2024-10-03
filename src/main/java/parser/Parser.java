@@ -1,5 +1,12 @@
 package parser;
 
+import Command.GenerateCommand;
+import Command.AddCommand;
+import Command.AllocateCommand;
+import Command.DeleteCommand;
+import Command.ExitCommand;
+import Command.HelpCommand;
+import Command.ListCommand;
 import ui.UI;
 
 /**
@@ -23,25 +30,25 @@ public class Parser {
         String[] parts = input.split(" ");
         switch (parts[0].toLowerCase()) {
         case "add":
-            // new AddCommand();
+            new AddCommand(this.ui).run();
             break;
         case "delete":
-            // new DeleteCommand();
+            new DeleteCommand(this.ui).run();
             break;
         case "list":
-            // new ListCommand();
+            new ListCommand(this.ui).run();
             break;
         case "allocate":
-            // new AllocateCommand();
+            new AllocateCommand(this.ui).run();
             break;
         case "exit":
-            this.ui.printBye();
+            new ExitCommand(this.ui).run();
             return false;
         case "help":
-            // new HelpCommand();
+            new HelpCommand(this.ui).run();
             break;
         case "generate":
-            // new GenerateCommand();
+            new GenerateCommand(this.ui).run();
             break;
         default:
             this.ui.println("Invalid command");
