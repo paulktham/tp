@@ -1,4 +1,4 @@
-package seedu.duke;
+package findoursep;
 
 import studentlist.StudentList;
 import ui.UI;
