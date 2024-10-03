@@ -1,6 +1,9 @@
 package ui;
 
 import de.vandermeer.asciitable.AsciiTable;
+
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /**
@@ -9,7 +12,13 @@ import java.util.Scanner;
  * for student data.
  */
 public class UI {
-    private static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+
+    // Constructor for UI class
+    public UI() {
+        this.scanner = new Scanner(System.in);
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+    }
 
     /**
      * Prints the given item to the console.
@@ -17,7 +26,7 @@ public class UI {
      * @param item The item to be printed, which can be of any type.
      *             If the item is null, it prints "null".
      */
-    public static <T> void println(T item) {
+    public <T> void println(T item) {
         if (item == null) {
             System.out.println("null");
         } else {
@@ -31,7 +40,7 @@ public class UI {
      * @return The line of input entered by the user, or an empty string
      *         if an error occurs while reading input.
      */
-    public static String getUserInput() {
+    public String getUserInput() {
         try {
             return scanner.nextLine();
         } catch (Exception e) {
@@ -43,14 +52,14 @@ public class UI {
     /**
      * Prints a greeting message to the console.
      */
-    public static void printGreeting() {
+    public void printGreeting() {
         println("Hi! Welcome to FindMySEP.");
     }
 
     /**
      * Prints a farewell message to the console.
      */
-    public static void printBye() {
+    public void printBye() {
         println("Goodbye, amigo!");
     }
 
@@ -58,7 +67,7 @@ public class UI {
      * Prints a sample ASCII table displaying student information.
      * The table includes student IDs, GPAs, and preference rankings.
      */
-    public static void printTable() {
+    public void printTable() {
         AsciiTable table = new AsciiTable();
         table.addRule();
         table.addRow("Student", "GPA", "Preference Rankings");
