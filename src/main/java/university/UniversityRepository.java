@@ -2,7 +2,7 @@ package university;
 
 import java.util.HashMap;
 
-public class UniversityRepository{
+public class UniversityRepository {
     private static final HashMap<Integer, University> universityMap = new HashMap<>();
 
     static {

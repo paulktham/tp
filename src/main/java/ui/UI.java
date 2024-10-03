@@ -1,9 +1,11 @@
 package ui;
 
 import de.vandermeer.asciitable.AsciiTable;
+import student.Student;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -78,19 +80,11 @@ public class UI {
         println(table.render());
     }
 
-    public void printStudentList() {
+    public void printStudentList(ArrayList<Student> studentList) {
         // to-do
     }
 
-    public void addStudent() {
-        // to-do
-    }
-
-    public void deleteStudent() {
-        // to-do
-    }
-
-    public void generateReport() {
+    public void generateReport(ArrayList<Student> studentList) {
         // to-do
     }
 
