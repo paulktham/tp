@@ -84,14 +84,6 @@ public class UI {
         // to-do
     }
 
-    public void addStudent(Student student) {
-
-    }
-
-    public void deleteStudent() {
-        // to-do
-    }
-
     public void generateReport(ArrayList<Student> studentList) {
         // to-do
     }

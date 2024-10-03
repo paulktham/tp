@@ -27,19 +27,19 @@ public class Student {
         return uniPreferences;
     }
 
-    public boolean getSuccessfullyAllocated(){
+    public boolean getSuccessfullyAllocated() {
         return isSuccessfullyAllocated;
     }
 
-    public void setSuccessfullyAllocated(boolean success){
+    public void setSuccessfullyAllocated(boolean success) {
         isSuccessfullyAllocated = success;
     }
 
-    public void setAllocatedUniversity(int university){
+    public void setAllocatedUniversity(int university) {
         this.allocatedUniversity = university;
     }
 
-    public int getAllocatedUniversity(){
+    public int getAllocatedUniversity() {
         return this.allocatedUniversity;
     }
 }

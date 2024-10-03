@@ -37,7 +37,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("FindOurSEP")
     archiveClassifier.set("")
 }
 

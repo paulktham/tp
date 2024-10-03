@@ -53,8 +53,7 @@ public class Parser {
             new GenerateCommand(this.studentList).run();
             break;
         default:
-            //this.ui.println("Invalid command");
-            System.out.println(input);
+            this.ui.println("Invalid command");
             break;
         }
         return true;
