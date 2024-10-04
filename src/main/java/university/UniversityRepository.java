@@ -100,7 +100,7 @@ public class UniversityRepository {
         universityMap.put(92, new University("University of Georgia", "UG",1));
     }
 
-    public static University getUniversityByIndex(int index) {
+    public University getUniversityByIndex(int index) {
         return universityMap.get(index);
     }
 }
