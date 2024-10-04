@@ -27,10 +27,8 @@ public class StudentList {
         }
 
         // Trim spaces and braces, then split the preferences
-        System.out.println(parts[3]);
         String preferencesData = parts[3].trim().replaceAll("[{}]", "");
         String[] numberStrings = preferencesData.split(",");
-        System.out.println(preferencesData);
 
         ArrayList<Integer> preferences = new ArrayList<>();
         for (String numberString : numberStrings) {
@@ -44,13 +42,11 @@ public class StudentList {
 
     public void addStudent(Student student) {
         students.add(student);
-        System.out.println(getNumStudents() + " students remaining");
     }
 
     public void deleteStudent(String id) {
         String[] parts = id.split(" ");
         students.removeIf(student -> student.getId().equals(parts[1]));
-        System.out.println(getNumStudents() + " students remaining");
     }
 
     public void printStudentList() {

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import student.Student;
 import university.University;
 import university.UniversityRepository;
@@ -22,7 +21,9 @@ public class UI {
     private static final String HORIZONTAL_LINE = "-".repeat(LINE_LENGTH);
     private final Scanner scanner;
 
-    // Constructor for UI class
+    /**
+     * Constructor for UI class
+     */
     public UI() {
         this.scanner = new Scanner(System.in);
         // Set the output text to be UTF-8 encoded to pass the Java CI tests
@@ -51,16 +52,13 @@ public class UI {
         try {
             return scanner.nextLine();
         } catch (Exception e) {
-            System.out.println("Error reading input: " + e.getMessage());
+            printResponse("Error reading input: " + e.getMessage());
             return ""; // Return an empty string
         }
     }
 
-    /**
-     * Prints a greeting message to the console.
-     */
-    public void printGreeting() {
-        printResponse("Hi! Welcome to FindMySEP.");
+    public void sayHi() {
+        printResponse(Messages.WELCOME);
     }
 
     /**
@@ -83,16 +81,8 @@ public class UI {
             return;
         }
 
-        for (Student s : studentList) {
-            System.out.println("Student ID: " + s.getId() + ", GPA: " + s.getGpa() +
-                    ", Preferences: " + s.getUniPreferences());
-        }
-
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.setTextAlignment(TextAlignment.CENTER);
-        at.setPaddingLeft(1);
-        at.setPaddingRight(1);
 
         at.addRow("Student", "GPA", "Preference Rankings");
         at.addRule();
@@ -112,6 +102,25 @@ public class UI {
     }
 
     /**
+     * Prints a buffering message when the algorithm is running.
+     * Upon algorithm completion, replaces the buffering message with a
+     * completed message.
+     */
+    public void printAllocatingMessage() {
+        System.out.println(HORIZONTAL_LINE);
+        try {
+            for (int i = 0; i <= 10; i++) {
+                System.out.print("\rLoading" + ".".repeat(i % 4));
+                Thread.sleep(500); // 500 millisecond
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        System.out.println("\r" + Messages.ALLOCATE_COMPLETE);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    /**
      * Prints table displaying allocation results.
      * The table includes student IDs and respective allocation outcomes.
      *
@@ -119,7 +128,6 @@ public class UI {
      */
     public void generateReport(ArrayList<Student> studentList) {
         AsciiTable at = new AsciiTable();
-        at.setTextAlignment(TextAlignment.LEFT);
         at.addRule();
         at.addRow("Student", "University Granted");
         at.addRule();
@@ -136,31 +144,5 @@ public class UI {
         at.addRule();
 
         printResponse("Here is the allocation report:\n" + at.render());
-    }
-
-    /**
-     * Prints help menu to the console.
-     */
-    public void printHelp() {
-        String helpMsg = """
-            Here is the list of possible commands:
-                add         Adds a student with the specified ID, GPA, and preference rankings.
-                            Example: add id/A1234567I gpa/5.0 p/{13,61,43}
-                            Note: PREFERENCE_RANKINGS should be enclosed in curly braces
-    
-                delete      Deletes the student with the specified ID from the list.
-                            Example: delete id/A1234567I
-    
-                list        Lists all students currently in the system.
-    
-                allocate    Allocates students to available slots based on their preferences.
-    
-                generate    Generates a report of allocations and student data.
-    
-                exit        Exits the application.
-    
-                help        Displays this help message.
-            """;
-        printResponse(helpMsg);
     }
 }

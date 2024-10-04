@@ -32,16 +32,16 @@ public class Parser {
         String[] parts = input.split(" ");
         switch (parts[0].toLowerCase()) {
         case "add":
-            new AddCommand(this.studentList,input).run();
+            new AddCommand(this.studentList, input, this.ui).run();
             break;
         case "delete":
-            new DeleteCommand(this.studentList,input).run();
+            new DeleteCommand(this.studentList, input, this.ui).run();
             break;
         case "list":
             new ListCommand(this.studentList).run();
             break;
         case "allocate":
-            new AllocateCommand(this.studentList).run();
+            new AllocateCommand(this.studentList, this.ui).run();
             break;
         case "exit":
             new ExitCommand(this.studentList,this.ui).run();
@@ -50,7 +50,7 @@ public class Parser {
             new HelpCommand(this.studentList,this.ui).run();
             break;
         case "generate":
-            new GenerateCommand(this.studentList).run();
+            new GenerateCommand(this.studentList, this.ui).run();
             break;
         default:
             this.ui.printResponse("Invalid command");

@@ -24,7 +24,7 @@ public class FindOurSEP {
      */
     public static void main(String[] args) {
         FindOurSEP bob = new FindOurSEP();
-        bob.ui.printGreeting();
+        bob.ui.sayHi();
         boolean isRunning = true;
         while (isRunning) {
             isRunning = bob.parser.parseInput();
