@@ -14,7 +14,7 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 
-    // AsciiTable dependency for formatting tables
+    // AsciiTable dependencies for formatting tables
     implementation group: 'de.vandermeer', name: 'asciitable', version: '0.3.2'
 }
 

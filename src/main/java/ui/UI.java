@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import student.Student;
 import university.University;
 import university.UniversityRepository;
 
 /**
- * Handle user interface FindMySEP application.
+ * Handles user interface FindMySEP application.
  * Methods to print messages, retrieve user input, display ASCII table
  * for student data.
  */
@@ -57,6 +59,9 @@ public class UI {
         }
     }
 
+    /**
+     * Prints a greeting message to the console.
+     */
     public void sayHi() {
         printResponse(Messages.WELCOME);
     }
@@ -83,7 +88,6 @@ public class UI {
 
         AsciiTable at = new AsciiTable();
         at.addRule();
-
         at.addRow("Student", "GPA", "Preference Rankings");
         at.addRule();
 
@@ -98,7 +102,12 @@ public class UI {
         }
         at.addRule();
 
-        printResponse(at.render());
+        at.setTextAlignment(TextAlignment.CENTER);
+        at.setPaddingLeft(3);
+        at.setPaddingRight(3);
+
+        at.getRenderer().setCWC(new CWC_LongestLine());
+        printResponse("Here is the list:\n" + at.render());
     }
 
     /**
@@ -114,7 +123,7 @@ public class UI {
                 Thread.sleep(500); // 500 millisecond
             }
         } catch (Exception e) {
-            System.err.println(e);
+            printResponse(e);
         }
         System.out.println("\r" + Messages.ALLOCATE_COMPLETE);
         System.out.println(HORIZONTAL_LINE);
