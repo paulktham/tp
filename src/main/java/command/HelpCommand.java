@@ -1,6 +1,7 @@
 package command;
 
 import studentlist.StudentList;
+import ui.Messages;
 import ui.UI;
 
 public class HelpCommand extends Command {
@@ -13,6 +14,6 @@ public class HelpCommand extends Command {
 
     @Override
     public void run() {
-        this.ui.printHelp();
+        this.ui.printResponse(Messages.HELP);
     }
 }

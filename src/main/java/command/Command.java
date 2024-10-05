@@ -8,9 +8,7 @@ import studentlist.StudentList;
  * command.
  */
 public abstract class Command {
-
     protected StudentList studentList;
-
 
     public Command(StudentList studentList) {
         this.studentList = studentList;

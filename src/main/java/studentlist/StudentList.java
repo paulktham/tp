@@ -77,17 +77,15 @@ public class StudentList {
 
     public void addStudent(Student student) {
         students.add(student);
-        System.out.println(getNumStudents() + " students remaining");
     }
 
     public void deleteStudent(String id) {
         String[] parts = id.split(" ");
         students.removeIf(student -> student.getId().equals(parts[1]));
-        System.out.println(getNumStudents() + " students remaining");
     }
 
     public void printStudentList() {
-        ui.printStudentList(students);
+        ui.printStudentList(this.students);
     }
 
     public void generateReport() {
