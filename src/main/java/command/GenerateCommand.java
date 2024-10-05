@@ -1,10 +1,14 @@
 package command;
 
 import studentlist.StudentList;
+import ui.UI;
 
 public class GenerateCommand extends Command {
-    public GenerateCommand(StudentList studentList) {
+    private UI ui;
+
+    public GenerateCommand(StudentList studentList, UI ui) {
         super(studentList);
+        this.ui = ui;
     }
 
     @Override

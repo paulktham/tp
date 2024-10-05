@@ -20,31 +20,14 @@ public class FindOurSEP {
     }
     
     /**
-     * Main entry-point for the java.duke.Duke application.
+     * Main entry-point for the findoursep.FindOurSEP application.
      */
     public static void main(String[] args) {
         FindOurSEP bob = new FindOurSEP();
+        bob.ui.sayHi();
         boolean isRunning = true;
         while (isRunning) {
             isRunning = bob.parser.parseInput();
         }
-    }
-
-    /**
-     * Print greeting
-     * Prompt for user input then waits
-     * Echo user input
-     * Print sample ASCII table
-     * Print farewell message
-     */
-    public void uiTestRun() {
-        this.ui.printGreeting();
-        this.ui.println("Type something...");
-        String input = this.ui.getUserInput();
-
-        this.ui.println("You typed: " + input);
-        this.ui.println("Anyways, here is the sample table:");
-        this.ui.printTable(); // Prints sample table to console
-        this.ui.printBye();
     }
 }
