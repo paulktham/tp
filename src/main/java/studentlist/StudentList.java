@@ -4,6 +4,8 @@ import student.Student;
 import ui.UI;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class StudentList {
     private ArrayList<Student> students;
@@ -12,6 +14,39 @@ public class StudentList {
     public StudentList(UI ui) {
         this.students = new ArrayList<>();
         this.ui = ui;
+    }
+
+    // copy constructor
+    public StudentList(StudentList other) {
+        this.students = new ArrayList<>(other.students.size());
+        for (Student student : other.students) {
+            this.students.add(new Student(student));
+        }
+        this.ui = other.ui;
+    }
+
+    public ArrayList<Student> getList() {
+        return students;
+    }
+
+    // Method to sort students by GPA
+    public void sortStudentsByGPA() {
+        Collections.sort(students, new Comparator<Student>() {
+            @Override
+            public int compare(Student s1, Student s2) {
+                return Float.compare(s2.getGpa(), s1.getGpa());
+            }
+        });
+    }
+
+    // Method to sort students by ID
+    public void sortStudentsById() {
+        Collections.sort(students, new Comparator<Student>() {
+            @Override
+            public int compare(Student s1, Student s2) {
+                return s1.getId().compareTo(s2.getId());
+            }
+        });
     }
 
     public int getNumStudents() {

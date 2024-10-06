@@ -15,6 +15,18 @@ public class Student {
         this.uniPreferences = uniPreferences;
     }
 
+    // copy constructor
+    public Student(Student other) {
+        this.id = other.id;
+        this.gpa = other.gpa;
+        this.uniPreferences = new ArrayList<>(other.uniPreferences.size());
+        for (Integer preference : other.uniPreferences) {
+            this.uniPreferences.add(preference);
+        }
+        this.isSuccessfullyAllocated = other.isSuccessfullyAllocated;
+        this.allocatedUniversity = other.allocatedUniversity;
+    }
+
     public float getGpa() {
         return gpa;
     }
