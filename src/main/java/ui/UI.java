@@ -28,8 +28,11 @@ public class UI {
      */
     public UI() {
         this.scanner = new Scanner(System.in);
-        // Set the output text to be UTF-8 encoded to pass the Java CI tests
-        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+        // Set the output text to be UTF-8 encoded ONLY IF system environment is Unix-based
+        if (System.getProperty("os.name").toLowerCase().contains("nix") ||
+                System.getProperty("os.name").toLowerCase().contains("nux")) {
+            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+        }
     }
 
     /**
