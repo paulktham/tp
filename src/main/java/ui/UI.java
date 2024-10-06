@@ -1,14 +1,14 @@
 package ui;
 
 import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestLine;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import de.vandermeer.asciitable.CWC_LongestLine;
-import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import student.Student;
 import university.University;
 import university.UniversityRepository;
@@ -118,15 +118,19 @@ public class UI {
     public void printAllocatingMessage() {
         System.out.println(HORIZONTAL_LINE);
         try {
-            for (int i = 0; i <= 10; i++) {
-                System.out.print("\rLoading" + ".".repeat(i % 4));
-                Thread.sleep(500); // 500 millisecond
+            System.out.print("\rLoading");
+            while (!Thread.currentThread().isInterrupted()) { // Keep printing until interrupted
+                for (int i = 0; i <= 3; i++) {
+                    System.out.print("\rLoading" + ".".repeat(i));
+                    Thread.sleep(500); // 500 milliseconds
+                }
             }
-        } catch (Exception e) {
-            printResponse(e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Restore the interrupted status
+        } finally {
+            System.out.println("\r" + Messages.ALLOCATE_COMPLETE);
+            System.out.println(HORIZONTAL_LINE);
         }
-        System.out.println("\r" + Messages.ALLOCATE_COMPLETE);
-        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
