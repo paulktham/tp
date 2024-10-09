@@ -16,7 +16,7 @@ public class StudentList {
         this.ui = ui;
     }
 
-    // copy constructor
+    // Copy constructor
     public StudentList(StudentList other) {
         this.students = new ArrayList<>(other.students.size());
         for (Student student : other.students) {
@@ -90,5 +90,10 @@ public class StudentList {
 
     public void generateReport() {
         ui.generateReport(students);
+    }
+
+    // Setter method to update the student list
+    public void setStudentList(StudentList studentList) {
+        this.students = studentList.students; // Overwrite the current ArrayList
     }
 }
