@@ -1,12 +1,6 @@
 package parser;
 
-import command.GenerateCommand;
-import command.AddCommand;
-import command.AllocateCommand;
-import command.DeleteCommand;
-import command.ExitCommand;
-import command.HelpCommand;
-import command.ListCommand;
+import command.*;
 import studentlist.StudentList;
 import ui.UI;
 
@@ -53,7 +47,7 @@ public class Parser {
             new GenerateCommand(this.studentList, this.ui).run();
             break;
         default:
-            this.ui.printResponse("Invalid command");
+            new UnknownCommand(this.studentList, this.ui).run();
             break;
         }
         return true;
