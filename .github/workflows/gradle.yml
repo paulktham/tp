@@ -30,16 +30,6 @@ jobs:
           java-version: '17'
           java-package: jdk+fx
 
-      - name: Set UTF-8 Encoding (Linux and MacOS)
-        if: runner.os != 'Windows'
-        run: |
-          echo "JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8" >> $GITHUB_ENV
-          export LC_ALL=en_US.UTF-8
-
-      - name: Set UTF-8 Encoding (Windows)
-        if: runner.os == 'Windows'
-        run: chcp 65001
-
       - name: Build and check with Gradle
         run: ./gradlew check
 
@@ -60,4 +50,3 @@ jobs:
         run: |
           set JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
           runtest.bat
-      
