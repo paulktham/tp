@@ -150,7 +150,11 @@ public class StudentList {
     }
 
     public void generateReport() {
-        ui.generateReport(students);
+        try {
+            ui.generateReport(students);
+        } catch (SEPException e) {
+            ui.printResponse(e.getMessage());
+        }
     }
 
     /**

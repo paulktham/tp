@@ -136,12 +136,15 @@ public class UI {
      *
      * @param studentList ArrayList of Student objects to be printed
      */
-    public void generateReport(ArrayList<Student> studentList) {
+    public void generateReport(ArrayList<Student> studentList) throws SEPEmptyException {
         AsciiTable at = new AsciiTable();
         at.addRule();
         at.addRow("Student", "University Granted");
         at.addRule();
 
+        if (studentList == null || studentList.isEmpty()) {
+            throw SEPEmptyException.rejectEmptyStudentList();
+        }
         for (Student s : studentList) {
             University allocated = UniversityRepository.getUniversityByIndex(s.getAllocatedUniversity());
 

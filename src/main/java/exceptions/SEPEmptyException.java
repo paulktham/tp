@@ -9,6 +9,6 @@ public class SEPEmptyException extends SEPException {
     }
 
     public static SEPEmptyException rejectEmptyStudentList() {
-        return new SEPEmptyException("No students available for report generation.");
+        return new SEPEmptyException("No students available for generation.");
     }
 }
