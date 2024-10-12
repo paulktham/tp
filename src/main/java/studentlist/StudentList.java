@@ -74,8 +74,8 @@ public class StudentList {
      * @throws SEPException If the student ID is not found or the ID format is invalid.
      */
     public void deleteStudent(String id) throws SEPException{
-        String[] parts = id.split("delete|id/", 3);
-        String studentId = organiseId(parts[2]);
+        String[] parts = id.split("delete", 2);
+        String studentId = organiseId(parts[1]);
         Pattern idPattern = Pattern.compile("^[A-Z]\\d{7}[A-Z]$");
         if (!idPattern.matcher(studentId).matches()) {
             throw SEPFormatException.rejectIdFormat();
