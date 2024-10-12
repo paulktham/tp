@@ -3,15 +3,11 @@ package ui;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
-
-//import java.io.PrintStream;
-//import java.nio.charset.StandardCharsets;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import exceptions.SEPEmptyException;
 
+import exceptions.SEPEmptyException;
 import student.Student;
 import university.University;
 import university.UniversityRepository;
@@ -31,8 +27,6 @@ public class UI {
      */
     public UI() {
         this.scanner = new Scanner(System.in);
-        // Set the output text to be UTF-8 encoded to pass the Java CI tests
-        //System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
     }
 
     /**
@@ -82,6 +76,7 @@ public class UI {
      * The table includes student IDs, GPAs, and preference rankings.
      *
      * @param studentList ArrayList of Student objects to be printed
+     * @throws SEPEmptyException if the student list is null or empty.
      */
     public void printStudentList(ArrayList<Student> studentList) throws SEPEmptyException {
         if (studentList == null || studentList.isEmpty()) {
