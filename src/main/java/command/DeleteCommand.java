@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.SEPException;
 import studentlist.StudentList;
 import ui.UI;
 
@@ -15,7 +16,12 @@ public class DeleteCommand extends Command {
 
     @Override
     public void run() {
-        super.studentList.deleteStudent(this.input);
-        ui.printResponse("Removed student, " + studentList.getNumStudents() + " student(s) left");
+        try {
+            super.studentList.deleteStudent(this.input);
+            ui.printResponse("Removed student, " + studentList.getNumStudents() + " student(s) left");
+        } catch (SEPException e) {
+            ui.printResponse(e.getMessage());
+        }
+
     }
 }
