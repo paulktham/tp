@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Custom base exception for this program.
+ * This class represents the custom base exception for this program.
  * Custom exceptions are stored for easy access.
  */
 public class SEPException extends Exception {

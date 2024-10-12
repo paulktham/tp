@@ -49,7 +49,7 @@ public class UI {
      */
     public String getUserInput() {
         try {
-            return scanner.nextLine();
+            return scanner.nextLine().trim();
         } catch (Exception e) {
             printResponse("Error reading input: " + e.getMessage());
             return ""; // Return an empty string

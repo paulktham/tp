@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * This class handles duplicate student entries.
+ */
 public class SEPDuplicateException extends SEPException {
     public SEPDuplicateException(String message) {
         super(message);
