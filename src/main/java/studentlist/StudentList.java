@@ -117,7 +117,7 @@ public class StudentList {
     /**
      * Handles the creation of a Student object by validating the input for Student ID, GPA, and preferences.
      *
-     * @param input The input string containing student information in the format "id/{studentId} gpa/{gpa} p/{preferences}".
+     * @param input The input string containing student information.
      * @return The created Student object if all validations pass.
      * @throws SEPException If any validation errors occur, a SEPException containing all error messages is thrown.
      */

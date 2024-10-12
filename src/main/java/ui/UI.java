@@ -136,7 +136,7 @@ public class UI {
      *
      * @param studentList ArrayList of Student objects to be printed
      * @throws SEPEmptyException If the student list is null or empty,
-     * indicating that there are no students to generate.
+     *     indicating that there are no students to generate.
      */
     public void generateReport(ArrayList<Student> studentList) throws SEPEmptyException {
         AsciiTable at = new AsciiTable();
