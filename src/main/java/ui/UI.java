@@ -139,14 +139,15 @@ public class UI {
      *     indicating that there are no students to generate.
      */
     public void generateReport(ArrayList<Student> studentList) throws SEPEmptyException {
+        if (studentList == null || studentList.isEmpty()) {
+            throw SEPEmptyException.rejectEmptyStudentList();
+        }
+
         AsciiTable at = new AsciiTable();
         at.addRule();
         at.addRow("Student", "University Granted");
         at.addRule();
 
-        if (studentList == null || studentList.isEmpty()) {
-            throw SEPEmptyException.rejectEmptyStudentList();
-        }
         for (Student s : studentList) {
             University allocated = UniversityRepository.getUniversityByIndex(s.getAllocatedUniversity());
 

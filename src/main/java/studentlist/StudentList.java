@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
-import java.util.regex.Pattern;
 
 /**
  * Manages a list of students and provides methods for adding, deleting, sorting,
@@ -23,6 +22,9 @@ import java.util.regex.Pattern;
 public class StudentList {
     private ArrayList<Student> students;
     private UI ui;
+    private static final String ADD_STUDENT_REGEX = "^add\\s+id/[\\S ]+\\s+gpa/[\\S ]+\\s+p/\\{[\\S ]+}$";
+    private static final String ID_REGEX = "^[A-Z]\\d{7}[A-Z]$";
+    private static final String GPA_REGEX = "\\d+(\\.\\d{1,2})?";
 
     /**
      * Constructs a new StudentList with an empty list of students and the given UI object.
@@ -58,7 +60,6 @@ public class StudentList {
      * @throws SEPDuplicateException If a student with the same ID already exists in the list.
      */
     public void addStudent(Student student) throws SEPDuplicateException {
-        // Check if a student with the same ID already exists
         for (Student existingStudent : students) {
             if (existingStudent.getId().equals(student.getId())) {
                 throw SEPDuplicateException.rejectDuplicateStudent();
@@ -76,8 +77,7 @@ public class StudentList {
     public void deleteStudent(String id) throws SEPException{
         String[] parts = id.split("delete", 2);
         String studentId = organiseId(parts[1]);
-        Pattern idPattern = Pattern.compile("^[A-Z]\\d{7}[A-Z]$");
-        if (!idPattern.matcher(studentId).matches()) {
+        if (!studentId.matches(ID_REGEX)) {
             throw SEPFormatException.rejectIdFormat();
         }
         boolean isRemoved = students.removeIf(student -> student.getId().equals(studentId));
@@ -189,9 +189,7 @@ public class StudentList {
      * @throws SEPFormatException If the input format or order is invalid.
      */
     private String[] splitInput(String input) throws SEPException {
-        // Updated regex to allow spaces in ID, GPA, and preferences
-        String pattern = "^add\\s+id/[\\S ]+\\s+gpa/[\\S ]+\\s+p/\\{[\\S ]+}$";
-        if (!input.matches(pattern)) {
+        if (!input.matches(ADD_STUDENT_REGEX)) {
             throw SEPFormatException.rejectAddStudentFormat();
         }
         String[] parts = input.split("id/|gpa/|p/");
@@ -202,14 +200,15 @@ public class StudentList {
     }
 
     /**
-     * Validates the student ID format.
+     * Validates the student ID format:
+     * 1 alphabet, followed by 7 digits, then another alphabet.
+     * Alphabets must be in uppercase.
      *
      * @param studentId The student ID to validate.
      * @param errorMessages A set to collect error messages.
      */
     private void validateStudentId(String studentId, Set<String> errorMessages) {
-        Pattern idPattern = Pattern.compile("^[A-Z]\\d{7}[A-Z]$");
-        if (!idPattern.matcher(studentId).matches()) {
+        if (!studentId.matches(ID_REGEX)) {
             errorMessages.add(SEPFormatException.rejectIdFormat().getMessage());
         }
     }
@@ -225,10 +224,9 @@ public class StudentList {
     private float validateGpa(String gpaStr, Set<String> errorMessages) {
         float gpa = 0.0f;
         try {
-            if (!gpaStr.matches("\\d+(\\.\\d{1,2})?")) {
+            if (!gpaStr.matches(GPA_REGEX)) {
                 throw new NumberFormatException();
             }
-
             gpa = Float.parseFloat(gpaStr);
             if (gpa < 0.0 || gpa > 5.0) {
                 errorMessages.add(SEPRangeException.rejectGpaRange().getMessage());
