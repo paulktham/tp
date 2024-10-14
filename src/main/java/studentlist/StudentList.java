@@ -72,11 +72,11 @@ public class StudentList {
     /**
      * Deletes a student from the list by their ID.
      *
-     * @param id The ID of the student to delete.
+     * @param input The input that includes the ID of the student to delete.
      * @throws SEPException If the student ID is not found or the ID format is invalid.
      */
-    public void deleteStudent(String id) throws SEPException{
-        String[] parts = id.split("delete", 2);
+    public void deleteStudent(String input) throws SEPException{
+        String[] parts = input.split("delete", 2);
         String studentId = organiseId(parts[1]);
         if (!studentId.matches(ID_REGEX)) {
             throw SEPFormatException.rejectIdFormat();

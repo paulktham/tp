@@ -9,7 +9,6 @@ import ui.UI;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ui.UI.HORIZONTAL_LINE;

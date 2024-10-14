@@ -29,9 +29,4 @@ public class Allocator {
         studentList.sortStudentsById();
         return studentList;
     }
-
-    // unit test
-    public void main() {
-
-    }
 }
