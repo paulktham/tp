@@ -1,22 +1,47 @@
 package studentlist;
 
+import exceptions.SEPException;
+import exceptions.SEPRangeException;
+import exceptions.SEPNotFoundException;
+import exceptions.SEPFormatException;
+import exceptions.SEPDuplicateException;
+
 import student.Student;
 import ui.UI;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Set;
+import java.util.HashSet;
 
+/**
+ * Manages a list of students and provides methods for adding, deleting, sorting,
+ * printing and validating student data such as student ID, GPA, and preferences.
+ */
 public class StudentList {
+    private static final String ADD_STUDENT_REGEX = "^add\\s+id/[\\S ]+\\s+gpa/[\\S ]+\\s+p/\\{[\\S ]+}$";
+    private static final String ID_REGEX = "^[A-Z]\\d{7}[A-Z]$";
+    private static final String GPA_REGEX = "\\d+(\\.\\d{1,2})?";
+
     private ArrayList<Student> students;
     private UI ui;
 
+    /**
+     * Constructs a new StudentList with an empty list of students and the given UI object.
+     *
+     * @param ui The UI instance used to interact with the user.
+     */
     public StudentList(UI ui) {
         this.students = new ArrayList<>();
         this.ui = ui;
     }
 
-    // Copy constructor
+    /**
+     * Copy constructor that creates a deep copy of another StudentList object.
+     *
+     * @param other The StudentList object to copy.
+     */
     public StudentList(StudentList other) {
         this.students = new ArrayList<>(other.students.size());
         for (Student student : other.students) {
@@ -29,7 +54,42 @@ public class StudentList {
         return students;
     }
 
-    // Method to sort students by GPA
+    /**
+     * Adds a new student to the list if the student does not already exist.
+     *
+     * @param student The Student object to add.
+     * @throws SEPDuplicateException If a student with the same ID already exists in the list.
+     */
+    public void addStudent(Student student) throws SEPDuplicateException {
+        for (Student existingStudent : students) {
+            if (existingStudent.getId().equals(student.getId())) {
+                throw SEPDuplicateException.rejectDuplicateStudent();
+            }
+        }
+        students.add(student);
+    }
+
+    /**
+     * Deletes a student from the list by their ID.
+     *
+     * @param id The ID of the student to delete.
+     * @throws SEPException If the student ID is not found or the ID format is invalid.
+     */
+    public void deleteStudent(String id) throws SEPException{
+        String[] parts = id.split("delete", 2);
+        String studentId = organiseId(parts[1]);
+        if (!studentId.matches(ID_REGEX)) {
+            throw SEPFormatException.rejectIdFormat();
+        }
+        boolean isRemoved = students.removeIf(student -> student.getId().equals(studentId));
+        if (!isRemoved) {
+            throw SEPNotFoundException.rejectStudentNotFound();
+        }
+    }
+
+    /**
+     * Sorts the student list by GPA in descending order.
+     */
     public void sortStudentsByGPA() {
         Collections.sort(students, new Comparator<Student>() {
             @Override
@@ -39,7 +99,9 @@ public class StudentList {
         });
     }
 
-    // Method to sort students by ID
+    /**
+     * Sorts the student list by student ID in ascending order.
+     */
     public void sortStudentsById() {
         Collections.sort(students, new Comparator<Student>() {
             @Override
@@ -53,47 +115,158 @@ public class StudentList {
         return students.size();
     }
 
-    public Student makeStudent(String input) throws Exception {
-        // Split based on id/, gpa/, and p/ without spaces
-        String[] parts = input.split("id/|gpa/|p/");
+    /**
+     * Handles the creation of a Student object by validating the input for Student ID, GPA, and preferences.
+     *
+     * @param input The input string containing student information.
+     * @return The created Student object if all validations pass.
+     * @throws SEPException If any validation errors occur, a SEPException containing all error messages is thrown.
+     */
+    public Student makeStudent(String input) throws SEPException {
+        Set<String> errorMessages = new HashSet<>();
 
-        if (parts.length != 4) {
-            throw new Exception("Wrong input format");
+        String[] parts = splitInput(input);
+
+        String studentId = organiseId(parts[1]);
+        validateStudentId(studentId, errorMessages);
+
+        float gpa = validateGpa(parts[2].trim(), errorMessages);
+
+        ArrayList<Integer> preferences = validatePreferences(parts[3].trim(), errorMessages);
+
+        // If any errors occurred, throw a single exception with all error messages
+        if (!errorMessages.isEmpty()) {
+            throw new SEPException(String.join("\n", errorMessages));
         }
 
-        // Trim spaces and braces, then split the preferences
-        String preferencesData = parts[3].trim().replaceAll("[{}]", "");
-        String[] numberStrings = preferencesData.split(",");
-
-        ArrayList<Integer> preferences = new ArrayList<>();
-        for (String numberString : numberStrings) {
-            preferences.add(Integer.parseInt(numberString.trim()));
-        }
-
-        // Create and return the Student object
-        return new Student(parts[1].trim(), Float.parseFloat(parts[2].trim()), preferences);
-    }
-
-
-    public void addStudent(Student student) {
-        students.add(student);
-    }
-
-    public void deleteStudent(String id) {
-        String[] parts = id.split(" ");
-        students.removeIf(student -> student.getId().equals(parts[1]));
+        return new Student(studentId, gpa, preferences);
     }
 
     public void printStudentList() {
-        ui.printStudentList(this.students);
+        try {
+            ui.printStudentList(this.students);
+        } catch (SEPException e) {
+            ui.printResponse(e.getMessage());
+        }
     }
 
     public void generateReport() {
-        ui.generateReport(students);
+        try {
+            ui.generateReport(students);
+        } catch (SEPException e) {
+            ui.printResponse(e.getMessage());
+        }
     }
 
-    // Setter method to update the student list
+    /**
+     * Updates the current student list with a new one.
+     *
+     * @param studentList The new student list to set.
+     */
     public void setStudentList(StudentList studentList) {
         this.students = studentList.students; // Overwrite the current ArrayList
+    }
+
+    /**
+     * Organizes the student ID by removing all spaces,
+     * including any spaces in between the numbers or alphabets,
+     * before validating the student ID.
+     *
+     * @param id The raw student ID string.
+     * @return A trimmed and space-free student ID.
+     */
+    private String organiseId(String id) {
+        String studentId = id.trim();
+        return studentId.replaceAll("\\s+", "");
+    }
+
+    /**
+     * Splits the input string into parts based on the expected format
+     * and order: id/, gpa/, followed by p/. Any other order would be
+     * rejected and a format exception would be thrown.
+     *
+     * @param input The raw input string.
+     * @return A String array containing the parts of the input.
+     * @throws SEPFormatException If the input format or order is invalid.
+     */
+    private String[] splitInput(String input) throws SEPException {
+        if (!input.matches(ADD_STUDENT_REGEX)) {
+            throw SEPFormatException.rejectAddStudentFormat();
+        }
+        String[] parts = input.split("id/|gpa/|p/");
+        if (parts.length != 4) {
+            throw SEPFormatException.rejectAddStudentFormat();
+        }
+        return parts;
+    }
+
+    /**
+     * Validates the student ID format:
+     * 1 alphabet, followed by 7 digits, then another alphabet.
+     * Alphabets must be in uppercase.
+     *
+     * @param studentId The student ID to validate.
+     * @param errorMessages A set to collect error messages.
+     */
+    private void validateStudentId(String studentId, Set<String> errorMessages) {
+        if (!studentId.matches(ID_REGEX)) {
+            errorMessages.add(SEPFormatException.rejectIdFormat().getMessage());
+        }
+    }
+
+    /**
+     * Validates the GPA format and range.
+     * GPA should be a float between 1 and 5, with a maximum of 2 decimal places.
+     *
+     * @param gpaStr The GPA string to validate.
+     * @param errorMessages A set to collect error messages.
+     * @return A float representing the valid GPA.
+     */
+    private float validateGpa(String gpaStr, Set<String> errorMessages) {
+        float gpa = 0.0f;
+        try {
+            if (!gpaStr.matches(GPA_REGEX)) {
+                throw new NumberFormatException();
+            }
+            gpa = Float.parseFloat(gpaStr);
+            if (gpa < 0.0 || gpa > 5.0) {
+                errorMessages.add(SEPRangeException.rejectGpaRange().getMessage());
+            }
+        } catch (NumberFormatException e) {
+            errorMessages.add(SEPFormatException.rejectGpaFormat().getMessage());
+        }
+        return gpa;
+    }
+
+    /**
+     * Validates the student preferences for valid range and format.
+     * Preference rankings should be wrapped in curly braces and have up to 3 rankings.
+     *
+     * @param preferencesData The preference string to validate.
+     * @param errorMessages A set to collect error messages.
+     * @return A list of valid preferences.
+     */
+    private ArrayList<Integer> validatePreferences(String preferencesData, Set<String> errorMessages) {
+        ArrayList<Integer> preferences = new ArrayList<>();
+        String[] numberStrings = preferencesData.replaceAll("[{}]", "").split(",");
+
+        if (numberStrings.length > 3 || numberStrings[0].trim().isEmpty()) {
+            errorMessages.add(SEPRangeException.rejectRankingsRange().getMessage());
+        }
+
+        for (String numberString : numberStrings) {
+            try {
+                int preference = Integer.parseInt(numberString.trim());
+                if (preference < 1 || preference > 92) {
+                    errorMessages.add(SEPRangeException.rejectPreferenceRange().getMessage());
+                } else {
+                    preferences.add(preference);
+                }
+            } catch (NumberFormatException e) {
+                errorMessages.add(SEPFormatException.rejectPreferenceFormat().getMessage());
+            }
+        }
+
+        return preferences;
     }
 }

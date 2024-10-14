@@ -1,5 +1,7 @@
 package command;
 
+import exceptions.SEPException;
+
 import student.Student;
 import studentlist.StudentList;
 import ui.UI;
@@ -21,8 +23,8 @@ public class AddCommand extends Command {
             super.studentList.addStudent(newStudent);
             ui.printResponse("Added " + newStudent.getId() + " successfully.\n" +
                     "There are " + studentList.getNumStudents() + " student(s) in the list.");
-        } catch (Exception e) {
-            ui.printResponse(e.getMessage());  // Temp @Holy-An
+        } catch (SEPException e) {
+            ui.printResponse(e.getMessage());
         }
     }
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import exceptions.SEPEmptyException;
 import student.Student;
 import university.University;
 import university.UniversityRepository;
@@ -48,7 +49,7 @@ public class UI {
      */
     public String getUserInput() {
         try {
-            return scanner.nextLine();
+            return scanner.nextLine().trim();
         } catch (Exception e) {
             printResponse("Error reading input: " + e.getMessage());
             return ""; // Return an empty string
@@ -75,11 +76,11 @@ public class UI {
      * The table includes student IDs, GPAs, and preference rankings.
      *
      * @param studentList ArrayList of Student objects to be printed
+     * @throws SEPEmptyException if the student list is null or empty.
      */
-    public void printStudentList(ArrayList<Student> studentList) {
+    public void printStudentList(ArrayList<Student> studentList) throws SEPEmptyException {
         if (studentList == null || studentList.isEmpty()) {
-            printResponse("No students available for report generation.");
-            return;
+            throw SEPEmptyException.rejectEmptyStudentList();
         }
 
         AsciiTable at = new AsciiTable();
@@ -134,8 +135,14 @@ public class UI {
      * The table includes student IDs and respective allocation outcomes.
      *
      * @param studentList ArrayList of Student objects to be printed
+     * @throws SEPEmptyException If the student list is null or empty,
+     *     indicating that there are no students to generate.
      */
-    public void generateReport(ArrayList<Student> studentList) {
+    public void generateReport(ArrayList<Student> studentList) throws SEPEmptyException {
+        if (studentList == null || studentList.isEmpty()) {
+            throw SEPEmptyException.rejectEmptyStudentList();
+        }
+
         AsciiTable at = new AsciiTable();
         at.addRule();
         at.addRow("Student", "University Granted");
