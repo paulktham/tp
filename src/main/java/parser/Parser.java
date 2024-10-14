@@ -28,8 +28,7 @@ public class Parser {
      * 
      * @return false if the user wants to exit the application, true otherwise.
      */
-    public boolean parseInput() {
-        String input = this.ui.getUserInput();
+    public boolean parseInput(String input) {
         String[] parts = input.split(" ");
         switch (parts[0].toLowerCase()) {
         case "add":

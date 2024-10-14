@@ -18,16 +18,22 @@ public class FindOurSEP {
         this.studentList = new StudentList(this.ui);
         this.parser = new Parser(this.studentList,this.ui);
     }
+
+    public void start() {
+        this.ui.sayHi();
+        String line;
+        boolean isRunning = true;
+        while (isRunning) {
+            line = this.ui.getUserInput();
+            isRunning = this.parser.parseInput(line);
+        }
+    }
     
     /**
      * Main entry-point for the findoursep.FindOurSEP application.
      */
     public static void main(String[] args) {
         FindOurSEP bob = new FindOurSEP();
-        bob.ui.sayHi();
-        boolean isRunning = true;
-        while (isRunning) {
-            isRunning = bob.parser.parseInput();
-        }
+        bob.start();
     }
 }
