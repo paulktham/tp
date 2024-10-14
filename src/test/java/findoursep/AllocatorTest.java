@@ -1,6 +1,7 @@
 package findoursep;
 
 import allocator.Allocator;
+import exceptions.SEPDuplicateException;
 import student.Student;
 import studentlist.StudentList;
 import ui.UI;
@@ -19,7 +20,7 @@ public class AllocatorTest {
     private Allocator allocator;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws SEPDuplicateException {
         Student student1 = new Student("1", 3.8f, new ArrayList<>(Arrays.asList(1, 2, 3)));
         Student student2 = new Student("2", 3.5f, new ArrayList<>(Arrays.asList(3, 1, 2)));
         Student student3 = new Student("3", 3.9f, new ArrayList<>(Arrays.asList(3, 2, 1)));
