@@ -19,6 +19,11 @@ public class FindOurSEP {
         this.parser = new Parser(this.studentList,this.ui);
     }
 
+    /**
+     * The main loop of the application.
+     * This method will continue to loop until the user chooses to exit the
+     * application. It will read the user's input, process it.
+     */
     public void start() {
         this.ui.sayHi();
         String line;
