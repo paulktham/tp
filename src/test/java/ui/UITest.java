@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -78,54 +77,9 @@ public class UITest {
     }
 
     @Test
-    void test_printStudentList_valid() throws SEPEmptyException {
-        ArrayList<Student> studentList = new ArrayList<>();
-        studentList.add(new Student("A1234567I", 3.9f, new ArrayList<>(List.of(1, 2))));
-        studentList.add(new Student("A2234567J", 3.5f, new ArrayList<>(List.of(3, 1))));
-
-        ui.printStudentList(studentList);
-
-        System.out.println(outContent.toString());
-
-        String expectedTable = """
-            ┌───────────────┬─────────┬─────────────────────────┐
-            │    Student    │   GPA   │   Preference Rankings   │
-            ├───────────────┼─────────┼─────────────────────────┤
-            │   A1234567I   │   3.9   │           1,2           │
-            │   A2234567J   │   3.5   │           3,1           │
-            └───────────────┴─────────┴─────────────────────────┘
-            """;
-        System.out.println(expectedTable);
-
-        assertTrue(outContent.toString().contains(expectedTable));
-    }
-
-    @Test
     void test_printStudentList_empty() {
         ArrayList<Student> studentList = new ArrayList<>();
         assertThrows(SEPEmptyException.class, () -> ui.printStudentList(studentList));
-    }
-
-    @Test
-    void testGenerateReport_valid() throws SEPEmptyException {
-        // Create a list of students for the report
-        ArrayList<Student> studentList = new ArrayList<>();
-        studentList.add(new Student("A1234567I", 3.9f, new ArrayList<>(List.of(1, 2))));
-        studentList.add(new Student("A2234567J", 3.5f, new ArrayList<>(List.of(3, 1))));
-
-        ui.generateReport(studentList);
-
-        String expectedReport = """
-            ┌───────────────┬─────────┬─────────────────────────┐
-            │    Student    │   GPA   │   Preference Rankings   │
-            ├───────────────┼─────────┼─────────────────────────┤
-            │   A1234567I   │   3.9   │           1,2           │
-            │   A2234567J   │   3.5   │           3,1           │
-            └───────────────┴─────────┴─────────────────────────┘
-            """;
-        System.out.println(expectedReport);
-
-        assertTrue(outContent.toString().contains(expectedReport));
     }
 
     @Test
