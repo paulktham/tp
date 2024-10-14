@@ -19,7 +19,7 @@ import university.UniversityRepository;
  */
 public class UI {
     private static final int LINE_LENGTH = 80;
-    private static final String HORIZONTAL_LINE = "-".repeat(LINE_LENGTH);
+    public static final String HORIZONTAL_LINE = "-".repeat(LINE_LENGTH);
     private final Scanner scanner;
 
     /**
