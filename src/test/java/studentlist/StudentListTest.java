@@ -94,7 +94,7 @@ public class StudentListTest {
     }
 
     @Test
-    public void testMakeStudent_idWithSpaces() {
+    public void makeStudent_idWithSpaces_studentCreated() {
         String input = "add id/A55 345 67B gpa/3.99 p/{1,2,3}"; //ID contains spaces, but is handled
         Student student = assertDoesNotThrow(() -> this.studentList.makeStudent(input));
 
@@ -105,63 +105,63 @@ public class StudentListTest {
     }
 
     @Test
-    public void testMakeStudent_invalidAddOrder_exceptionThrown() {
+    public void makeStudent_invalidAddOrder_exceptionThrown() {
         String input = "add id/A1234567B p/{1,2,3} gpa/4.5"; //Invalid add order
 
         assertThrows(SEPException.class, () -> this.studentList.makeStudent(input));
     }
 
     @Test
-    public void testMakeStudent_invalidAddFormat_exceptionThrown() {
+    public void makeStudent_invalidAddFormat_exceptionThrown() {
         String input = "add id(A1234567B) gpa(4.5) p({1,2,3})"; //Invalid add format
 
         assertThrows(SEPException.class, () -> this.studentList.makeStudent(input));
     }
 
     @Test
-    public void testMakeStudent_invalidIDFormat_exceptionThrown() {
+    public void makeStudent_invalidIDFormat_exceptionThrown() {
         String input = "add id/1234567A gpa/4.5 p/{1,2,3}";  // Invalid ID format (missing letter at start)
 
         assertThrows(SEPException.class, () -> this.studentList.makeStudent(input));
     }
 
     @Test
-    public void testMakeStudent_invalidGPAFormat_exceptionThrown() {
+    public void makeStudent_invalidGPAFormat_exceptionThrown() {
         String input = "add id/A1234567B gpa/invalid p/{1,2,3}";  // Invalid GPA format
 
         assertThrows(SEPException.class, () -> this.studentList.makeStudent(input));
     }
 
     @Test
-    public void testMakeStudent_invalidGPADecimalPlaces_exceptionThrown() {
+    public void makeStudent_invalidGPADecimalPlaces_exceptionThrown() {
         String input = "add id/A1234567B gpa/3.999 p/{1,2,3}";  // Invalid GPA, more than 2 decimal places
 
         assertThrows(SEPException.class, () -> this.studentList.makeStudent(input));
     }
 
     @Test
-    public void testMakeStudent_invalidPreferencesFormat_exceptionThrown() {
+    public void makeStudent_invalidPreferencesFormat_exceptionThrown() {
         String input = "add id/A1234567B gpa/4.5 p/1,2,3"; // Missing curly braces around preferences
 
         assertThrows(SEPException.class, () -> this.studentList.makeStudent(input));
     }
 
     @Test
-    public void testMakeStudent_invalidGPARange_exceptionThrown() {
+    public void makeStudent_invalidGPARange_exceptionThrown() {
         String input = "add id/A1234567B gpa/6.0 p/{1,2,3}";  // GPA out of range
 
         assertThrows(SEPException.class, () -> this.studentList.makeStudent(input));
     }
 
     @Test
-    public void testMakeStudent_preferencesOutOfRange_exceptionThrown() {
+    public void makeStudent_preferencesOutOfRange_exceptionThrown() {
         String input = "add id/A1234567B gpa/4.5 p/{0,4,95}"; // Preferences outside valid range
 
         assertThrows(SEPException.class, () -> this.studentList.makeStudent(input));
     }
 
     @Test
-    public void testDeleteStudent_nonExistentStudent_exceptionThrown() {
+    public void deleteStudent_nonExistentStudent_exceptionThrown() {
         assertDoesNotThrow(() -> this.studentList.addStudent(this.bob));
         assertEquals(1, this.studentList.getNumStudents());
 
