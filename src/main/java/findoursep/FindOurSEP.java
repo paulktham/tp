@@ -10,8 +10,8 @@ public class FindOurSEP {
     private StudentList studentList;
 
     /**
-     * Constructs a new Duke object.
-     * This constructor initializes the Duke's UI and parser.
+     * Constructs a new FindOurSEP object.
+     * This constructor initializes the UI and parser.
      */
     public FindOurSEP() {
         this.ui = new UI();
