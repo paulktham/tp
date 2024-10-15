@@ -29,7 +29,7 @@ public class UITest {
     }
 
     @Test
-    void test_printResponse() {
+    void printResponse() {
         String message = "Hello, World!";
         ui.printResponse(message);
         String expected = "-".repeat(80) + "\n" + message + "\n" + "-".repeat(80) + "\n";
@@ -37,14 +37,14 @@ public class UITest {
     }
 
     @Test
-    void test_printResponse_null() {
+    void printResponse_emptyInput_null() {
         ui.printResponse(null);
         String expected = "-".repeat(80) + "\nnull\n" + "-".repeat(80) + "\n";
         assertEquals(expected.trim(), outContent.toString().trim());
     }
 
     @Test
-    void test_getUserInput_valid() {
+    void getUserInput_validInput() {
         // Simulate user input
         String simulatedInput = "test input\n";
         ByteArrayInputStream inContent = new ByteArrayInputStream(simulatedInput.getBytes());
@@ -55,7 +55,7 @@ public class UITest {
     }
 
     @Test
-    void test_getUserInput_error() {
+    void getUserInput_emptyInput_error() {
         // Simulate erroneous input
         ByteArrayInputStream inContent = new ByteArrayInputStream(new byte[0]);
         System.setIn(inContent);
@@ -65,31 +65,31 @@ public class UITest {
     }
 
     @Test
-    void test_sayHi() {
+    void sayHi() {
         ui.sayHi();
         assertTrue(outContent.toString().contains(Messages.WELCOME.toString()));
     }
 
     @Test
-    void test_cleanupAndExit() {
+    void cleanupAndExit() {
         ui.cleanupAndExit();
         assertTrue(outContent.toString().contains("Adios, amigo!"));
     }
 
     @Test
-    void test_printStudentList_empty() {
+    void printStudentList_emptyList_throwEmpty() {
         ArrayList<Student> studentList = new ArrayList<>();
         assertThrows(SEPEmptyException.class, () -> ui.printStudentList(studentList));
     }
 
     @Test
-    void test_generateReport_empty() {
+    void generateReport_emptyList_throwEmpty() {
         ArrayList<Student> studentList = new ArrayList<>();
         assertThrows(SEPEmptyException.class, () -> ui.generateReport(studentList));
     }
 
     @Test
-    void test_printAllocatingMessage() throws InterruptedException {
+    void printAllocatingMessage() throws InterruptedException {
         Thread allocationThread = new Thread(() -> ui.printAllocatingMessage());
         allocationThread.start();
 
