@@ -222,7 +222,7 @@ public class StudentList {
      * @param errorMessages A set to collect error messages.
      * @return A float representing the valid GPA.
      */
-    private float validateGpa(String gpaStr, Set<String> errorMessages) {
+    public float validateGpa(String gpaStr, Set<String> errorMessages) {
         float gpa = 0.0f;
         try {
             if (!gpaStr.matches(GPA_REGEX)) {
