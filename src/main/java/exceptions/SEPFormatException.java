@@ -28,4 +28,14 @@ public class SEPFormatException extends SEPException {
         return new SEPFormatException("Invalid ID format. Please enter two uppercase alphabets "
                 + "with 7 natural numbers between it.");
     }
+
+    public static SEPFormatException rejectStatFormat() {
+        return new SEPFormatException("Invalid format for stats command. "
+                + "Usage: stats ``-avggpa <UNI_INDEX>`` or ``stats -mingpa <UNI_INDEX>``.");
+    }
+
+    public static SEPFormatException rejectViewQuotaFormat() {
+        return new SEPFormatException("Invalid format for viewQuota command. "
+                + "Usage: viewQuota <UNI_INDEX>.");
+    }
 }

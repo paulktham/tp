@@ -15,6 +15,11 @@ public enum Messages {
 
             list        Lists all students currently in the system.
 
+            stats       Displays GPA statistics for students who have chosen a specific partner university.
+                        Usage:
+                        stats -avggpa <UNI_INDEX>  Displays the average GPA for the specified university.
+                        stats -mingpa <UNI_INDEX>  Displays the minimum GPA for the specified university.
+
             allocate    Allocates students to available slots based on their preferences.
 
             generate    Generates a report of allocations and student data.
