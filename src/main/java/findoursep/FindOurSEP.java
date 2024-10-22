@@ -54,16 +54,7 @@ public class FindOurSEP {
      * Main entry-point for the findoursep.FindOurSEP application.
      */
     public static void main(String[] args) {
-        //FindOurSEP bob = new FindOurSEP();
-        //bob.start();
-        Storage g = new Storage("test.csv");
-        try {
-            ArrayList<String> students = g.processFile();
-            for (String student : students) {
-                System.out.println(student);
-            }
-        } catch (Exception e) {
-            System.out.println("Error" + e.getMessage());
-        }
+        FindOurSEP bob = new FindOurSEP();
+        bob.start();
     }
 }

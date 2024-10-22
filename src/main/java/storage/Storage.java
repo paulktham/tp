@@ -8,8 +8,11 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 import exceptions.SEPException;
+import exceptions.SEPIOException;
 import exceptions.SEPNotFoundException;
 import exceptions.SEPUnknownException;
+
+import parser.Parser;
 
 import java.io.File;
 import java.io.FileReader;
@@ -22,9 +25,11 @@ import java.util.List;
 
 public class Storage {
     private String filePath;
+    private Parser parser;
 
-    public Storage(String filePath) {
+    public Storage(String filePath, Parser parser) {
         this.filePath = filePath;
+        this.parser = parser;
     }
 
     private String getFileExtension(File file) {
@@ -84,7 +89,7 @@ public class Storage {
                 result.add(String.format("%s %s %s", id, gpa, preferences));
             }
         } catch (IOException | CsvValidationException e) {
-            e.printStackTrace();
+            throw SEPIOException.rejectCSVFile();
         }
         return result;
     }
@@ -104,7 +109,7 @@ public class Storage {
                 result.add(String.format("%s %s %s", id, gpa, preferences));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw SEPIOException.rejectJSONFile();
         }
         return result;
     }
@@ -116,7 +121,7 @@ public class Storage {
             List<String> lines = Files.readAllLines(path);
             result.addAll(lines);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw SEPIOException.rejectTXTFile();
         }
         return result;
     }
