@@ -11,4 +11,8 @@ public class SEPNotFoundException extends SEPException {
     public static SEPNotFoundException rejectStudentNotFound() {
         return new SEPNotFoundException("Student not found.");
     }
+
+    public static SEPNotFoundException rejectFileNotFound() {
+        return new SEPNotFoundException("File do not exist.");
+    }
 }
