@@ -1,13 +1,17 @@
 package findoursep;
 
+import storage.Storage;
 import studentlist.StudentList;
 import ui.UI;
 import parser.Parser;
+
+import java.util.ArrayList;
 
 public class FindOurSEP {
     private UI ui;
     private Parser parser;
     private StudentList studentList;
+    private Storage storage;
 
     /**
      * Constructs a new FindOurSEP object.
@@ -19,15 +23,17 @@ public class FindOurSEP {
         this.parser = new Parser(this.studentList,this.ui);
     }
 
-    public void setUpConfig() {
+    public void setUpStorage() {
         this.ui.printConfigMessage();
         String input = this.ui.getUserInput();
+        String filePath = "";
         if (input.trim().equals("2")) {
             ui.promptFilePath();
-            String filePath = this.ui.getUserInput();
+            filePath = this.ui.getUserInput();
         } else {
             ui.printResponse("Let's begin!");
         }
+        this.storage = new Storage(filePath);
     }
 
     /**
@@ -36,7 +42,6 @@ public class FindOurSEP {
      * application. It will read the user's input, process it.
      */
     public void start() {
-        setUpConfig();
         String line;
         boolean isRunning = true;
         while (isRunning) {
@@ -49,7 +54,16 @@ public class FindOurSEP {
      * Main entry-point for the findoursep.FindOurSEP application.
      */
     public static void main(String[] args) {
-        FindOurSEP bob = new FindOurSEP();
-        bob.start();
+        //FindOurSEP bob = new FindOurSEP();
+        //bob.start();
+        Storage g = new Storage("test.csv");
+        try {
+            ArrayList<String> students = g.processFile();
+            for (String student : students) {
+                System.out.println(student);
+            }
+        } catch (Exception e) {
+            System.out.println("Error" + e.getMessage());
+        }
     }
 }
