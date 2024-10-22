@@ -1,14 +1,23 @@
 package command;
 
+import exceptions.SEPException;
 import studentlist.StudentList;
+import ui.UI;
 
 public class ListCommand extends Command {
-    public ListCommand(StudentList studentList) {
+    private final UI ui;
+
+    public ListCommand(StudentList studentList, UI ui) {
         super(studentList);
+        this.ui = ui;
     }
 
     @Override
     public void run() {
-        super.studentList.printStudentList();
+        try {
+            ui.printStudentList(studentList.getList());
+        } catch (SEPException e) {
+            ui.printResponse(e.getMessage());
+        }
     }
 }
