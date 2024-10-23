@@ -4,13 +4,9 @@ import exceptions.SEPException;
 import exceptions.SEPFormatException;
 import exceptions.SEPNotFoundException;
 
-import student.Student;
 import studentlist.StudentList;
 import ui.UI;
 import university.UniversityRepository;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class StatCommand extends Command {
     private String input;
@@ -31,7 +27,6 @@ public class StatCommand extends Command {
             }
 
             String statType = parts[1].trim().toLowerCase();
-
             if (!statType.equals("-avggpa") && !statType.equals("-mingpa")) {
                 throw SEPFormatException.rejectStatFormat();
             }
@@ -40,39 +35,24 @@ public class StatCommand extends Command {
             if (!uniIndeString.matches("-?\\d+")) {
                 throw SEPFormatException.rejectStatFormat();
             }
-            
+
             int uniIndex = Integer.parseInt(uniIndeString);
             if (UniversityRepository.getUniversityByIndex(uniIndex) == null) {
                 throw SEPNotFoundException.rejectUniversityNotFound();
             }
 
-            List<Student> filteredStudents = super.studentList.getList().stream()
-                    .filter(student -> student.getUniPreferences().contains(uniIndex))
-                    .collect(Collectors.toList());
-
-            if (filteredStudents.isEmpty()) {
-                ui.printResponse("No students have chosen this university.");
-                return;
-            }
-
             switch (statType) {
             case "-avggpa":
-                double avgGpa = filteredStudents.stream()
-                        .mapToDouble(Student::getGpa)
-                        .average()
-                        .orElse(0.0);
-                ui.printResponse("The average GPA for university index "  + uniIndex
-                                + " (" + UniversityRepository.getUniversityByIndex(uniIndex).getFullName() + ")" 
-                                + " is: " + String.format("%.2f", avgGpa));
+                double avgGpa = super.studentList.calculateAverageGpaForUniversity(uniIndex);
+                ui.printResponse("The average GPA for university index " + uniIndex
+                        + " (" + UniversityRepository.getUniversityByIndex(uniIndex).getFullName() + ")" 
+                        + " is: " + String.format("%.2f", avgGpa));
                 break;
             case "-mingpa":
-                double minGpa = filteredStudents.stream()
-                        .mapToDouble(Student::getGpa)
-                        .min()
-                        .orElse(0.0);
+                double minGpa = super.studentList.calculateMinGpaForUniversity(uniIndex);
                 ui.printResponse("The minimum GPA for university index " + uniIndex 
-                                + " (" + UniversityRepository.getUniversityByIndex(uniIndex).getFullName() + ")"
-                                + " is: " + String.format("%.2f", minGpa));
+                        + " (" + UniversityRepository.getUniversityByIndex(uniIndex).getFullName() + ")"
+                        + " is: " + String.format("%.2f", minGpa));
                 break;
             default:
                 throw SEPFormatException.rejectStatFormat();
