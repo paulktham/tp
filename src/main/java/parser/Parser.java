@@ -38,7 +38,7 @@ public class Parser {
             new DeleteCommand(this.studentList, input, this.ui).run();
             break;
         case "list":
-            new ListCommand(this.studentList).run();
+            new ListCommand(this.studentList, this.ui).run();
             break;
         case "allocate":
             new AllocateCommand(this.studentList, this.ui).run();

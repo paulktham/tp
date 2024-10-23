@@ -142,14 +142,6 @@ public class StudentList {
         return new Student(studentId, gpa, preferences);
     }
 
-    public void printStudentList() {
-        try {
-            ui.printStudentList(this.students);
-        } catch (SEPException e) {
-            ui.printResponse(e.getMessage());
-        }
-    }
-
     public void generateReport() {
         try {
             ui.generateReport(students);
