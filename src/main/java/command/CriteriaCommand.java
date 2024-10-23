@@ -10,12 +10,16 @@ public class CriteriaCommand extends Command {
     private UI ui;
     private Allocator allocator;
 
-    public CriteriaCommand(StudentList studentList,String input, UI ui) {
+    public CriteriaCommand (StudentList studentList,String input, UI ui) {
         super(studentList);
         this.input = input;
         this.ui = ui;
         this.allocator = new Allocator(studentList);
     }
+
+    /*
+     * Takes the input and sends the second part of the input into the setMinimumGPA function in allocator
+     */
 
     @Override
     public void run() {

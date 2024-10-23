@@ -21,7 +21,14 @@ public class Allocator {
         this.studentList = new StudentList(studentList);  // don't want to modify the original list
     }
 
-    public void setMinimumGPA(String stringGpa) throws SEPException{
+    /*
+     * setMinimumGPA reuses a helper function found in studentList
+     * The helper function validateGPA reads a string and ensures that the GPA is a valid one
+     * Valid referring to the GPA being within the right values of 0.0 to 5.0
+     * It then returns a float which we use to set the minimumGPA variable
+     */
+
+    public void setMinimumGPA(String stringGpa) throws SEPException {
         Set<String> errorMessages = new HashSet<>();
 
         float gpa = studentList.validateGpa(stringGpa, errorMessages);
