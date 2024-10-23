@@ -2,6 +2,7 @@ package parser;
 
 import command.AddCommand;
 import command.AllocateCommand;
+import command.CriteriaCommand;
 import command.DeleteCommand;
 import command.ExitCommand;
 import command.GenerateCommand;
@@ -44,6 +45,8 @@ public class Parser {
             new AllocateCommand(this.studentList, this.ui).run();
             break;
         case "exit":
+        case "quit":
+        case "bye":
             new ExitCommand(this.studentList,this.ui).run();
             return false;
         case "help":
@@ -51,6 +54,9 @@ public class Parser {
             break;
         case "generate":
             new GenerateCommand(this.studentList, this.ui).run();
+            break;
+        case "minimum":
+            new CriteriaCommand(this.studentList, input, this.ui).run();
             break;
         default:
             new UnknownCommand(this.studentList, this.ui).run();
