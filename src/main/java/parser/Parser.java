@@ -11,11 +11,9 @@ import command.ListCommand;
 import command.StatCommand;
 import command.UnknownCommand;
 import command.ViewQuotaCommand;
-import exceptions.SEPException;
 import studentlist.StudentList;
 import ui.UI;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
