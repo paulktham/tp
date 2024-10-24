@@ -1,6 +1,18 @@
 package parser;
 
-import command.*;
+import command.AddCommand;
+import command.AllocateCommand;
+import command.CriteriaCommand;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.GenerateCommand;
+import command.HelpCommand;
+import command.ListCommand;
+import command.StatCommand;
+import command.UnknownCommand;
+import command.ViewQuotaCommand;
+import command.FindCommand;
+
 import studentlist.StudentList;
 import ui.UI;
 

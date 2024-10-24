@@ -33,7 +33,7 @@ public enum Messages {
             exit        Exits the application.
 
             help        Displays this help message.
-       \s"""),
+        """),
     ERROR("An error occurred. Please try again.");
 
     private final String message;
