@@ -50,7 +50,7 @@ public class SEPIOException extends SEPException {
 
     /**
      * Exception for missing required fields in the student entry in the TXT file.
-     * Each line must contain 'id/<ID>', 'gpa/<GPA>', and 'p/<PREFERENCES>'.
+     * Each line must contain 'id/[ID]', 'gpa/[GPA]', and 'p/[PREFERENCES]'.
      * 
      * @return A SEPIOException with a message indicating the missing required fields.
      */
@@ -73,7 +73,7 @@ public class SEPIOException extends SEPException {
 
     /**
      * Exception for wrong TXT file format. This method constructs an error message
-     * indicating that each row must be written as "id/<ID> gpa/<GPA> p/<PREFERENCES>".
+     * indicating that each row must be written as "id/[ID] gpa/[GPA] p/[PREFERENCES]".
      * The user is given an example of the correct format.
      * 
      * @return A SEPIOException with a message indicating the wrong TXT file format.
