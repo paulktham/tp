@@ -21,9 +21,9 @@ import java.util.List;
  * printing and validating student data such as student ID, GPA, and preferences.
  */
 public class StudentList {
-    private static final String ADD_STUDENT_REGEX = "^add\\s+id/[\\S ]+\\s+gpa/[\\S ]+\\s+p/\\{[\\S ]+}$";
-    private static final String ID_REGEX = "^[A-Z]\\d{7}[A-Z]$";
-    private static final String GPA_REGEX = "\\d+(\\.\\d{1,2})?";
+    public static final String ADD_STUDENT_REGEX = "^add\\s+id/[\\S ]+\\s+gpa/[\\S ]+\\s+p/\\{[\\S ]+}$";
+    public static final String ID_REGEX = "^[A-Z]\\d{7}[A-Z]$";
+    public static final String GPA_REGEX = "\\d+(\\.\\d{1,2})?";
 
     private ArrayList<Student> students;
     private UI ui;
@@ -176,6 +176,7 @@ public class StudentList {
             throw SEPFormatException.rejectFindFormat();
         }
 
+        assert parts.length == 3;
         String command = parts[1].trim().toLowerCase();
         String studentId = parts[2].trim();
         for (Student student : students) {
@@ -245,7 +246,7 @@ public class StudentList {
      * @param studentId The student ID to validate.
      * @param errorMessages A set to collect error messages.
      */
-    private void validateStudentId(String studentId, Set<String> errorMessages) {
+    public void validateStudentId(String studentId, Set<String> errorMessages) {
         if (!studentId.matches(ID_REGEX)) {
             errorMessages.add(SEPFormatException.rejectIdFormat().getMessage());
         }
@@ -333,7 +334,7 @@ public class StudentList {
      * @param errorMessages A set to collect error messages.
      * @return A list of valid preferences.
      */
-    private ArrayList<Integer> validatePreferences(String preferencesData, Set<String> errorMessages) {
+    public ArrayList<Integer> validatePreferences(String preferencesData, Set<String> errorMessages) {
         ArrayList<Integer> preferences = new ArrayList<>();
         String[] numberStrings = preferencesData.replaceAll("[{}]", "").split(",");
 
