@@ -72,13 +72,13 @@ public class Storage {
 
             switch (extension.toLowerCase()) {
             case "csv":
-                result = processCsvFile(path.toFile());
+                result = hasProcessCSV(path.toFile());
                 break;
             case "json":
-                result = processJsonFile(path.toFile());
+                result = hasProcessJSON(path.toFile());
                 break;
             case "txt":
-                result = processTxtFile(path);
+                result = hasProcessTXT(path);
                 break;
             default:
                 throw SEPUnknownException.rejectUnknownFileType();
@@ -105,7 +105,7 @@ public class Storage {
      * @throws CsvValidationException if there is an issue with CSV parsing
      * @throws SEPException if there is an issue with student data validation
      */
-    private boolean processCsvFile(File file) {
+    private boolean hasProcessCSV(File file) {
         // Save the current System.out
         PrintStream originalOut = System.out;
 
@@ -205,7 +205,7 @@ public class Storage {
      * @param file The JSON file to be processed.
      * @return true if the file is valid, false otherwise.
      */
-    private boolean processJsonFile(File file) {
+    private boolean hasProcessJSON(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         // Save the current System.out
         PrintStream originalOut = System.out;
@@ -258,7 +258,7 @@ public class Storage {
      * @return true if the file is processed successfully, false otherwise.
      * @throws SEPIOException If the file is invalid or any other exception occurs.
      */
-    private boolean processTxtFile(Path path) {
+    private boolean hasProcessTXT(Path path) {
         // Save the current System.out to restore later
         PrintStream originalOut = System.out;
 

@@ -85,15 +85,10 @@ public class Parser {
      * @return true if all data is valid, false if there are validation errors.
      */
     public boolean isValidData(String id, String gpa, String preferences) {
-
         Set<String> errorMessages = new HashSet<>();
-
         this.studentList.validateStudentId(id, errorMessages);
-
         this.studentList.validateGpa(gpa, errorMessages);
-
         this.studentList.validatePreferences(preferences, errorMessages);
-
         return errorMessages.isEmpty();
     }
 }
