@@ -14,6 +14,9 @@ import command.ViewQuotaCommand;
 import studentlist.StudentList;
 import ui.UI;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * The Parser class is the main class responsible for parsing the user's input and executing the corresponding command.
  */
@@ -49,10 +52,10 @@ public class Parser {
         case "exit":
         case "quit":
         case "bye":
-            new ExitCommand(this.studentList,this.ui).run();
+            new ExitCommand(this.studentList, this.ui).run();
             return false;
         case "help":
-            new HelpCommand(this.studentList,this.ui).run();
+            new HelpCommand(this.studentList, this.ui).run();
             break;
         case "generate":
             new GenerateCommand(this.studentList, this.ui).run();
@@ -71,5 +74,21 @@ public class Parser {
             break;
         }
         return true;
+    }
+
+    /**
+     * Validates the student data including ID, GPA, and preferences.
+     *
+     * @param id The student ID to validate.
+     * @param gpa The GPA to validate.
+     * @param preferences The preferences to validate.
+     * @return true if all data is valid, false if there are validation errors.
+     */
+    public boolean isValidData(String id, String gpa, String preferences) {
+        Set<String> errorMessages = new HashSet<>();
+        this.studentList.validateStudentId(id, errorMessages);
+        this.studentList.validateGpa(gpa, errorMessages);
+        this.studentList.validatePreferences(preferences, errorMessages);
+        return errorMessages.isEmpty();
     }
 }

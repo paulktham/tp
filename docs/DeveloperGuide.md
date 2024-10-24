@@ -1,8 +1,48 @@
 # Developer Guide
 
+## Table of Contents
+- [Acknowledgements](#Acknowledgements)
+- [Installation](#installation)
+
+
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+This project utilizes the following dependencies:
+
+- [JUnit 5.10.0](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/5.10.0) for testing.
+- [AsciiTable 0.3.2](https://mvnrepository.com/artifact/de.vandermeer/asciitable/0.3.2) for formatting tables.
+- [Jackson Databind 2.18.0](https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.18.0) for JSON processing.
+- [OpenCSV 5.9](https://mvnrepository.com/artifact/com.opencsv/opencsv/5.9) for CSV parsing.
+
+Many thanks to the developers and maintainers of these libraries for their incredible work. Their efforts have significantly contributed to the success of this project.
+
+## Installation
+
+To get started with this project, follow these steps:
+
+### Prerequisites
+
+- Java 17
+- Download the latest `.jar` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases/tag/v1.0).
+
+### Steps
+
+1. **Copy the `.jar` file:**
+    - Move the downloaded `.jar` file into a designated folder on your computer.
+
+2. **Prepare your data file:**
+    - If you want to parse a file (.CSV, .JSON, .TXT) containing student data, ensure you have the absolute path ready for that file.
+
+3. **Run the `.jar` file:**
+    - Open a terminal.
+    - Navigate (`cd`) to the folder containing the `.jar` file.
+    - Execute the `.jar` file using the following command:
+      ```shell
+      java -jar FindOurSEP.jar
+      ```
+
+
+🎉 Congratulations! You’re all set to dive into the wonders of this project. Enjoy the ride!
 
 ## Design & implementation
 
