@@ -1,17 +1,28 @@
 package storage;
 
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
-import exceptions.*;
 
+import exceptions.SEPException;
+import exceptions.SEPFormatException;
+import exceptions.SEPIOException;
+import exceptions.SEPUnknownException;
 import parser.Parser;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,17 +43,6 @@ public class Storage {
         return (lastDotIndex == -1) ? "" : name.substring(lastDotIndex + 1);
     }
 
-    /*
-    private boolean hasLoadSuccessful(String student) {
-        try {
-            this.parser.parseInput("add " + student);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-    */
-
     public boolean processFile() throws SEPException {
         Path path = Paths.get(this.filePath);
         boolean result;
@@ -54,17 +54,14 @@ public class Storage {
             case "csv":
                 result = processCsvFile(path.toFile());
                 break;
-            default:
-                result = false;
+            case "json":
+                result = processJsonFile(path.toFile());
                 break;
-//            case "json":
-//                result = processJsonFile(path.toFile());
-//                break;
 //            case "txt":
 //                result = processTxtFile(path);
 //                break;
-//            default:
-//                throw SEPUnknownException.rejectUnknownFile();
+            default:
+                throw SEPUnknownException.rejectUnknownFile();
             }
         } else {
             System.out.println("No file found.");
@@ -116,5 +113,99 @@ public class Storage {
         return true;
     }
 
+    public void printExampleJson() {
+        try {
+            // Create ObjectMapper to build the JSON structure
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // Create root node "students"
+            ObjectNode rootNode = objectMapper.createObjectNode();
+            ArrayNode studentsArray = objectMapper.createArrayNode();
+
+            // Example student 1
+            ObjectNode student1 = objectMapper.createObjectNode();
+            student1.put("ID", "A1234567J");
+            student1.put("GPA", "4.5");
+            student1.put("PREFERENCES", "{1,2,3}");
+
+            // Example student 2
+            ObjectNode student2 = objectMapper.createObjectNode();
+            student2.put("ID", "A7654321K");
+            student2.put("GPA", "3.8");
+            student2.put("PREFERENCES", "{2,3,1}");
+
+            // Example student 3
+            ObjectNode student3 = objectMapper.createObjectNode();
+            student3.put("ID", "A1357913L");
+            student3.put("GPA", "4.0");
+            student3.put("PREFERENCES", "{3,1,2}");
+
+            // Add students to the array
+            studentsArray.add(student1);
+            studentsArray.add(student2);
+            studentsArray.add(student3);
+
+            // Add the array to the root node
+            rootNode.set("students", studentsArray);
+
+            // Convert root node to pretty-printed JSON string
+            String exampleJson = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+
+            // Print the example JSON
+            System.out.println("Example of a correct JSON file:");
+            System.out.println(exampleJson);
+
+        } catch (JsonProcessingException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Process JSON file
+    private boolean processJsonFile(File file) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        // Save the current System.out
+        PrintStream originalOut = System.out;
+
+        // Suppress output
+        System.setOut(new PrintStream(new ByteArrayOutputStream()));
+        try {
+            JsonNode rootNode = objectMapper.readTree(file);
+            JsonNode students = rootNode.get("students");
+
+            // Check if "students" node exists and is an array
+            if (students == null || !students.isArray()) {
+                throw SEPIOException.missingStudentsArray();
+            }
+
+            for (JsonNode student : students) {
+                // Check if required fields are present
+                if (!student.has("ID") || !student.has("GPA") || !student.has("PREFERENCES")) {
+                    throw SEPIOException.missingRequiredFields();
+                }
+
+                // Validate the data format
+                if (!this.parser.isValidData(student.get("ID").asText(),
+                        student.get("GPA").asText(),
+                        student.get("PREFERENCES").asText())) {
+                    throw SEPIOException.invalidDataFormat();
+                }
+
+                // Extract and format the command
+                String id = "id/" + student.get("ID").asText();
+                String gpa = "gpa/" + student.get("GPA").asText();
+                String preferences = "p/" + student.get("PREFERENCES").asText();
+                String command = String.format("%s %s %s", id, gpa, preferences);
+
+                this.parser.parseInput("add " + command);
+            }
+            System.setOut(originalOut);
+        } catch (IOException | SEPException e) {
+            System.setOut(originalOut);
+            System.out.println(e.getMessage());
+            printExampleJson();
+            return false;
+        }
+        return true;
+    }
 
 }
