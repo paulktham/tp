@@ -2,6 +2,7 @@ package findoursep;
 
 import allocator.Allocator;
 import exceptions.SEPDuplicateException;
+import exceptions.SEPException;
 import student.Student;
 import studentlist.StudentList;
 import ui.UI;
@@ -35,6 +36,12 @@ public class AllocatorTest {
     }
 
     @Test
+    public void testSetMinimumGPA() throws SEPException{
+        allocator.setMinimumGPA("4.0");
+        assertEquals(4.0, allocator.getMinimumGPA());
+    }
+
+    @Test
     public void testAllocate() {
         StudentList allocatedStudents = allocator.allocate();
 
@@ -54,4 +61,17 @@ public class AllocatorTest {
         assertEquals(3, allocatedStudents.getList().get(2).getAllocatedUniversity());
         assertEquals(2, allocatedStudents.getList().get(3).getAllocatedUniversity());
     }
+
+    @Test
+    public void testAllocateWithCriteria() throws SEPException{
+        allocator.setMinimumGPA("4.0");
+        StudentList allocatedStudents = allocator.allocate();
+
+        assertEquals(-1, allocatedStudents.getList().get(0).getAllocatedUniversity());
+        assertEquals(-1, allocatedStudents.getList().get(1).getAllocatedUniversity());
+        assertEquals(-1, allocatedStudents.getList().get(2).getAllocatedUniversity());
+        assertEquals(-1, allocatedStudents.getList().get(3).getAllocatedUniversity());
+    }
 }
+
+
