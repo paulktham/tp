@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Manages a list of students and provides methods for adding, deleting, sorting,
@@ -142,14 +143,6 @@ public class StudentList {
         return new Student(studentId, gpa, preferences);
     }
 
-    public void printStudentList() {
-        try {
-            ui.printStudentList(this.students);
-        } catch (SEPException e) {
-            ui.printResponse(e.getMessage());
-        }
-    }
-
     public void generateReport() {
         try {
             ui.generateReport(students);
@@ -174,19 +167,14 @@ public class StudentList {
      * @throws SEPException If student id format inputted is wrong, or if student id cannot be found.
      */
     public void findStudent(String input) throws SEPException {
-        Set<String> errorMessages = new HashSet<>();
-
         String[] parts = input.split("find", 2);
 
-        String studentId = organiseId(parts[1]);
-        validateStudentId(studentId, errorMessages);
-        if (!errorMessages.isEmpty()) {
-            throw SEPFormatException.rejectIdFormat();
-        }
+        String studentId = parts[1];
+        ui.printResponse(parts[1]);
 
         ArrayList<Student> foundStudent = new ArrayList<>();
         for (Student student : students) {
-            if (student.getId().equals(studentId)) {
+            if (student.getId().contains(studentId)) {
                 foundStudent.add(student);
             }
         }
@@ -244,6 +232,56 @@ public class StudentList {
     }
 
     /**
+     * Filters students based on their university preferences.
+     *
+     * @param uniIndex The index of the university to filter students by.
+     * @return A list of students who have the specified university index in their preferences.
+     * @throws SEPException if no students have chosen the specified university.
+     */
+    public List<Student> getStudentsByUniversityIndex(int uniIndex) throws SEPException {
+        List<Student> filteredStudents = new ArrayList<>();
+        for (Student student : this.students) {
+            if (student.getUniPreferences().contains(uniIndex)) {
+                filteredStudents.add(student);
+            }
+        }
+        if (filteredStudents.isEmpty()) {
+            throw new SEPException("No students have chosen this university.");
+        }
+        return filteredStudents;
+    }
+
+    /**
+     * Calculates the average GPA of students who chose the specified university.
+     *
+     * @param uniIndex The index of the university.
+     * @return The average GPA as a double.
+     * @throws SEPException if no students have chosen the specified university.
+     */
+    public double calculateAverageGpaForUniversity(int uniIndex) throws SEPException {
+        List<Student> students = getStudentsByUniversityIndex(uniIndex);
+        return students.stream()
+                       .mapToDouble(Student::getGpa)
+                       .average()
+                       .orElse(0.0);
+    }
+
+    /**
+     * Calculates the minimum GPA of students who chose the specified university.
+     *
+     * @param uniIndex The index of the university.
+     * @return The minimum GPA as a double.
+     * @throws SEPException if no students have chosen the specified university.
+     */
+    public double calculateMinGpaForUniversity(int uniIndex) throws SEPException {
+        List<Student> students = getStudentsByUniversityIndex(uniIndex);
+        return students.stream()
+                       .mapToDouble(Student::getGpa)
+                       .min()
+                       .orElse(0.0);
+    }
+
+    /**
      * Validates the GPA format and range.
      * GPA should be a float between 1 and 5, with a maximum of 2 decimal places.
      *
@@ -251,7 +289,7 @@ public class StudentList {
      * @param errorMessages A set to collect error messages.
      * @return A float representing the valid GPA.
      */
-    private float validateGpa(String gpaStr, Set<String> errorMessages) {
+    public float validateGpa(String gpaStr, Set<String> errorMessages) {
         float gpa = 0.0f;
         try {
             if (!gpaStr.matches(GPA_REGEX)) {
