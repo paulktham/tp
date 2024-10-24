@@ -65,6 +65,7 @@ public class Parser {
     }
 
     public boolean isValidData(String id, String gpa, String preferences) {
+
         Set<String> errorMessages = new HashSet<>();
 
         this.studentList.validateStudentId(id, errorMessages);

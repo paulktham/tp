@@ -20,9 +20,9 @@ import java.util.HashSet;
  * printing and validating student data such as student ID, GPA, and preferences.
  */
 public class StudentList {
-    private static final String ADD_STUDENT_REGEX = "^add\\s+id/[\\S ]+\\s+gpa/[\\S ]+\\s+p/\\{[\\S ]+}$";
-    private static final String ID_REGEX = "^[A-Z]\\d{7}[A-Z]$";
-    private static final String GPA_REGEX = "\\d+(\\.\\d{1,2})?";
+    public static final String ADD_STUDENT_REGEX = "^add\\s+id/[\\S ]+\\s+gpa/[\\S ]+\\s+p/\\{[\\S ]+}$";
+    public static final String ID_REGEX = "^[A-Z]\\d{7}[A-Z]$";
+    public static final String GPA_REGEX = "\\d+(\\.\\d{1,2})?";
 
     private ArrayList<Student> students;
     private UI ui;

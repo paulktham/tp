@@ -13,6 +13,8 @@ import com.opencsv.exceptions.CsvValidationException;
 
 import exceptions.SEPException;
 import exceptions.SEPIOException;
+import exceptions.SEPNotFoundException;
+import exceptions.SEPUnknownException;
 import parser.Parser;
 
 import java.io.ByteArrayOutputStream;
@@ -25,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static studentlist.StudentList.ADD_STUDENT_REGEX;
 
 public class Storage {
     private String filePath;
@@ -41,7 +44,7 @@ public class Storage {
         return (lastDotIndex == -1) ? "" : name.substring(lastDotIndex + 1);
     }
 
-    public boolean processFile() {
+    public boolean processFile() throws SEPException {
         Path path = Paths.get(this.filePath);
         boolean result;
 
@@ -59,10 +62,10 @@ public class Storage {
                 result = processTxtFile(path);
                 break;
             default:
-                return false;
+                throw SEPUnknownException.rejectUnknownFileType();
             }
         } else {
-            return false;
+            throw SEPNotFoundException.rejectFileNotFound();
         }
         return result;
     }
@@ -180,20 +183,18 @@ public class Storage {
                     throw SEPIOException.missingRequiredJSONFields();
                 }
 
+                // Extract and format the command
+                String id = student.get("ID").asText();
+                String gpa = student.get("GPA").asText();
+                String preferences = student.get("PREFERENCES").asText();
+                String command = String.format("add id/%s gpa/%s p/%s", id, gpa, preferences);
+
                 // Validate the data format
-                if (!this.parser.isValidData(student.get("ID").asText(),
-                        student.get("GPA").asText(),
-                        student.get("PREFERENCES").asText())) {
+                if ((!this.parser.isValidData(id, gpa,preferences)) || (!command.matches(ADD_STUDENT_REGEX))) {
                     throw SEPIOException.invalidDataJSONFormat();
                 }
 
-                // Extract and format the command
-                String id = "id/" + student.get("ID").asText();
-                String gpa = "gpa/" + student.get("GPA").asText();
-                String preferences = "p/" + student.get("PREFERENCES").asText();
-                String command = String.format("%s %s %s", id, gpa, preferences);
-
-                this.parser.parseInput("add " + command);
+                this.parser.parseInput(command);
             }
             System.setOut(originalOut);
         } catch (IOException | SEPException e) {
@@ -229,8 +230,10 @@ public class Storage {
                 String gpaPart = parts[1];
                 String preferencesPart = parts[2];
 
+                String command = "add " + String.format("%s %s %s", idPart, gpaPart, preferencesPart);
+
                 // Validate the format of each part
-                if (!idPart.startsWith("id/") || !gpaPart.startsWith("gpa/") || !preferencesPart.startsWith("p/")) {
+                if (!command.matches(ADD_STUDENT_REGEX)) {
                     throw SEPIOException.missingTXTRequiredFields();
                 }
 
@@ -242,7 +245,8 @@ public class Storage {
                 if (!this.parser.isValidData(id, gpa, preferences)) {
                     throw SEPIOException.invalidTXTDataFormat();
                 }
-                this.parser.parseInput("add " + line);
+
+                this.parser.parseInput(command);
             }
             System.setOut(originalOut);
         } catch (IOException | SEPException e) {

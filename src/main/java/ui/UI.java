@@ -173,6 +173,14 @@ public class UI {
     }
 
     public void promptFilePath() {
-        System.out.println("Please enter the path to the file: ");
+        System.out.println("Please enter the ABSOLUTE path to the file: ");
+    }
+
+    public void printProcessError() {
+        printResponse("Process error! Please ensure file is formatted correctly before retrying. Good day!");
+    }
+
+    public void printFileLoadSuccessMessage() {
+        printResponse("File loaded successfully! Let's begin!");
     }
 }
