@@ -174,13 +174,13 @@ public class StudentListTest {
         assertDoesNotThrow(() -> this.studentList.addStudent(this.bob));
         assertEquals(1, this.studentList.getNumStudents());
 
-        // Test deleting a student that doesn't exist
+        // Test finding a student that doesn't exist
         assertThrows(SEPException.class, () -> this.studentList.findStudent("find list B7654321C"));
     }
 
     @Test
     public void findStudent_invalidFindFormat_exceptionThrown() {
-        String input = "find A1234567I";  // Invalid ID format (missing letter at start)
+        String input = "find A1234567I";  // Invalid Find format (Missing 'list' or 'report')
 
         assertThrows(SEPException.class, () -> this.studentList.findStudent(input));
     }
