@@ -61,7 +61,7 @@ public class FindOurSEP {
         UI ui = new UI();
         StudentList sl = new StudentList(ui);
         Parser p = new Parser(sl,ui);
-        Storage s = new Storage("test.json",p);
+        Storage s = new Storage("test.txt",p);
         try {
             boolean st = s.processFile();
             if (st) {

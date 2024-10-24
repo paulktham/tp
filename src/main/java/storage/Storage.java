@@ -1,7 +1,6 @@
 package storage;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -13,9 +12,7 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 
 import exceptions.SEPException;
-import exceptions.SEPFormatException;
 import exceptions.SEPIOException;
-import exceptions.SEPUnknownException;
 import parser.Parser;
 
 import java.io.ByteArrayOutputStream;
@@ -26,6 +23,7 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 
 public class Storage {
@@ -43,7 +41,7 @@ public class Storage {
         return (lastDotIndex == -1) ? "" : name.substring(lastDotIndex + 1);
     }
 
-    public boolean processFile() throws SEPException {
+    public boolean processFile() {
         Path path = Paths.get(this.filePath);
         boolean result;
 
@@ -57,14 +55,13 @@ public class Storage {
             case "json":
                 result = processJsonFile(path.toFile());
                 break;
-//            case "txt":
-//                result = processTxtFile(path);
-//                break;
+            case "txt":
+                result = processTxtFile(path);
+                break;
             default:
-                throw SEPUnknownException.rejectUnknownFile();
+                return false;
             }
         } else {
-            System.out.println("No file found.");
             return false;
         }
         return result;
@@ -89,7 +86,7 @@ public class Storage {
             reader.readNext();  // Skip the header
             while ((line = reader.readNext()) != null) {
                 if (line.length != 3) {
-                    throw SEPFormatException.rejectDataFormat(line);
+                    throw SEPIOException.rejectCSVDataFormat(line);
                 }
                 assert line.length == 3;
                 if (!this.parser.isValidData(line[0].trim(),line[1].trim(),line[2].trim())) {
@@ -174,20 +171,20 @@ public class Storage {
 
             // Check if "students" node exists and is an array
             if (students == null || !students.isArray()) {
-                throw SEPIOException.missingStudentsArray();
+                throw SEPIOException.missingStudentsJSONArray();
             }
 
             for (JsonNode student : students) {
                 // Check if required fields are present
                 if (!student.has("ID") || !student.has("GPA") || !student.has("PREFERENCES")) {
-                    throw SEPIOException.missingRequiredFields();
+                    throw SEPIOException.missingRequiredJSONFields();
                 }
 
                 // Validate the data format
                 if (!this.parser.isValidData(student.get("ID").asText(),
                         student.get("GPA").asText(),
                         student.get("PREFERENCES").asText())) {
-                    throw SEPIOException.invalidDataFormat();
+                    throw SEPIOException.invalidDataJSONFormat();
                 }
 
                 // Extract and format the command
@@ -208,4 +205,51 @@ public class Storage {
         return true;
     }
 
+    // Process Text file
+    private boolean processTxtFile(Path path) {
+        // Save the current System.out to restore later
+        PrintStream originalOut = System.out;
+
+        // Suppress output
+        System.setOut(new PrintStream(new ByteArrayOutputStream()));
+        try {
+            // Read all lines from the file
+            List<String> lines = Files.readAllLines(path);
+
+            for (String line : lines) {
+                // Split the line by commas and spaces
+                String[] parts = line.split(", ");
+
+                // Ensure the line has 3 parts: id, gpa, p
+                if (parts.length != 3) {
+                    throw SEPIOException.missingTXTRequiredFields();
+                }
+
+                String idPart = parts[0];
+                String gpaPart = parts[1];
+                String preferencesPart = parts[2];
+
+                // Validate the format of each part
+                if (!idPart.startsWith("id/") || !gpaPart.startsWith("gpa/") || !preferencesPart.startsWith("p/")) {
+                    throw SEPIOException.missingTXTRequiredFields();
+                }
+
+                String id = idPart.substring(3);  // Extract the actual ID value
+                String gpa = gpaPart.substring(4);  // Extract the actual GPA value
+                String preferences = preferencesPart.substring(2);  // Extract the actual Preferences value
+
+                // Validate the data using your existing parser
+                if (!this.parser.isValidData(id, gpa, preferences)) {
+                    throw SEPIOException.invalidTXTDataFormat();
+                }
+                this.parser.parseInput("add " + line);
+            }
+            System.setOut(originalOut);
+        } catch (IOException | SEPException e) {
+            System.setOut(originalOut);
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
 }

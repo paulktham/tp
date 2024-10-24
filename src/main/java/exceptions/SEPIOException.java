@@ -6,18 +6,18 @@ public class SEPIOException extends SEPException {
     }
 
     // Exception for missing "students" node or invalid array
-    public static SEPIOException missingStudentsArray() {
+    public static SEPIOException missingStudentsJSONArray() {
         return new SEPIOException("Invalid JSON format! The 'students' array is missing or not an array.");
     }
 
     // Exception for missing required fields in the student entry
-    public static SEPIOException missingRequiredFields() {
+    public static SEPIOException missingRequiredJSONFields() {
         return new SEPIOException("Invalid JSON format! Each student entry must contain 'ID', 'GPA', " +
                 "and 'PREFERENCES'.");
     }
 
     // Exception for invalid data format after checking the values
-    public static SEPIOException invalidDataFormat() {
+    public static SEPIOException invalidDataJSONFormat() {
         return new SEPIOException("Invalid data! One or more fields contain invalid data. Please check ID, GPA, " +
                 "and PREFERENCES.");
     }
@@ -29,8 +29,19 @@ public class SEPIOException extends SEPException {
                 "For e.g. A1234567J, 4.5, \"{1,2,3}\"");
     }
 
-    public static SEPIOException rejectJSONFile() {
-        return new SEPIOException("Wrong JSON format! Please ensure your JSON file is formatted with the following.");
+    public static SEPIOException rejectCSVDataFormat(String[] line) {
+        return new SEPIOException(String.join(",", line) + "\" is not in correct format! " +
+                "Please ensure that they are separated by a comma.");
+    }
+
+    public static SEPIOException missingTXTRequiredFields() {
+        return new SEPIOException("Invalid TXT format! Each line must contain 'id/<ID>', 'gpa/<GPA>', " +
+                "and 'p/<PREFERENCES>'.");
+    }
+
+    public static SEPIOException invalidTXTDataFormat() {
+        return new SEPIOException("Invalid data in TXT file! One or more fields contain invalid data. " +
+                "Please check ID, GPA, and PREFERENCES.");
     }
 
     public static SEPIOException rejectTXTFile() {
