@@ -38,4 +38,9 @@ public class SEPFormatException extends SEPException {
         return new SEPFormatException("Invalid format for viewQuota command. "
                 + "Usage: ``viewQuota <UNI_INDEX>``.");
     }
+
+    public static SEPFormatException rejectFindFormat() {
+        return new SEPFormatException("Invalid find format. Please enter: " +
+                "'find <report/list> <Keyword>' ");
+    }
 }

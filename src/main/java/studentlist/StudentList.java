@@ -161,27 +161,47 @@ public class StudentList {
     }
 
     /**
-     * Finds a student in the list by their student ID.
+     * Finds a student in the student list or report by their student ID.
+     * Keywords inputted need not be a valid student ID,
+     * but rather keywords that the student ID contains.
+     * Note: find keyword input is case-sensitive.
      *
-     * @param input The ID of the student to find.
+     * @param input The ID or keywords of the student to find.
      * @throws SEPException If student id format inputted is wrong, or if student id cannot be found.
      */
     public void findStudent(String input) throws SEPException {
-        String[] parts = input.split("find", 2);
-
-        String studentId = parts[1];
-        ui.printResponse(parts[1]);
-
+        String[] parts = input.split("\\s+", 3);
         ArrayList<Student> foundStudent = new ArrayList<>();
+        if (parts.length != 3) {
+            throw SEPFormatException.rejectFindFormat();
+        }
+
+        String command = parts[1].trim().toLowerCase();
+        String studentId = parts[2].trim();
         for (Student student : students) {
             if (student.getId().contains(studentId)) {
                 foundStudent.add(student);
             }
         }
-        if (foundStudent.isEmpty()) {
-            throw SEPNotFoundException.rejectStudentNotFound();
+
+        switch (command) {
+        case "list":
+            if (foundStudent.isEmpty()) {
+                throw SEPNotFoundException.rejectStudentNotFound();
+            }
+            ui.printResponse("Finding for students... student(s) found.");
+            ui.printStudentList(foundStudent);
+            break;
+        case "report":
+            if (foundStudent.isEmpty()) {
+                throw SEPNotFoundException.rejectStudentNotFound();
+            }
+            ui.printResponse("Finding for students... student(s) found.");
+            ui.generateReport(foundStudent);
+            break;
+        default:
+            throw SEPFormatException.rejectFindFormat();
         }
-        ui.printStudentList(foundStudent);
     }
 
     /**

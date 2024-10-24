@@ -13,6 +13,9 @@ public enum Messages {
             delete      Deletes the student with the specified ID from the list.
                         Example: delete A1234567I
 
+            find        Finds the student with the keyword, returning either a list or report.
+                        Example: find list A1234567I
+
             list        Lists all students currently in the system.
 
             stats       Displays GPA statistics for students who have chosen a specific partner university.
@@ -30,7 +33,7 @@ public enum Messages {
             exit        Exits the application.
 
             help        Displays this help message.
-        """),
+       \s"""),
     ERROR("An error occurred. Please try again.");
 
     private final String message;

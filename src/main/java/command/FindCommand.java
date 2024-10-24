@@ -2,7 +2,6 @@ package command;
 
 import exceptions.SEPException;
 
-import student.Student;
 import studentlist.StudentList;
 import ui.UI;
 
