@@ -168,6 +168,35 @@ public class StudentList {
     }
 
     /**
+     * Finds a student in the list by their student ID.
+     *
+     * @param input The ID of the student to find.
+     * @throws SEPException If student id format inputted is wrong, or if student id cannot be found.
+     */
+    public void findStudent(String input) throws SEPException {
+        Set<String> errorMessages = new HashSet<>();
+
+        String[] parts = input.split("find", 2);
+
+        String studentId = organiseId(parts[1]);
+        validateStudentId(studentId, errorMessages);
+        if (!errorMessages.isEmpty()) {
+            throw SEPFormatException.rejectIdFormat();
+        }
+
+        ArrayList<Student> foundStudent = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getId().equals(studentId)) {
+                foundStudent.add(student);
+            }
+        }
+        if (foundStudent.isEmpty()) {
+            throw SEPNotFoundException.rejectStudentNotFound();
+        }
+        ui.printStudentList(foundStudent);
+    }
+
+    /**
      * Organizes the student ID by removing all spaces,
      * including any spaces in between the numbers or alphabets,
      * before validating the student ID.

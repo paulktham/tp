@@ -8,6 +8,8 @@ import command.GenerateCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.UnknownCommand;
+import command.FindCommand;
+
 import studentlist.StudentList;
 import ui.UI;
 
@@ -36,6 +38,9 @@ public class Parser {
             break;
         case "delete":
             new DeleteCommand(this.studentList, input, this.ui).run();
+            break;
+        case "find":
+            new FindCommand(this.studentList, input, this.ui).run();
             break;
         case "list":
             new ListCommand(this.studentList).run();
