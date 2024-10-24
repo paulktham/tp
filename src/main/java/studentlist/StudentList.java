@@ -208,7 +208,7 @@ public class StudentList {
      * @param studentId The student ID to validate.
      * @param errorMessages A set to collect error messages.
      */
-    private void validateStudentId(String studentId, Set<String> errorMessages) {
+    public void validateStudentId(String studentId, Set<String> errorMessages) {
         if (!studentId.matches(ID_REGEX)) {
             errorMessages.add(SEPFormatException.rejectIdFormat().getMessage());
         }
@@ -222,7 +222,7 @@ public class StudentList {
      * @param errorMessages A set to collect error messages.
      * @return A float representing the valid GPA.
      */
-    private float validateGpa(String gpaStr, Set<String> errorMessages) {
+    public float validateGpa(String gpaStr, Set<String> errorMessages) {
         float gpa = 0.0f;
         try {
             if (!gpaStr.matches(GPA_REGEX)) {
@@ -246,7 +246,7 @@ public class StudentList {
      * @param errorMessages A set to collect error messages.
      * @return A list of valid preferences.
      */
-    private ArrayList<Integer> validatePreferences(String preferencesData, Set<String> errorMessages) {
+    public ArrayList<Integer> validatePreferences(String preferencesData, Set<String> errorMessages) {
         ArrayList<Integer> preferences = new ArrayList<>();
         String[] numberStrings = preferencesData.replaceAll("[{}]", "").split(",");
 

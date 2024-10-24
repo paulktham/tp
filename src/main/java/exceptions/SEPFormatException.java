@@ -9,6 +9,11 @@ public class SEPFormatException extends SEPException {
         super(message);
     }
 
+    public static SEPFormatException rejectDataFormat(String[] line) {
+        return new SEPFormatException(String.join(",", line) + "\" is not in correct format! " +
+                "Please ensure that they are separated by a comma.");
+    }
+
     public static SEPFormatException rejectAddStudentFormat() {
         return new SEPFormatException("Invalid add student format. Please use: "
                 + "add id/<Id> gpa/<GPA> p/{<Preference Rankings>}");

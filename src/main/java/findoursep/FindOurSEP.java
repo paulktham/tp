@@ -23,6 +23,7 @@ public class FindOurSEP {
         this.parser = new Parser(this.studentList,this.ui);
     }
 
+    /*
     public void setUpStorage() {
         this.ui.printConfigMessage();
         String input = this.ui.getUserInput();
@@ -35,6 +36,7 @@ public class FindOurSEP {
         }
         this.storage = new Storage(filePath);
     }
+    */
 
     /**
      * The main loop of the application.
@@ -54,7 +56,21 @@ public class FindOurSEP {
      * Main entry-point for the findoursep.FindOurSEP application.
      */
     public static void main(String[] args) {
-        FindOurSEP bob = new FindOurSEP();
-        bob.start();
+        //FindOurSEP bob = new FindOurSEP();
+        //bob.start();
+        UI ui = new UI();
+        StudentList sl = new StudentList(ui);
+        Parser p = new Parser(sl,ui);
+        Storage s = new Storage("test.csv",p);
+        try {
+            boolean st = s.processFile();
+            if (st) {
+                System.out.println("Successfully processed file");
+            } else {
+                System.out.println("Failed to process file");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

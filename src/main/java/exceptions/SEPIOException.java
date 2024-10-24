@@ -7,7 +7,7 @@ public class SEPIOException extends SEPException {
 
     public static SEPIOException rejectCSVFile() {
         return new SEPIOException("Wrong CSV format! Please ensure first row is ID, GPA, PREFERENCES" +
-                " and subsequent rows to be <ID>, <GPA>, \"<PREFERENCES>\". " +
+                " and subsequent rows to be <ID>, <GPA>, \"<PREFERENCES>\"\nALL SEPARATED BY A COMMA! " +
                 "For e.g. A1234567J, 4.5, \"{1,2,3}\"");
     }
 

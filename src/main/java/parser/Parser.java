@@ -8,8 +8,13 @@ import command.GenerateCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.UnknownCommand;
+import exceptions.SEPException;
 import studentlist.StudentList;
 import ui.UI;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The Parser class is the main class responsible for parsing the user's input and executing the corresponding command.
@@ -44,10 +49,10 @@ public class Parser {
             new AllocateCommand(this.studentList, this.ui).run();
             break;
         case "exit":
-            new ExitCommand(this.studentList,this.ui).run();
+            new ExitCommand(this.studentList, this.ui).run();
             return false;
         case "help":
-            new HelpCommand(this.studentList,this.ui).run();
+            new HelpCommand(this.studentList, this.ui).run();
             break;
         case "generate":
             new GenerateCommand(this.studentList, this.ui).run();
@@ -57,5 +62,17 @@ public class Parser {
             break;
         }
         return true;
+    }
+
+    public boolean isValidData(String id, String gpa, String preferences) {
+        Set<String> errorMessages = new HashSet<>();
+
+        this.studentList.validateStudentId(id, errorMessages);
+
+        this.studentList.validateGpa(gpa, errorMessages);
+
+        this.studentList.validatePreferences(preferences, errorMessages);
+
+        return errorMessages.isEmpty();
     }
 }
