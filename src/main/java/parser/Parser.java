@@ -8,7 +8,9 @@ import command.ExitCommand;
 import command.GenerateCommand;
 import command.HelpCommand;
 import command.ListCommand;
+import command.StatCommand;
 import command.UnknownCommand;
+import command.ViewQuotaCommand;
 import studentlist.StudentList;
 import ui.UI;
 
@@ -57,6 +59,12 @@ public class Parser {
             break;
         case "minimum":
             new CriteriaCommand(this.studentList, input, this.ui).run();
+            break;
+        case "stats":
+            new StatCommand(this.studentList, input, this.ui).run();
+            break;
+        case "viewquota":
+            new ViewQuotaCommand(this.studentList, input, this.ui).run();
             break;
         default:
             new UnknownCommand(this.studentList, this.ui).run();

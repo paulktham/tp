@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Manages a list of students and provides methods for adding, deleting, sorting,
@@ -204,6 +205,56 @@ public class StudentList {
         if (!studentId.matches(ID_REGEX)) {
             errorMessages.add(SEPFormatException.rejectIdFormat().getMessage());
         }
+    }
+
+    /**
+     * Filters students based on their university preferences.
+     *
+     * @param uniIndex The index of the university to filter students by.
+     * @return A list of students who have the specified university index in their preferences.
+     * @throws SEPException if no students have chosen the specified university.
+     */
+    public List<Student> getStudentsByUniversityIndex(int uniIndex) throws SEPException {
+        List<Student> filteredStudents = new ArrayList<>();
+        for (Student student : this.students) {
+            if (student.getUniPreferences().contains(uniIndex)) {
+                filteredStudents.add(student);
+            }
+        }
+        if (filteredStudents.isEmpty()) {
+            throw new SEPException("No students have chosen this university.");
+        }
+        return filteredStudents;
+    }
+
+    /**
+     * Calculates the average GPA of students who chose the specified university.
+     *
+     * @param uniIndex The index of the university.
+     * @return The average GPA as a double.
+     * @throws SEPException if no students have chosen the specified university.
+     */
+    public double calculateAverageGpaForUniversity(int uniIndex) throws SEPException {
+        List<Student> students = getStudentsByUniversityIndex(uniIndex);
+        return students.stream()
+                       .mapToDouble(Student::getGpa)
+                       .average()
+                       .orElse(0.0);
+    }
+
+    /**
+     * Calculates the minimum GPA of students who chose the specified university.
+     *
+     * @param uniIndex The index of the university.
+     * @return The minimum GPA as a double.
+     * @throws SEPException if no students have chosen the specified university.
+     */
+    public double calculateMinGpaForUniversity(int uniIndex) throws SEPException {
+        List<Student> students = getStudentsByUniversityIndex(uniIndex);
+        return students.stream()
+                       .mapToDouble(Student::getGpa)
+                       .min()
+                       .orElse(0.0);
     }
 
     /**

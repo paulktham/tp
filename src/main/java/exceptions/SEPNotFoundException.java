@@ -11,4 +11,8 @@ public class SEPNotFoundException extends SEPException {
     public static SEPNotFoundException rejectStudentNotFound() {
         return new SEPNotFoundException("Student not found.");
     }
+
+    public static SEPNotFoundException rejectUniversityNotFound() {
+        return new SEPNotFoundException("The specified university was not found. Please check the university index.");
+    }
 }
