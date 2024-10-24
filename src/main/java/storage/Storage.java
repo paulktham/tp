@@ -38,12 +38,31 @@ public class Storage {
         this.parser = parser;
     }
 
+    /**
+     * Returns the file extension of the given file, or an empty string
+     * if the file does not have an extension.
+     * 
+     * @param file the file to get the extension of
+     * @return the file extension
+     */
     private String getFileExtension(File file) {
         String name = file.getName();
         int lastDotIndex = name.lastIndexOf('.');
         return (lastDotIndex == -1) ? "" : name.substring(lastDotIndex + 1);
     }
 
+    /**
+     * Processes the file located at the path given during construction of
+     * this object, and returns a boolean indicating whether the file was
+     * processed successfully or not. The file type is determined by its
+     * extension, and the appropriate private method is called to process
+     * the file. If the file is missing or has an unknown extension, an
+     * exception is thrown.
+     * 
+     * @return true if the file was processed successfully, false otherwise
+     * @throws SEPException if there is an issue with the file, such as it
+     *     being missing, or having an unknown extension
+     */
     public boolean processFile() throws SEPException {
         Path path = Paths.get(this.filePath);
         boolean result;
@@ -71,7 +90,21 @@ public class Storage {
     }
 
 
-    // Process CSV file
+    
+    /**
+     * Processes a CSV file containing student data, validates each row,
+     * and adds the student information to the system. The CSV file is
+     * expected to have three columns: ID, GPA, and Preferences. If any
+     * row is not in the correct format or contains invalid data, an
+     * exception is thrown. The output is temporarily suppressed during
+     * processing.
+     *
+     * @param file the CSV file to be processed
+     * @return true if the file was processed successfully, false otherwise
+     * @throws SEPIOException if there is an I/O error or invalid CSV format
+     * @throws CsvValidationException if there is an issue with CSV parsing
+     * @throws SEPException if there is an issue with student data validation
+     */
     private boolean processCsvFile(File file) {
         // Save the current System.out
         PrintStream originalOut = System.out;
@@ -113,6 +146,10 @@ public class Storage {
         return true;
     }
 
+    /**
+     * Prints an example of a correct JSON file containing three students.
+     * The example is formatted with indentation for readability.
+     */
     public void printExampleJson() {
         try {
             // Create ObjectMapper to build the JSON structure
@@ -160,7 +197,14 @@ public class Storage {
         }
     }
 
-    // Process JSON file
+    
+    /**
+     * Processes a JSON file and adds students to the student list if the file is valid.
+     * If the file is invalid, prints an error message and an example of a correct JSON file.
+     * 
+     * @param file The JSON file to be processed.
+     * @return true if the file is valid, false otherwise.
+     */
     private boolean processJsonFile(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         // Save the current System.out
@@ -206,7 +250,14 @@ public class Storage {
         return true;
     }
 
-    // Process Text file
+    
+    /**
+     * Processes a text file and adds students to the student list if the file is valid.
+     * 
+     * @param path The path to the text file.
+     * @return true if the file is processed successfully, false otherwise.
+     * @throws SEPIOException If the file is invalid or any other exception occurs.
+     */
     private boolean processTxtFile(Path path) {
         // Save the current System.out to restore later
         PrintStream originalOut = System.out;

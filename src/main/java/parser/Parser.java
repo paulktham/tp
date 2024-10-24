@@ -76,6 +76,14 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Validates the student data including ID, GPA, and preferences.
+     *
+     * @param id The student ID to validate.
+     * @param gpa The GPA to validate.
+     * @param preferences The preferences to validate.
+     * @return true if all data is valid, false if there are validation errors.
+     */
     public boolean isValidData(String id, String gpa, String preferences) {
 
         Set<String> errorMessages = new HashSet<>();
