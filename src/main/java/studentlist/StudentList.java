@@ -167,7 +167,7 @@ public class StudentList {
      * Note: find keyword input is case-sensitive.
      *
      * @param input The ID or keywords of the student to find.
-     * @throws SEPException If student id format inputted is wrong, or if student id cannot be found.
+     * @throws SEPException If student find format inputted is wrong, or if student id cannot be found.
      */
     public void findStudent(String input) throws SEPException {
         String[] parts = input.split("\\s+", 3);
