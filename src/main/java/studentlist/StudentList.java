@@ -89,10 +89,22 @@ public class StudentList {
     }
 
     /**
-     * Sorts the student list by GPA in descending order.
+     * Sorts the provided student list by GPA in ascending order.
      */
-    public void sortStudentsByGPA() {
-        Collections.sort(students, new Comparator<Student>() {
+    public void sortStudentsByAscendingGPA(List<Student> studentList) {
+        Collections.sort(studentList, new Comparator<Student>() {
+            @Override
+            public int compare(Student s1, Student s2) {
+                return Float.compare(s1.getGpa(), s2.getGpa()); // Ascending order
+            }
+        });
+    }
+
+    /**
+     * Sorts the provided student list by GPA in descending order.
+     */
+    public void sortStudentsByDescendingGPA(List<Student> studentList) {
+        Collections.sort(studentList, new Comparator<Student>() {
             @Override
             public int compare(Student s1, Student s2) {
                 return Float.compare(s2.getGpa(), s1.getGpa());
@@ -101,13 +113,25 @@ public class StudentList {
     }
 
     /**
-     * Sorts the student list by student ID in ascending order.
+     * Sorts the provided student list by student ID in ascending order.
      */
-    public void sortStudentsById() {
-        Collections.sort(students, new Comparator<Student>() {
+    public void sortStudentsByAscendingId(List<Student> studentList) {
+        Collections.sort(studentList, new Comparator<Student>() {
             @Override
             public int compare(Student s1, Student s2) {
                 return s1.getId().compareTo(s2.getId());
+            }
+        });
+    }
+
+    /**
+     * Sorts the provided student list by student ID in descending order.
+     */
+    public void sortStudentsByDescendingId(List<Student> studentList) {
+        Collections.sort(studentList, new Comparator<Student>() {
+            @Override
+            public int compare(Student s1, Student s2) {
+                return s2.getId().compareTo(s1.getId()); // Reverse comparison for descending order
             }
         });
     }
@@ -126,7 +150,7 @@ public class StudentList {
     public Student makeStudent(String input) throws SEPException {
         Set<String> errorMessages = new HashSet<>();
 
-        String[] parts = splitInput(input);
+        String[] parts = splitAddInput(input);
 
         String studentId = organiseId(parts[1]);
         validateStudentId(studentId, errorMessages);
@@ -170,15 +194,11 @@ public class StudentList {
      * @throws SEPException If student find format inputted is wrong, or if student id cannot be found.
      */
     public void findStudent(String input) throws SEPException {
-        String[] parts = input.split("\\s+", 3);
+        String[] parts = validateFindFilterFormat(input, "find");
         ArrayList<Student> foundStudent = new ArrayList<>();
-        if (parts.length != 3) {
-            throw SEPFormatException.rejectFindFormat();
-        }
-        assert parts.length == 3;
 
-        String command = parts[1].trim().toLowerCase();
-        String studentId = parts[2].trim();
+        String command = parts[1];
+        String studentId = parts[2];
         for (Student student : students) {
             if (student.getId().contains(studentId)) {
                 foundStudent.add(student);
@@ -205,6 +225,124 @@ public class StudentList {
         }
     }
 
+    public void filterStudent(String input) throws SEPException {
+        String[] parts = validateFindFilterFormat(input, "filter");
+        String command = parts[1].trim().toLowerCase();
+        String filter = parts[2].trim().toLowerCase();
+
+        switch (command) {
+        case "list":
+            filterStudentList(filter);
+            break;
+        case "report":
+            filterStudentReport(filter);
+            break;
+        default:
+            throw SEPFormatException.rejectFilterFormat();
+        }
+    }
+
+    public void filterStudentList(String filter) throws SEPException {
+        String[] parts = filter.split("\\s+", 2);
+        if (parts.length != 2) {
+            throw SEPFormatException.rejectFilterFormat();
+        }
+        String listCommand = parts[1];
+        String command = parts[2].trim();
+        switch (listCommand) {
+        case "id":
+            filterStudentId(command);
+            break;
+        case "gpa":
+            filterStudentGpa(command);
+            break;
+        default:
+            throw SEPFormatException.rejectFilterFormat();
+        }
+    }
+
+    public void filterStudentReport(String filter) throws SEPException {
+        ArrayList<Student> filteredStudent = new ArrayList<>();
+
+        switch (filter) {
+        case "allocated":
+            for (Student student : students) {
+                if (student.getSuccessfullyAllocated()) {
+                    filteredStudent.add(student);
+                }
+            }
+            if (filteredStudent.isEmpty()) {
+                throw SEPEmptyException.rejectStudentNotFound();
+            }
+            ui.generateReport(filteredStudent);
+            break;
+        case "unallocated":
+            for (Student student : students) {
+                if (!student.getSuccessfullyAllocated()) {
+                    filteredStudent.add(student);
+                }
+            }
+            if (filteredStudent.isEmpty()) {
+                throw SEPEmptyException.rejectStudentNotFound();
+            }
+            ui.generateReport(filteredStudent);
+            break;
+        default:
+            throw SEPFormatException.rejectFilterFormat();
+        }
+    }
+
+    public void filterStudentId (String command) throws SEPException {
+        ArrayList<Student> filteredStudents = new ArrayList<>(students);
+        switch (command) {
+        case "ascending":
+            sortStudentsByAscendingId(filteredStudents);
+            break;
+        case "descending":
+            sortStudentsByDescendingId(filteredStudents);
+            break;
+        default:
+            throw SEPFormatException.rejectFilterFormat();
+        }
+    }
+
+    public void filterStudentGpa (String command) throws SEPException {
+        ArrayList<Student> filteredStudents = new ArrayList<>(students);
+        switch (command) {
+        case "ascending":
+            sortStudentsByAscendingGPA(filteredStudents);
+            break;
+        case "descending":
+            sortStudentsByDescendingGPA(filteredStudents);
+            break;
+        default:
+            throw SEPFormatException.rejectFilterFormat();
+        }
+    }
+
+    /**
+     * Validates the format for both find and filter methods (At least 3 spaced words).
+     *
+     * @param input The raw input string to be validated
+     * @return An organised string array for further processing.
+     * @throws SEPException If format is invalid.
+     */
+    public String[] validateFindFilterFormat (String input, String keyword) throws SEPException {
+        String[] parts = input.split("\\s+", 3);
+
+        if (parts.length != 3) {
+            if (keyword.equals("find")) {
+                throw SEPFormatException.rejectFindFormat();
+            } else {
+                assert keyword.equals("filter");
+                throw SEPFormatException.rejectFilterFormat();
+            }
+        }
+
+        assert parts.length == 3;
+        return parts;
+    }
+
     /**
      * Organizes the student ID by removing all spaces,
      * including any spaces in between the numbers or alphabets,
@@ -227,7 +365,7 @@ public class StudentList {
      * @return A String array containing the parts of the input.
      * @throws SEPFormatException If the input format or order is invalid.
      */
-    private String[] splitInput(String input) throws SEPException {
+    private String[] splitAddInput(String input) throws SEPException {
         if (!input.matches(ADD_STUDENT_REGEX)) {
             throw SEPFormatException.rejectAddStudentFormat();
         }

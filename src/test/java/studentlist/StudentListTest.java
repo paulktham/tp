@@ -51,7 +51,7 @@ public class StudentListTest {
     }
 
     @Test
-    public void testSortStudentsByGPA() {
+    public void testSortStudentsByDescendingGPA() {
         Student student1 = new Student("A1234567B", 3.2f, new ArrayList<>());
         Student student2 = new Student("A2345678C", 4.8f, new ArrayList<>());
         Student student3 = new Student("A3456789D", 3.9f, new ArrayList<>());
@@ -60,14 +60,14 @@ public class StudentListTest {
         assertDoesNotThrow(() -> this.studentList.addStudent(student2));
         assertDoesNotThrow(() -> this.studentList.addStudent(student3));
 
-        studentList.sortStudentsByGPA();
+        studentList.sortStudentsByDescendingGPA(studentList.getList());
 
         assertEquals("A2345678C", studentList.getList().get(0).getId()); // Highest GPA first
         assertEquals("A1234567B", studentList.getList().get(2).getId()); // Lowest GPA last
     }
 
     @Test
-    public void testSortStudentsById() {
+    public void testSortStudentsByAscendingId() {
         Student student1 = new Student("A1234567B", 3.2f, new ArrayList<>());
         Student student2 = new Student("A2345678C", 4.8f, new ArrayList<>());
         Student student3 = new Student("A3456789D", 3.9f, new ArrayList<>());
@@ -76,7 +76,7 @@ public class StudentListTest {
         assertDoesNotThrow(() -> this.studentList.addStudent(student2));
         assertDoesNotThrow(() -> this.studentList.addStudent(student3));
 
-        studentList.sortStudentsById();
+        studentList.sortStudentsByAscendingId(studentList.getList());
 
         assertEquals("A1234567B", studentList.getList().get(0).getId()); // Lexicographical order
         assertEquals("A3456789D", studentList.getList().get(2).getId());

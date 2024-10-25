@@ -46,7 +46,7 @@ public class Allocator {
     }
     
     public StudentList allocate() {
-        studentList.sortStudentsByGPA();
+        studentList.sortStudentsByDescendingGPA(studentList.getList());
         for (Student student : studentList.getList()) {
             for (int uni : student.getUniPreferences()) {
                 University university = UniversityRepository.getUniversityByIndex(uni);
@@ -58,7 +58,7 @@ public class Allocator {
                 }
             }
         }
-        studentList.sortStudentsById();
+        studentList.sortStudentsByAscendingId(studentList.getList());
         return studentList;
     }
 }

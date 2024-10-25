@@ -85,4 +85,12 @@ public class SEPFormatException extends SEPException {
         return new SEPFormatException("Invalid find format. Please enter: " +
                 "'find <report/list> <Keyword>' ");
     }
+
+    public static SEPFormatException rejectFilterFormat() {
+        return new SEPFormatException("Invalid filter format. Please enter: " +
+                "'filter <report> <ascending/descending>'\n" +
+                " or `filter <list> <gpa/id> <ascending/descending>`.");
+    }
+
+
 }
