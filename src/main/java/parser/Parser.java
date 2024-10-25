@@ -2,17 +2,17 @@ package parser;
 
 import command.AddCommand;
 import command.AllocateCommand;
+import command.Commands;
 import command.CriteriaCommand;
 import command.DeleteCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.GenerateCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.StatCommand;
 import command.UnknownCommand;
 import command.ViewQuotaCommand;
-import command.FindCommand;
-
 import studentlist.StudentList;
 import ui.UI;
 
@@ -38,7 +38,7 @@ public class Parser {
      */
     public boolean parseInput(String input) {
         String[] parts = input.split(" ");
-        Commands command = null;
+        Commands command;
         try {
             command = Commands.valueOf(parts[0].toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -51,7 +51,7 @@ public class Parser {
         case DELETE:
             new DeleteCommand(this.studentList, input, this.ui).run();
             break;
-        case "find":
+        case FIND:
             new FindCommand(this.studentList, input, this.ui).run();
             break;
         case LIST:
