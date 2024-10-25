@@ -247,8 +247,8 @@ public class StudentList {
         if (parts.length != 2) {
             throw SEPFormatException.rejectFilterFormat();
         }
-        String listCommand = parts[1];
-        String command = parts[2].trim();
+        String listCommand = parts[0];
+        String command = parts[1].trim();
         switch (listCommand) {
         case "id":
             filterStudentId(command);
