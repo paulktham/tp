@@ -256,36 +256,46 @@ public class StudentList {
         case "gpa":
             filterStudentGpa(command);
             break;
+        case "allocated":
+        case "unallocated":
+            filterStudentAllocation(command);
+            break;
         default:
             throw SEPFormatException.rejectFilterFormat();
         }
     }
 
+    public void filterStudentAllocation(String command) throws SEPException {
+        ArrayList<Student> filteredStudents = new ArrayList<>();
+        if (command.equals("allocated")) {
+            for (Student student : students) {
+                if (student.getSuccessfullyAllocated()) {
+                    filteredStudents.add(student);
+                }
+            }
+            ui.printStudentList(filteredStudents);
+        }
+    }
+
     public void filterStudentReport(String filter) throws SEPException {
-        ArrayList<Student> filteredStudent = new ArrayList<>();
+        ArrayList<Student> filteredStudents = new ArrayList<>();
 
         switch (filter) {
         case "allocated":
             for (Student student : students) {
                 if (student.getSuccessfullyAllocated()) {
-                    filteredStudent.add(student);
+                    filteredStudents.add(student);
                 }
             }
-            if (filteredStudent.isEmpty()) {
-                throw SEPEmptyException.rejectStudentNotFound();
-            }
-            ui.generateReport(filteredStudent);
+            ui.generateReport(filteredStudents);
             break;
         case "unallocated":
             for (Student student : students) {
                 if (!student.getSuccessfullyAllocated()) {
-                    filteredStudent.add(student);
+                    filteredStudents.add(student);
                 }
             }
-            if (filteredStudent.isEmpty()) {
-                throw SEPEmptyException.rejectStudentNotFound();
-            }
-            ui.generateReport(filteredStudent);
+            ui.generateReport(filteredStudents);
             break;
         default:
             throw SEPFormatException.rejectFilterFormat();
@@ -294,12 +304,15 @@ public class StudentList {
 
     public void filterStudentId (String command) throws SEPException {
         ArrayList<Student> filteredStudents = new ArrayList<>(students);
+
         switch (command) {
         case "ascending":
             sortStudentsByAscendingId(filteredStudents);
+            ui.printStudentList(filteredStudents);
             break;
         case "descending":
             sortStudentsByDescendingId(filteredStudents);
+            ui.printStudentList(filteredStudents);
             break;
         default:
             throw SEPFormatException.rejectFilterFormat();
@@ -311,9 +324,11 @@ public class StudentList {
         switch (command) {
         case "ascending":
             sortStudentsByAscendingGPA(filteredStudents);
+            ui.printStudentList(filteredStudents);
             break;
         case "descending":
             sortStudentsByDescendingGPA(filteredStudents);
+            ui.printStudentList(filteredStudents);
             break;
         default:
             throw SEPFormatException.rejectFilterFormat();
