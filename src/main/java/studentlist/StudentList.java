@@ -225,6 +225,14 @@ public class StudentList {
         }
     }
 
+    /**
+     * Filters the student list or generates a report based on the specified command and filter criteria.
+     * The input must follow the format "filter [list/report] [filter criteria]".
+     *
+     * @param input The input command for filtering, which includes the operation ("list" or "report")
+     *              and the filter criteria (e.g., "id ascending", "gpa descending", "allocated", "unallocated").
+     * @throws SEPException If the input format is invalid, or no students are found
+     */
     public void filterStudent(String input) throws SEPException {
         String[] parts = validateFindFilterFormat(input, "filter");
         String command = parts[1].trim().toLowerCase();
@@ -244,62 +252,76 @@ public class StudentList {
 
     public void filterStudentList(String filter) throws SEPException {
         String[] parts = filter.split("\\s+", 2);
-        if (parts.length != 2) {
-            throw SEPFormatException.rejectFilterFormat();
-        }
         String listCommand = parts[0];
-        String command = parts[1].trim();
+        String command;
         switch (listCommand) {
         case "id":
+            if (parts.length != 2) {
+                throw SEPFormatException.rejectFilterFormat();
+            }
+            command = parts[1].trim();
             filterStudentId(command);
             break;
         case "gpa":
+            if (parts.length != 2) {
+                throw SEPFormatException.rejectFilterFormat();
+            }
+            command = parts[1].trim();
             filterStudentGpa(command);
             break;
         case "allocated":
         case "unallocated":
-            filterStudentAllocation(command);
+            if (parts.length == 2) {
+                throw SEPFormatException.rejectFilterFormat();
+            }
+            filterStudentAllocationList(listCommand);
             break;
         default:
             throw SEPFormatException.rejectFilterFormat();
         }
     }
 
-    public void filterStudentAllocation(String command) throws SEPException {
+    /**
+     * Filters students based on their allocation status.
+     * Returns students who are either successfully allocated or unallocated.
+     *
+     * @param filter The allocation status to filter by, either "allocated" or "unallocated".
+     * @return An ArrayList of students who match the specified allocation status.
+     */
+    public ArrayList<Student> filterByAllocationStatus(String filter) {
         ArrayList<Student> filteredStudents = new ArrayList<>();
-        if (command.equals("allocated")) {
-            for (Student student : students) {
-                if (student.getSuccessfullyAllocated()) {
-                    filteredStudents.add(student);
-                }
+        boolean isAllocated = filter.equals("allocated");
+        for (Student student : students) {
+            if (student.getSuccessfullyAllocated() == isAllocated) {
+                filteredStudents.add(student);
             }
-            ui.printStudentList(filteredStudents);
         }
+        return filteredStudents;
     }
 
+    /**
+     * Filters students by allocation status (allocated or unallocated)
+     * and generates a list for the filtered students.
+     *
+     * @param command Either "allocated" or "unallocated" to filter by status.
+     * @throws SEPException If the list is empty.
+     */
+    public void filterStudentAllocationList(String command) throws SEPException {
+        ArrayList<Student> filteredStudents = filterByAllocationStatus(command);
+        ui.printStudentList(filteredStudents);
+    }
+
+
+    /**
+     * Filters students by allocation status (allocated or unallocated)
+     * and generates a report for the filtered students.
+     *
+     * @param filter Either "allocated" or "unallocated" to filter by status.
+     * @throws SEPException If report is empty.
+     */
     public void filterStudentReport(String filter) throws SEPException {
-        ArrayList<Student> filteredStudents = new ArrayList<>();
-
-        switch (filter) {
-        case "allocated":
-            for (Student student : students) {
-                if (student.getSuccessfullyAllocated()) {
-                    filteredStudents.add(student);
-                }
-            }
-            ui.generateReport(filteredStudents);
-            break;
-        case "unallocated":
-            for (Student student : students) {
-                if (!student.getSuccessfullyAllocated()) {
-                    filteredStudents.add(student);
-                }
-            }
-            ui.generateReport(filteredStudents);
-            break;
-        default:
-            throw SEPFormatException.rejectFilterFormat();
-        }
+        ArrayList<Student> filteredStudents = filterByAllocationStatus(filter);
+        ui.generateReport(filteredStudents);
     }
 
     public void filterStudentId (String command) throws SEPException {
