@@ -1,16 +1,6 @@
 package parser;
 
-import command.AddCommand;
-import command.AllocateCommand;
-import command.CriteriaCommand;
-import command.DeleteCommand;
-import command.ExitCommand;
-import command.GenerateCommand;
-import command.HelpCommand;
-import command.ListCommand;
-import command.StatCommand;
-import command.UnknownCommand;
-import command.ViewQuotaCommand;
+import command.*;
 import studentlist.StudentList;
 import ui.UI;
 
@@ -31,44 +21,52 @@ public class Parser {
 
     /**
      * Parses the user's input and execute the corresponding command.
-     * 
+     *
      * @return false if the user wants to exit the application, true otherwise.
      */
     public boolean parseInput(String input) {
         String[] parts = input.split(" ");
-        switch (parts[0].toLowerCase()) {
-        case "add":
+        Commands command = null;
+        try {
+            command = Commands.valueOf(parts[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            command = Commands.VOID;
+        }
+        switch (command) {
+        case ADD:
             new AddCommand(this.studentList, input, this.ui).run();
             break;
-        case "delete":
+        case DELETE:
             new DeleteCommand(this.studentList, input, this.ui).run();
             break;
-        case "list":
+        case LIST:
             new ListCommand(this.studentList, this.ui).run();
             break;
-        case "allocate":
+        case ALLOCATE:
             new AllocateCommand(this.studentList, this.ui).run();
             break;
-        case "exit":
-        case "quit":
-        case "bye":
+        case EXIT:
+        case QUIT:
+        case BYE:
             new ExitCommand(this.studentList, this.ui).run();
             return false;
-        case "help":
+        case HELP:
             new HelpCommand(this.studentList, this.ui).run();
             break;
-        case "generate":
+        case GENERATE:
             new GenerateCommand(this.studentList, this.ui).run();
             break;
-        case "minimum":
+        case MINIMUM:
             new CriteriaCommand(this.studentList, input, this.ui).run();
             break;
-        case "stats":
+        case STATS:
             new StatCommand(this.studentList, input, this.ui).run();
             break;
-        case "viewquota":
+        case VIEWQUOTA:
             new ViewQuotaCommand(this.studentList, input, this.ui).run();
             break;
+        case VOID:
+            // fall through
         default:
             new UnknownCommand(this.studentList, this.ui).run();
             break;
