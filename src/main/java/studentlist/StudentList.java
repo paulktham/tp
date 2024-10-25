@@ -1,7 +1,10 @@
 package studentlist;
 
-import exceptions.*;
-import exceptions.SEPNotFoundException;
+import exceptions.SEPException;
+import exceptions.SEPRangeException;
+import exceptions.SEPEmptyException;
+import exceptions.SEPFormatException;
+import exceptions.SEPDuplicateException;
 
 import student.Student;
 import ui.UI;
