@@ -11,9 +11,9 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 
+import exceptions.SEPEmptyException;
 import exceptions.SEPException;
 import exceptions.SEPIOException;
-import exceptions.SEPNotFoundException;
 import exceptions.SEPUnknownException;
 import parser.Parser;
 
@@ -84,7 +84,7 @@ public class Storage {
                 throw SEPUnknownException.rejectUnknownFileType();
             }
         } else {
-            throw SEPNotFoundException.rejectFileNotFound();
+            throw SEPEmptyException.rejectFileNotFound();
         }
         return result;
     }

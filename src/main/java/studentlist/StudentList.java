@@ -1,10 +1,7 @@
 package studentlist;
 
-import exceptions.SEPException;
-import exceptions.SEPRangeException;
+import exceptions.*;
 import exceptions.SEPNotFoundException;
-import exceptions.SEPFormatException;
-import exceptions.SEPDuplicateException;
 
 import student.Student;
 import ui.UI;
@@ -84,7 +81,7 @@ public class StudentList {
         }
         boolean isRemoved = students.removeIf(student -> student.getId().equals(studentId));
         if (!isRemoved) {
-            throw SEPNotFoundException.rejectStudentNotFound();
+            throw SEPEmptyException.rejectStudentNotFound();
         }
     }
 
@@ -175,8 +172,8 @@ public class StudentList {
         if (parts.length != 3) {
             throw SEPFormatException.rejectFindFormat();
         }
-
         assert parts.length == 3;
+
         String command = parts[1].trim().toLowerCase();
         String studentId = parts[2].trim();
         for (Student student : students) {
@@ -188,14 +185,14 @@ public class StudentList {
         switch (command) {
         case "list":
             if (foundStudent.isEmpty()) {
-                throw SEPNotFoundException.rejectStudentNotFound();
+                throw SEPEmptyException.rejectStudentNotFound();
             }
             ui.printResponse("Finding for students... student(s) found.");
             ui.printStudentList(foundStudent);
             break;
         case "report":
             if (foundStudent.isEmpty()) {
-                throw SEPNotFoundException.rejectStudentNotFound();
+                throw SEPEmptyException.rejectStudentNotFound();
             }
             ui.printResponse("Finding for students... student(s) found.");
             ui.generateReport(foundStudent);
