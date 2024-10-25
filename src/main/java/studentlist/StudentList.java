@@ -250,6 +250,13 @@ public class StudentList {
         }
     }
 
+    /**
+     * Filters the student list based on the specified filter criteria (ID, GPA, or allocation status)
+     * and performs the relevant sorting or filtering operation.
+     *
+     * @param filter The filter criteria, which includes the attribute to filter by
+     * @throws SEPException If the filter format is invalid, or if filtered student list is empty..
+     */
     public void filterStudentList(String filter) throws SEPException {
         String[] parts = filter.split("\\s+", 2);
         String listCommand = parts[0];
@@ -324,6 +331,13 @@ public class StudentList {
         ui.generateReport(filteredStudents);
     }
 
+    /**
+     * Filters the student list by student ID and sorts it in the specified order.
+     * The sorted list is then printed.
+     *
+     * @param command The sorting order for student IDs, either "ascending" or "descending".
+     * @throws SEPException If the command is invalid, or if filtered student list is empty.
+     */
     public void filterStudentId (String command) throws SEPException {
         ArrayList<Student> filteredStudents = new ArrayList<>(students);
 
@@ -341,6 +355,13 @@ public class StudentList {
         }
     }
 
+    /**
+     * Filters the student list by GPA and sorts it in the specified order.
+     * The sorted list is then printed.
+     *
+     * @param command The sorting order for GPA, either "ascending" or "descending".
+     * @throws SEPException If the command is invalid, or if filtered student list is empty.
+     */
     public void filterStudentGpa (String command) throws SEPException {
         ArrayList<Student> filteredStudents = new ArrayList<>(students);
         switch (command) {
