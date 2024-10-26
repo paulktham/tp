@@ -12,6 +12,7 @@ import command.GenerateCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.StatCommand;
+import command.RevertCommand;
 import command.UnknownCommand;
 import command.ViewQuotaCommand;
 
@@ -84,6 +85,9 @@ public class Parser {
             break;
         case VIEWQUOTA:
             new ViewQuotaCommand(this.studentList, input, this.ui).run();
+            break;
+        case REVERT:
+            new RevertCommand(this.studentList, this.ui).run();
             break;
         case VOID:
             // fall through

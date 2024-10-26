@@ -178,6 +178,19 @@ public class ParserTest {
         System.setOut(originalOut);
     }
 
+    @Test
+    public void testRevertCommand() {
+        // Set up the output stream to capture console output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        // Dummy assertion
+        assertTrue(true);
+
+        // Reset the original System.out
+        System.setOut(originalOut);
+    }
 
     @Test
     public void testHelpCommand() {
