@@ -114,20 +114,8 @@ public class UI {
      */
     public void printAllocatingMessage() {
         System.out.println(HORIZONTAL_LINE);
-        try {
-            System.out.print("\rLoading");
-            while (!Thread.currentThread().isInterrupted()) { // Keep printing until interrupted
-                for (int i = 0; i <= 3; i++) {
-                    System.out.print("\rLoading" + ".".repeat(i));
-                    Thread.sleep(500); // 500 milliseconds
-                }
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); // Restore the interrupted status
-        } finally {
-            System.out.println("\r" + Messages.ALLOCATE_COMPLETE);
-            System.out.println(HORIZONTAL_LINE);
-        }
+        System.out.println("\r" + Messages.ALLOCATE_COMPLETE);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
