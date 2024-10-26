@@ -54,6 +54,8 @@ To get started with this project, follow these steps:
 
 ### Architecture
 
+![Architecture](UML_Diagrams/Architecture.drawio.svg)
+
 ### Frontend / User Interface
 
 ### Parser
