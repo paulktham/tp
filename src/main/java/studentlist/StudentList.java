@@ -14,15 +14,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Manages a list of students and provides methods for adding, deleting, sorting,
  * printing and validating student data such as student ID, GPA, and preferences.
  */
 public class StudentList {
-    private static final String ADD_STUDENT_REGEX = "^add\\s+id/[\\S ]+\\s+gpa/[\\S ]+\\s+p/\\{[\\S ]+}$";
-    private static final String ID_REGEX = "^[A-Z]\\d{7}[A-Z]$";
-    private static final String GPA_REGEX = "\\d+(\\.\\d{1,2})?";
+    public static final String ADD_STUDENT_REGEX = "^add\\s+id/[\\S ]+\\s+gpa/[\\S ]+\\s+p/\\{[\\S ]+}$";
+    public static final String ID_REGEX = "^[A-Z]\\d{7}[A-Z]$";
+    public static final String GPA_REGEX = "\\d+(\\.\\d{1,2})?";
 
     private ArrayList<Student> students;
     private UI ui;
@@ -160,6 +161,51 @@ public class StudentList {
     }
 
     /**
+     * Finds a student in the student list or report by their student ID.
+     * Keywords inputted need not be a valid student ID,
+     * but rather keywords that the student ID contains.
+     * Note: find keyword input is case-sensitive.
+     *
+     * @param input The ID or keywords of the student to find.
+     * @throws SEPException If student find format inputted is wrong, or if student id cannot be found.
+     */
+    public void findStudent(String input) throws SEPException {
+        String[] parts = input.split("\\s+", 3);
+        ArrayList<Student> foundStudent = new ArrayList<>();
+        if (parts.length != 3) {
+            throw SEPFormatException.rejectFindFormat();
+        }
+
+        assert parts.length == 3;
+        String command = parts[1].trim().toLowerCase();
+        String studentId = parts[2].trim();
+        for (Student student : students) {
+            if (student.getId().contains(studentId)) {
+                foundStudent.add(student);
+            }
+        }
+
+        switch (command) {
+        case "list":
+            if (foundStudent.isEmpty()) {
+                throw SEPNotFoundException.rejectStudentNotFound();
+            }
+            ui.printResponse("Finding for students... student(s) found.");
+            ui.printStudentList(foundStudent);
+            break;
+        case "report":
+            if (foundStudent.isEmpty()) {
+                throw SEPNotFoundException.rejectStudentNotFound();
+            }
+            ui.printResponse("Finding for students... student(s) found.");
+            ui.generateReport(foundStudent);
+            break;
+        default:
+            throw SEPFormatException.rejectFindFormat();
+        }
+    }
+
+    /**
      * Organizes the student ID by removing all spaces,
      * including any spaces in between the numbers or alphabets,
      * before validating the student ID.
@@ -200,10 +246,60 @@ public class StudentList {
      * @param studentId The student ID to validate.
      * @param errorMessages A set to collect error messages.
      */
-    private void validateStudentId(String studentId, Set<String> errorMessages) {
+    public void validateStudentId(String studentId, Set<String> errorMessages) {
         if (!studentId.matches(ID_REGEX)) {
             errorMessages.add(SEPFormatException.rejectIdFormat().getMessage());
         }
+    }
+
+    /**
+     * Filters students based on their university preferences.
+     *
+     * @param uniIndex The index of the university to filter students by.
+     * @return A list of students who have the specified university index in their preferences.
+     * @throws SEPException if no students have chosen the specified university.
+     */
+    public List<Student> getStudentsByUniversityIndex(int uniIndex) throws SEPException {
+        List<Student> filteredStudents = new ArrayList<>();
+        for (Student student : this.students) {
+            if (student.getUniPreferences().contains(uniIndex)) {
+                filteredStudents.add(student);
+            }
+        }
+        if (filteredStudents.isEmpty()) {
+            throw new SEPException("No students have chosen this university.");
+        }
+        return filteredStudents;
+    }
+
+    /**
+     * Calculates the average GPA of students who chose the specified university.
+     *
+     * @param uniIndex The index of the university.
+     * @return The average GPA as a double.
+     * @throws SEPException if no students have chosen the specified university.
+     */
+    public double calculateAverageGpaForUniversity(int uniIndex) throws SEPException {
+        List<Student> students = getStudentsByUniversityIndex(uniIndex);
+        return students.stream()
+                       .mapToDouble(Student::getGpa)
+                       .average()
+                       .orElse(0.0);
+    }
+
+    /**
+     * Calculates the minimum GPA of students who chose the specified university.
+     *
+     * @param uniIndex The index of the university.
+     * @return The minimum GPA as a double.
+     * @throws SEPException if no students have chosen the specified university.
+     */
+    public double calculateMinGpaForUniversity(int uniIndex) throws SEPException {
+        List<Student> students = getStudentsByUniversityIndex(uniIndex);
+        return students.stream()
+                       .mapToDouble(Student::getGpa)
+                       .min()
+                       .orElse(0.0);
     }
 
     /**
@@ -238,7 +334,7 @@ public class StudentList {
      * @param errorMessages A set to collect error messages.
      * @return A list of valid preferences.
      */
-    private ArrayList<Integer> validatePreferences(String preferencesData, Set<String> errorMessages) {
+    public ArrayList<Integer> validatePreferences(String preferencesData, Set<String> errorMessages) {
         ArrayList<Integer> preferences = new ArrayList<>();
         String[] numberStrings = preferencesData.replaceAll("[{}]", "").split(",");
 

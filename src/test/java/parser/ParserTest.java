@@ -84,6 +84,100 @@ public class ParserTest {
         System.setOut(originalOut);
     }
 
+    @Test
+    public void testStatAvgCommand() {
+        // Simulate user input for 'stats -avggpa' command
+        parser.parseInput("add id/A1234567I gpa/5.0 p/{36,61,43}");
+        parser.parseInput("add id/A1234567J gpa/3.0 p/{36,61,43}");
+        parser.parseInput("add id/A1234567K gpa/1.0 p/{36,61,43}");
+        String input = "stats -avggpa 36";
+
+        // Set up the output stream to capture console output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        // Run the parser
+        boolean result = parser.parseInput(input);
+
+        // Assert that the parser continues execution
+        assertTrue(result);
+
+        // Verify the expected output
+        String expectedOutput = HORIZONTAL_LINE 
+                            + "\n" 
+                            + "The average GPA for university index 36 (The University of Hong Kong) is: 3.00" 
+                            + "\n" 
+                            + HORIZONTAL_LINE;
+        assertEquals(expectedOutput,outContent.toString().trim());
+
+        // Reset the original System.out
+        System.setOut(originalOut);
+    }
+
+    @Test
+    public void testStatMinCommand() {
+        // Simulate user input for 'stats -avggpa' command
+        parser.parseInput("add id/A1234567I gpa/5.0 p/{36,61,43}");
+        parser.parseInput("add id/A1234567J gpa/3.0 p/{36,61,43}");
+        parser.parseInput("add id/A1234567K gpa/1.0 p/{36,61,43}");
+        String input = "stats -mingpa 36";
+
+        // Set up the output stream to capture console output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        // Run the parser
+        boolean result = parser.parseInput(input);
+
+        // Assert that the parser continues execution
+        assertTrue(result);
+
+        // Verify the expected output
+        String expectedOutput = HORIZONTAL_LINE 
+                            + "\n" 
+                            + "The minimum GPA for university index 36 (The University of Hong Kong) is: 1.00" 
+                            + "\n" 
+                            + HORIZONTAL_LINE;
+        assertEquals(expectedOutput,outContent.toString().trim());
+
+        // Reset the original System.out
+        System.setOut(originalOut);
+    }
+
+    @Test
+    public void testViewQuotaCommand() {
+        // Simulate user input for 'viewQuota' command
+        String input = "viewQuota 36";
+
+        // Set up the output stream to capture console output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        // Run the parser
+        boolean result = parser.parseInput(input);
+
+        // Assert that the parser continues execution
+        assertTrue(result);
+
+        // Verify the expected output
+        String expectedOutput = HORIZONTAL_LINE 
+                            + "\n" 
+                            + " Index: 36" 
+                            + "\n" 
+                            + " Name:  The University of Hong Kong"
+                            + "\n"
+                            + " Quota: 2"
+                            + "\n"
+                            + HORIZONTAL_LINE;
+        assertEquals(expectedOutput,outContent.toString().trim());
+
+        // Reset the original System.out
+        System.setOut(originalOut);
+    }
+
 
     @Test
     public void testHelpCommand() {

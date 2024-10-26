@@ -161,4 +161,26 @@ public class UI {
 
         printResponse("Here is the allocation report:\n" + at.render());
     }
+
+    public void printConfigMessage() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println(Messages.WELCOME);
+        System.out.println("Would you like to:");
+        System.out.println("1. Manually input students data");
+        System.out.println("2. Upload a file (.csv, .txt, .json)");
+        System.out.println("Please choose 1 or 2 :)");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public void promptFilePath() {
+        System.out.println("Please enter the ABSOLUTE path to the file: ");
+    }
+
+    public void printProcessError() {
+        printResponse("Process error! Please ensure file is formatted correctly before retrying. Good day!");
+    }
+
+    public void printFileLoadSuccessMessage() {
+        printResponse("File loaded successfully! Let's begin!");
+    }
 }
