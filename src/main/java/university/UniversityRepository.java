@@ -2,8 +2,17 @@ package university;
 
 import java.util.HashMap;
 
+/**
+ * The UniversityRepository class acts as a central repository for all universities,
+ * storing information such as each university's name, acronym, and available spots.
+ * It provides a static method to retrieve a university by its index.
+ */
 public class UniversityRepository {
+
+    // HashMap storing universities with an Integer index as the key and University as the value
     private static final HashMap<Integer, University> universityMap = new HashMap<>();
+
+    // Static block to initialize the repository with predefined universities
 
     static {
         universityMap.put(1, new University("The Uni of Western Australia", "UWA",1 ));
@@ -100,6 +109,13 @@ public class UniversityRepository {
         universityMap.put(92, new University("University of Georgia", "UG",1));
     }
 
+    /**
+     * Retrieves a university from the repository based on the provided index.
+     * 
+     * @param index The index of the university to retrieve.
+     * @return The University object corresponding to the given index, or null if no such university exists.
+     */
+    
     public static University getUniversityByIndex(int index) {
         return universityMap.get(index);
     }
