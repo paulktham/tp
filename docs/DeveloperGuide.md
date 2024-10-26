@@ -9,6 +9,7 @@
   - [Parser](#parser)
   - [Commands](#commands)
     - [Add Command](#add-command)
+  - [Allocator](#allocator)
 
 
 ## Acknowledgements
@@ -50,7 +51,7 @@ To get started with this project, follow these steps:
 
 🎉 Congratulations! You’re all set to dive into the wonders of this project. Enjoy the ride!
 
-## Design
+## Design & Implementation
 
 ### Architecture
 
@@ -98,9 +99,32 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 #### Unknown Command
 
-### Implementation
+### Allocator
+
+The `Allocator` class is responsible for allocating students to universities based on their preferences and GPA. It interacts with the `StudentList`, `UniversityRepository`, and `Student` classes to perform the allocation.
+
+In ``V1.0`` version, the allocation logic is designed as follows:
+
+* **Sorting by GPA**: The list of students is sorted in descending order of GPA, so higher-GPA students are prioritized.
+* **Preference-Based Allocation**: For each student:
+  * Iterates through the student’s university preferences.
+  * Checks if the university has open spots and if the student’s GPA meets the `minimumGPA` requirement.
+  * If both conditions are met, the student is allocated to that university, and the university’s spot count is reduced.
+  * The allocation stops once a student is assigned to a university.
+* **Sorting by ID**: After allocation, the list is re-sorted by student ID.
+
+Note that ``Allocator`` will copy the passed student list, therefore any modifications to the student list inside ``Allocator`` will not reflect in the original one.
+
+Here is a class diagram highlighting the fundamental structure of the `Allocator` class.
+
+![AllocatorClass](UML_Diagrams/AllocatorClass.drawio.svg)
+
+``Allocator`` mainly participates in the execution of ``allocate`` command. The sequence diagram below showcases the program workflow when a user inputs the command ``allocate`` (assume before that several students have been added into the student list).
+
+![AllocatorSequence](UML_Diagrams/AllocatorSequence.drawio.svg)
 
 ## Product scope
+
 ### Target user profile
 
 {Describe the target user profile}
