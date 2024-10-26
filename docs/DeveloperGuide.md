@@ -100,14 +100,30 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 ### Implementation
 
+#### Student
+
+The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status.
+
+#### StudentList
+
+The ```StudentList``` is a fundamental component which is initiated as soon as FindOurSEP is initialised. Its purpose is to hold the necessary information of the different students that are applying for SEP. By having the list of students we are able to fairly allocate universities to the different students by comparing them to their cohort.
+
+The sequence below illustrates the interactions between ```StudentList``` and ```Student``` when and addCommand is called with the appropriate inputs.
+
+![StudentListSequence](UML_Diagrams/StudentList.drawio.svg)
+
+#### University and UniversityRepository
+
+These two classes have a composition relationship, where ```UniversityRepository``` is composed of ```University``` objects. The ```University``` object holds the various crucial information of any single university that is provided in the list of available universities. The ```UniversityRepository``` class then creates a static HashMap and statically inputs the list of universities into this HashMap. This HashMap is then easily accessible by other classes to get any information which may be necessary from the universities. 
+
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+This was designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making. Giving the administrators greater convenience when allocating students for their SEP.
 
 ## User Stories
 
