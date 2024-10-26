@@ -553,4 +553,13 @@ public class StudentList {
 
         return preferences;
     }
+
+    /**
+     * Reverts the allocation status of all elements in StudentList.
+     */
+    public void revertAllocation() {
+        for (Student student : students) {
+            student.resetAllocationStatus();
+        }
+    }
 }
