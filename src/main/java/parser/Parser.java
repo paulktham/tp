@@ -7,12 +7,14 @@ import command.CriteriaCommand;
 import command.DeleteCommand;
 import command.ExitCommand;
 import command.FindCommand;
+import command.FilterCommand;
 import command.GenerateCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.StatCommand;
 import command.UnknownCommand;
 import command.ViewQuotaCommand;
+
 import studentlist.StudentList;
 import ui.UI;
 
@@ -33,7 +35,7 @@ public class Parser {
 
     /**
      * Parses the user's input and execute the corresponding command.
-     *
+     * 
      * @return false if the user wants to exit the application, true otherwise.
      */
     public boolean parseInput(String input) {
@@ -53,6 +55,9 @@ public class Parser {
             break;
         case FIND:
             new FindCommand(this.studentList, input, this.ui).run();
+            break;
+        case FILTER:
+            new FilterCommand(this.studentList, input, this.ui).run();
             break;
         case LIST:
             new ListCommand(this.studentList, this.ui).run();

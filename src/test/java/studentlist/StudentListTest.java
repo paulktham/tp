@@ -20,6 +20,9 @@ public class StudentListTest {
     private StudentList studentList;
     private ArrayList<Integer> uniPreferences = new ArrayList<>(Arrays.asList(1,2,3));
     private Student bob = new Student("A1234567K", (float)4.6, uniPreferences);
+    private Student student1 = new Student("A1234567B", 3.2f, new ArrayList<>());
+    private Student student2 = new Student("A2345678C", 4.8f, new ArrayList<>());
+    private Student student3 = new Student("A3456789D", 3.9f, new ArrayList<>());
 
     @BeforeEach
     public void setUp() {
@@ -51,35 +54,51 @@ public class StudentListTest {
     }
 
     @Test
-    public void testSortStudentsByGPA() {
-        Student student1 = new Student("A1234567B", 3.2f, new ArrayList<>());
-        Student student2 = new Student("A2345678C", 4.8f, new ArrayList<>());
-        Student student3 = new Student("A3456789D", 3.9f, new ArrayList<>());
-
+    public void testSortStudentsByAscendingGPA() {
         assertDoesNotThrow(() -> this.studentList.addStudent(student1));
         assertDoesNotThrow(() -> this.studentList.addStudent(student2));
         assertDoesNotThrow(() -> this.studentList.addStudent(student3));
 
-        studentList.sortStudentsByGPA();
+        studentList.sortStudentsByAscendingGPA(studentList.getList());
+
+        assertEquals("A2345678C", studentList.getList().get(2).getId()); // Highest GPA first
+        assertEquals("A1234567B", studentList.getList().get(0).getId()); // Lowest GPA last
+    }
+
+    @Test
+    public void testSortStudentsByDescendingGPA() {
+        assertDoesNotThrow(() -> this.studentList.addStudent(student1));
+        assertDoesNotThrow(() -> this.studentList.addStudent(student2));
+        assertDoesNotThrow(() -> this.studentList.addStudent(student3));
+
+        studentList.sortStudentsByDescendingGPA(studentList.getList());
 
         assertEquals("A2345678C", studentList.getList().get(0).getId()); // Highest GPA first
         assertEquals("A1234567B", studentList.getList().get(2).getId()); // Lowest GPA last
     }
 
     @Test
-    public void testSortStudentsById() {
-        Student student1 = new Student("A1234567B", 3.2f, new ArrayList<>());
-        Student student2 = new Student("A2345678C", 4.8f, new ArrayList<>());
-        Student student3 = new Student("A3456789D", 3.9f, new ArrayList<>());
-
+    public void testSortStudentsByAscendingId() {
         assertDoesNotThrow(() -> this.studentList.addStudent(student1));
         assertDoesNotThrow(() -> this.studentList.addStudent(student2));
         assertDoesNotThrow(() -> this.studentList.addStudent(student3));
 
-        studentList.sortStudentsById();
+        studentList.sortStudentsByAscendingId(studentList.getList());
 
         assertEquals("A1234567B", studentList.getList().get(0).getId()); // Lexicographical order
         assertEquals("A3456789D", studentList.getList().get(2).getId());
+    }
+
+    @Test
+    public void testSortStudentsByDescendingId() {
+        assertDoesNotThrow(() -> this.studentList.addStudent(student1));
+        assertDoesNotThrow(() -> this.studentList.addStudent(student2));
+        assertDoesNotThrow(() -> this.studentList.addStudent(student3));
+
+        studentList.sortStudentsByDescendingId(studentList.getList());
+
+        assertEquals("A1234567B", studentList.getList().get(2).getId()); // Lexicographical order
+        assertEquals("A3456789D", studentList.getList().get(0).getId());
     }
 
     @Test
@@ -182,6 +201,18 @@ public class StudentListTest {
     public void findStudent_invalidFindFormat_exceptionThrown() {
         String input = "find A1234567I";  // Invalid Find format (Missing 'list' or 'report')
 
+        assertThrows(SEPException.class, () -> this.studentList.findStudent(input));
+    }
+
+    @Test
+    public void filterStudent_nonExistentStudent_exceptionThrown() {
+        // Test filtering an empty student list
+        assertThrows(SEPException.class, () -> this.studentList.findStudent("filter list allocated"));
+    }
+
+    @Test
+    public void filterStudent_invalidFindFormat_exceptionThrown() {
+        String input = "filter list allocate";  // Invalid Filter format ('allocated not allocate')
         assertThrows(SEPException.class, () -> this.studentList.findStudent(input));
     }
 }

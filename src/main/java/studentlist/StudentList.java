@@ -2,7 +2,7 @@ package studentlist;
 
 import exceptions.SEPException;
 import exceptions.SEPRangeException;
-import exceptions.SEPNotFoundException;
+import exceptions.SEPEmptyException;
 import exceptions.SEPFormatException;
 import exceptions.SEPDuplicateException;
 
@@ -84,15 +84,27 @@ public class StudentList {
         }
         boolean isRemoved = students.removeIf(student -> student.getId().equals(studentId));
         if (!isRemoved) {
-            throw SEPNotFoundException.rejectStudentNotFound();
+            throw SEPEmptyException.rejectStudentNotFound();
         }
     }
 
     /**
-     * Sorts the student list by GPA in descending order.
+     * Sorts the provided student list by GPA in ascending order.
      */
-    public void sortStudentsByGPA() {
-        Collections.sort(students, new Comparator<Student>() {
+    public void sortStudentsByAscendingGPA(List<Student> studentList) {
+        Collections.sort(studentList, new Comparator<Student>() {
+            @Override
+            public int compare(Student s1, Student s2) {
+                return Float.compare(s1.getGpa(), s2.getGpa()); // Ascending order
+            }
+        });
+    }
+
+    /**
+     * Sorts the provided student list by GPA in descending order.
+     */
+    public void sortStudentsByDescendingGPA(List<Student> studentList) {
+        Collections.sort(studentList, new Comparator<Student>() {
             @Override
             public int compare(Student s1, Student s2) {
                 return Float.compare(s2.getGpa(), s1.getGpa());
@@ -101,13 +113,25 @@ public class StudentList {
     }
 
     /**
-     * Sorts the student list by student ID in ascending order.
+     * Sorts the provided student list by student ID in ascending order.
      */
-    public void sortStudentsById() {
-        Collections.sort(students, new Comparator<Student>() {
+    public void sortStudentsByAscendingId(List<Student> studentList) {
+        Collections.sort(studentList, new Comparator<Student>() {
             @Override
             public int compare(Student s1, Student s2) {
                 return s1.getId().compareTo(s2.getId());
+            }
+        });
+    }
+
+    /**
+     * Sorts the provided student list by student ID in descending order.
+     */
+    public void sortStudentsByDescendingId(List<Student> studentList) {
+        Collections.sort(studentList, new Comparator<Student>() {
+            @Override
+            public int compare(Student s1, Student s2) {
+                return s2.getId().compareTo(s1.getId()); // Reverse comparison for descending order
             }
         });
     }
@@ -126,7 +150,7 @@ public class StudentList {
     public Student makeStudent(String input) throws SEPException {
         Set<String> errorMessages = new HashSet<>();
 
-        String[] parts = splitInput(input);
+        String[] parts = splitAddInput(input);
 
         String studentId = organiseId(parts[1]);
         validateStudentId(studentId, errorMessages);
@@ -170,15 +194,11 @@ public class StudentList {
      * @throws SEPException If student find format inputted is wrong, or if student id cannot be found.
      */
     public void findStudent(String input) throws SEPException {
-        String[] parts = input.split("\\s+", 3);
+        String[] parts = validateFindFilterFormat(input, "find");
         ArrayList<Student> foundStudent = new ArrayList<>();
-        if (parts.length != 3) {
-            throw SEPFormatException.rejectFindFormat();
-        }
 
-        assert parts.length == 3;
-        String command = parts[1].trim().toLowerCase();
-        String studentId = parts[2].trim();
+        String command = parts[1];
+        String studentId = parts[2];
         for (Student student : students) {
             if (student.getId().contains(studentId)) {
                 foundStudent.add(student);
@@ -188,14 +208,14 @@ public class StudentList {
         switch (command) {
         case "list":
             if (foundStudent.isEmpty()) {
-                throw SEPNotFoundException.rejectStudentNotFound();
+                throw SEPEmptyException.rejectStudentNotFound();
             }
             ui.printResponse("Finding for students... student(s) found.");
             ui.printStudentList(foundStudent);
             break;
         case "report":
             if (foundStudent.isEmpty()) {
-                throw SEPNotFoundException.rejectStudentNotFound();
+                throw SEPEmptyException.rejectStudentNotFound();
             }
             ui.printResponse("Finding for students... student(s) found.");
             ui.generateReport(foundStudent);
@@ -203,6 +223,182 @@ public class StudentList {
         default:
             throw SEPFormatException.rejectFindFormat();
         }
+    }
+
+    /**
+     * Filters the student list or generates a report based on the specified command and filter criteria.
+     * The input must follow the format "filter [list/report] [filter criteria]".
+     *
+     * @param input The input command for filtering, which includes the operation ("list" or "report")
+     *              and the filter criteria (e.g., "id ascending", "gpa descending", "allocated", "unallocated").
+     * @throws SEPException If the input format is invalid, or no students are found
+     */
+    public void filterStudent(String input) throws SEPException {
+        String[] parts = validateFindFilterFormat(input, "filter");
+        String command = parts[1].trim().toLowerCase();
+        String filter = parts[2].trim().toLowerCase();
+
+        switch (command) {
+        case "list":
+            filterStudentList(filter);
+            break;
+        case "report":
+            filterStudentReport(filter);
+            break;
+        default:
+            throw SEPFormatException.rejectFilterFormat();
+        }
+    }
+
+    /**
+     * Filters the student list based on the specified filter criteria (ID, GPA, or allocation status)
+     * and performs the relevant sorting or filtering operation.
+     *
+     * @param filter The filter criteria, which includes the attribute to filter by
+     * @throws SEPException If the filter format is invalid, or if filtered student list is empty..
+     */
+    public void filterStudentList(String filter) throws SEPException {
+        String[] parts = filter.split("\\s+", 2);
+        String listCommand = parts[0];
+        String command;
+        switch (listCommand) {
+        case "id":
+            if (parts.length != 2) {
+                throw SEPFormatException.rejectFilterFormat();
+            }
+            command = parts[1].trim();
+            filterStudentId(command);
+            break;
+        case "gpa":
+            if (parts.length != 2) {
+                throw SEPFormatException.rejectFilterFormat();
+            }
+            command = parts[1].trim();
+            filterStudentGpa(command);
+            break;
+        case "allocated":
+        case "unallocated":
+            if (parts.length == 2) {
+                throw SEPFormatException.rejectFilterFormat();
+            }
+            filterStudentAllocationList(listCommand);
+            break;
+        default:
+            throw SEPFormatException.rejectFilterFormat();
+        }
+    }
+
+    /**
+     * Filters students based on their allocation status.
+     * Returns students who are either successfully allocated or unallocated.
+     *
+     * @param filter The allocation status to filter by, either "allocated" or "unallocated".
+     * @return An ArrayList of students who match the specified allocation status.
+     */
+    public ArrayList<Student> filterByAllocationStatus(String filter) {
+        ArrayList<Student> filteredStudents = new ArrayList<>();
+        boolean isAllocated = filter.equals("allocated");
+        for (Student student : students) {
+            if (student.getSuccessfullyAllocated() == isAllocated) {
+                filteredStudents.add(student);
+            }
+        }
+        return filteredStudents;
+    }
+
+    /**
+     * Filters students by allocation status (allocated or unallocated)
+     * and generates a list for the filtered students.
+     *
+     * @param command Either "allocated" or "unallocated" to filter by status.
+     * @throws SEPException If the list is empty.
+     */
+    public void filterStudentAllocationList(String command) throws SEPException {
+        ArrayList<Student> filteredStudents = filterByAllocationStatus(command);
+        ui.printStudentList(filteredStudents);
+    }
+
+
+    /**
+     * Filters students by allocation status (allocated or unallocated)
+     * and generates a report for the filtered students.
+     *
+     * @param filter Either "allocated" or "unallocated" to filter by status.
+     * @throws SEPException If report is empty.
+     */
+    public void filterStudentReport(String filter) throws SEPException {
+        ArrayList<Student> filteredStudents = filterByAllocationStatus(filter);
+        ui.generateReport(filteredStudents);
+    }
+
+    /**
+     * Filters the student list by student ID and sorts it in the specified order.
+     * The sorted list is then printed.
+     *
+     * @param command The sorting order for student IDs, either "ascending" or "descending".
+     * @throws SEPException If the command is invalid, or if filtered student list is empty.
+     */
+    public void filterStudentId (String command) throws SEPException {
+        ArrayList<Student> filteredStudents = new ArrayList<>(students);
+
+        switch (command) {
+        case "ascending":
+            sortStudentsByAscendingId(filteredStudents);
+            ui.printStudentList(filteredStudents);
+            break;
+        case "descending":
+            sortStudentsByDescendingId(filteredStudents);
+            ui.printStudentList(filteredStudents);
+            break;
+        default:
+            throw SEPFormatException.rejectFilterFormat();
+        }
+    }
+
+    /**
+     * Filters the student list by GPA and sorts it in the specified order.
+     * The sorted list is then printed.
+     *
+     * @param command The sorting order for GPA, either "ascending" or "descending".
+     * @throws SEPException If the command is invalid, or if filtered student list is empty.
+     */
+    public void filterStudentGpa (String command) throws SEPException {
+        ArrayList<Student> filteredStudents = new ArrayList<>(students);
+        switch (command) {
+        case "ascending":
+            sortStudentsByAscendingGPA(filteredStudents);
+            ui.printStudentList(filteredStudents);
+            break;
+        case "descending":
+            sortStudentsByDescendingGPA(filteredStudents);
+            ui.printStudentList(filteredStudents);
+            break;
+        default:
+            throw SEPFormatException.rejectFilterFormat();
+        }
+    }
+
+    /**
+     * Validates the format for both find and filter methods (At least 3 spaced words).
+     *
+     * @param input The raw input string to be validated
+     * @return An organised string array for further processing.
+     * @throws SEPException If format is invalid.
+     */
+    public String[] validateFindFilterFormat (String input, String keyword) throws SEPException {
+        String[] parts = input.split("\\s+", 3);
+
+        if (parts.length != 3) {
+            if (keyword.equals("find")) {
+                throw SEPFormatException.rejectFindFormat();
+            } else {
+                assert keyword.equals("filter");
+                throw SEPFormatException.rejectFilterFormat();
+            }
+        }
+
+        assert parts.length == 3;
+        return parts;
     }
 
     /**
@@ -227,7 +423,7 @@ public class StudentList {
      * @return A String array containing the parts of the input.
      * @throws SEPFormatException If the input format or order is invalid.
      */
-    private String[] splitInput(String input) throws SEPException {
+    private String[] splitAddInput(String input) throws SEPException {
         if (!input.matches(ADD_STUDENT_REGEX)) {
             throw SEPFormatException.rejectAddStudentFormat();
         }
