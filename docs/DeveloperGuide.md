@@ -86,6 +86,8 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 #### Delete Command
 
+#### Find Command
+
 #### List Command
 
 #### Allocate Command
