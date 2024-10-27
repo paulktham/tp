@@ -4,6 +4,7 @@ public enum Messages {
     WELCOME("Hi! Welcome to FindOurSEP!"),
     EXIT("Goodbye! Have a great day!"),
     ALLOCATE_COMPLETE("Allocation algorithm complete! Run generate command to view."),
+    REVERT_COMPLETE("Revert complete! Run the allocate command whenever you are ready."),
     HELP("""
         Here is the list of possible commands:
             add         Adds a student with the specified ID, GPA, and preference rankings.
@@ -27,6 +28,8 @@ public enum Messages {
                         Usage: viewQuota <UNI_INDEX>
 
             allocate    Allocates students to available slots based on their preferences.
+        
+            revert      Reverts the student list to original, pre-allocation state.
 
             generate    Generates a report of allocations and student data.
 
