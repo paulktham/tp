@@ -1,5 +1,8 @@
 package command;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import studentlist.StudentList;
 import ui.Messages;
 import ui.UI;
@@ -14,6 +17,7 @@ public class RevertCommand extends Command {
      * Reference to the UI object used for displaying messages to the user.
      */
     private UI ui;
+    private static final Logger logger = Logger.getLogger(RevertCommand.class.getName());
 
     /**
      * Constructs a RevertCommand with the specified student list and user interface.
@@ -23,17 +27,27 @@ public class RevertCommand extends Command {
      */
     public RevertCommand(StudentList studentList, UI ui) {
         super(studentList);
+        assert studentList != null : "StudentList cannot be null";
         this.ui = ui;
     }
 
     /**
      * Executes the revert command, resetting the allocation status of all students
      * in the list to their unallocated state. Upon completion, a confirmation message
-     * is displayed to the user.
+     * is displayed to the user. Also logs the start and completion of the revert operation.
      */
     @Override
     public void run() {
+        logger.log(Level.INFO, "Starting revert operation.");
+
+        // Ensure studentList is initialized
+        assert studentList != null : "StudentList cannot be null during revert operation";
+
+        // Perform the revert action
         studentList.revertAllocation();
+
+        // Log completion and notify the user
+        logger.log(Level.INFO, "Revert operation completed.");
         ui.printResponse(Messages.REVERT_COMPLETE);
     }
 }
