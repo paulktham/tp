@@ -19,7 +19,7 @@ public class SEPIOException extends SEPException {
     // Exception for invalid data format after checking the values
     public static SEPIOException invalidDataJSONFormat() {
         return new SEPIOException("Invalid data! One or more fields contain invalid data. Please check ID, GPA, " +
-                "and PREFERENCES.");
+                "and PREFERENCES. \nPreferences goes only from 1-92, GPA from 0 to 5.");
     }
 
     

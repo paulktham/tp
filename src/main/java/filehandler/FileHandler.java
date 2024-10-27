@@ -85,7 +85,6 @@ public class FileHandler {
         } else {
             throw SEPEmptyException.rejectFileNotFound();
         }
-        System.out.println(result);
         return result;
     }
 
