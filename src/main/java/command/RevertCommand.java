@@ -13,11 +13,12 @@ import ui.UI;
  * to indicate no allocation, allowing for a fresh allocation process.
  */
 public class RevertCommand extends Command {
+    private static final Logger logger = Logger.getLogger(RevertCommand.class.getName());
     /**
      * Reference to the UI object used for displaying messages to the user.
      */
     private UI ui;
-    private static final Logger logger = Logger.getLogger(RevertCommand.class.getName());
+
 
     /**
      * Constructs a RevertCommand with the specified student list and user interface.
