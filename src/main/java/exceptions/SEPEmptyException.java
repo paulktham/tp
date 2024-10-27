@@ -26,7 +26,11 @@ public class SEPEmptyException extends SEPException {
      * @return A SEPEmptyException with the appropriate message.
      */
     public static SEPEmptyException rejectFileNotFound() {
-        return new SEPEmptyException("You sure this file exist anot...Don't make me go " +
+        return new SEPEmptyException("This file don't exist...Don't make me go " +
                 "through your folder for nothing leh :(.\nDon't want talk to you already la BYE");
+    }
+
+    public static SEPEmptyException rejectEmptyFile() {
+        return new SEPEmptyException("Nothing to read from the file. Please ensure there is content next time.");
     }
 }

@@ -6,6 +6,8 @@ import studentlist.StudentList;
 import ui.UI;
 import parser.Parser;
 
+import java.io.IOException;
+
 public class FindOurSEP {
     private UI ui;
     private Parser parser;
@@ -36,7 +38,7 @@ public class FindOurSEP {
                 System.exit(0);
             }
             this.ui.printFileLoadSuccessMessage();
-        } catch (SEPException e) {
+        } catch (SEPException | IOException e) {
             this.ui.printResponse(e.getMessage());
             System.exit(0);
         }

@@ -55,8 +55,8 @@ public class SEPIOException extends SEPException {
      * @return A SEPIOException with a message indicating the missing required fields.
      */
     public static SEPIOException missingTXTRequiredFields() {
-        return new SEPIOException("Invalid TXT format! Each line must contain 'id/<ID>', 'gpa/<GPA>', " +
-                "and 'p/<PREFERENCES>'.");
+        return new SEPIOException("Invalid TXT format! Each line must follow this format: 'id/<ID>', 'gpa/<GPA>', " +
+                " 'p/{<PREFERENCES>}'. \nFor e.g. id/A1234567J, gpa/4.5, p/{1,2,3}.");
     }
 
     /**
@@ -68,18 +68,7 @@ public class SEPIOException extends SEPException {
      */
     public static SEPIOException invalidTXTDataFormat() {
         return new SEPIOException("Invalid data in TXT file! One or more fields contain invalid data. " +
-                "Please check ID, GPA, and PREFERENCES.");
-    }
-
-    /**
-     * Exception for wrong TXT file format. This method constructs an error message
-     * indicating that each row must be written as "id/[ID] gpa/[GPA] p/[PREFERENCES]".
-     * The user is given an example of the correct format.
-     * 
-     * @return A SEPIOException with a message indicating the wrong TXT file format.
-     */
-    public static SEPIOException rejectTXTFile() {
-        return new SEPIOException("Wrong TXT format! Please ensure each row is written as " +
-                "id/<ID> gpa/<GPA> p/<PREFERENCES>. For e.g. id/A1234567J gpa/4.5 p/{1,2,3}");
+                "Please check ID, GPA, and PREFERENCES. \nPreferences goes only from 1-92, GPA from 0 to 5." +
+                "\nFor e.g. id/A1234567J gpa/4.5 p/{1,2,3}");
     }
 }

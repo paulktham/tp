@@ -62,29 +62,34 @@ public class FileHandler {
      * @throws SEPException if there is an issue with the file, such as it
      *     being missing, or having an unknown extension
      */
-    public boolean processFile() throws SEPException {
+    public boolean processFile() throws SEPException, IOException {
         Path path = Paths.get(this.filePath);
         boolean result;
 
-        if (Files.exists(path)) {
-            String extension = getFileExtension(path.toFile());
-
-            switch (extension.toLowerCase()) {
-            case "csv":
-                result = hasProcessCSV(path.toFile());
-                break;
-            case "json":
-                result = hasProcessJSON(path.toFile());
-                break;
-            case "txt":
-                result = hasProcessTXT(path);
-                break;
-            default:
-                throw SEPUnknownException.rejectUnknownFileType();
-            }
-        } else {
+        if (!Files.exists(path)) {
             throw SEPEmptyException.rejectFileNotFound();
         }
+
+        if (Files.size(path) == 0) {
+            throw SEPEmptyException.rejectEmptyFile();
+        }
+
+        String extension = getFileExtension(path.toFile());
+
+        switch (extension.toLowerCase()) {
+        case "csv":
+            result = hasProcessCSV(path.toFile());
+            break;
+        case "json":
+            result = hasProcessJSON(path.toFile());
+            break;
+        case "txt":
+            result = hasProcessTXT(path);
+            break;
+        default:
+            throw SEPUnknownException.rejectUnknownFileType();
+        }
+
         return result;
     }
 
