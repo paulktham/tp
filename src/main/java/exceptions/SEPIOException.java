@@ -30,9 +30,9 @@ public class SEPIOException extends SEPException {
      * @return A SEPIOException with a message indicating the wrong CSV format.
      */
     public static SEPIOException rejectCSVFile() {
-        return new SEPIOException("Wrong CSV format! Please ensure first row is ID, GPA, PREFERENCES" +
-                " and subsequent rows to be <ID>, <GPA>, \"<PREFERENCES>\"\nALL SEPARATED BY A COMMA! " +
-                "For e.g. A1234567J, 4.5, \"{1,2,3}\"");
+        return new SEPIOException("Wrong CSV format! Please ensure first row has column headers ID, GPA, PREFERENCES" +
+                " and subsequent rows to be <ID>, <GPA>, \"<PREFERENCES>\"\n" +
+                "For e.g. A1234567J | 4.5 | {1,2,3}");
     }
 
     /**
@@ -45,7 +45,7 @@ public class SEPIOException extends SEPException {
      */
     public static SEPIOException rejectCSVDataFormat(String[] line) {
         return new SEPIOException(String.join(",", line) + "\" is not in correct format! " +
-                "Please ensure that they are separated by a comma.");
+                "Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.");
     }
 
     /**

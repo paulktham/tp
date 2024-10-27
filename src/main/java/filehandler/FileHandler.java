@@ -1,4 +1,4 @@
-package storage;
+package filehandler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +19,6 @@ import parser.Parser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
@@ -29,11 +28,11 @@ import java.util.List;
 
 import static studentlist.StudentList.ADD_STUDENT_REGEX;
 
-public class Storage {
+public class FileHandler {
     private String filePath;
     private Parser parser;
 
-    public Storage(String filePath, Parser parser) {
+    public FileHandler(String filePath, Parser parser) {
         this.filePath = filePath;
         this.parser = parser;
     }
@@ -86,6 +85,7 @@ public class Storage {
         } else {
             throw SEPEmptyException.rejectFileNotFound();
         }
+        System.out.println(result);
         return result;
     }
 
@@ -116,7 +116,7 @@ public class Storage {
             CSVParser parser = new CSVParserBuilder().withSeparator(',').build();
 
             // Initialize CSVReader with the parser
-            CSVReader reader = new CSVReaderBuilder(new FileReader(file)).withCSVParser(parser).build();
+            CSVReader reader = new CSVReaderBuilder(new java.io.FileReader(file)).withCSVParser(parser).build();
 
             String[] line;
             reader.readNext();  // Skip the header
@@ -125,17 +125,19 @@ public class Storage {
                     throw SEPIOException.rejectCSVDataFormat(line);
                 }
                 assert line.length == 3;
-                if (!this.parser.isValidData(line[0].trim(),line[1].trim(),line[2].trim())) {
+
+                // Extract and format the command
+                String id = line[0].trim();
+                String gpa = line[1].trim();
+                String preferences = line[2].trim();
+                String command = String.format("add id/%s gpa/%s p/%s", id, gpa, preferences);
+
+                // Validate the data format
+                if ((!this.parser.isValidData(id, gpa,preferences)) || (!command.matches(ADD_STUDENT_REGEX))) {
                     throw SEPIOException.rejectCSVFile();
                 }
 
-                String id = "id/" + line[0].trim();
-                String gpa = "gpa/" + line[1].trim();
-                String preferences = "p/" + line[2].trim();
-
-                String student = String.format("%s %s %s", id, gpa, preferences);
-
-                this.parser.parseInput("add " + student);
+                this.parser.parseInput(command);
             }
             System.setOut(originalOut);
         } catch (IOException | CsvValidationException | SEPException e) {

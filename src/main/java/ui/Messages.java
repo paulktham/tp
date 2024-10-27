@@ -1,7 +1,7 @@
 package ui;
 
 public enum Messages {
-    WELCOME("Hi! Welcome to FindOurSEP!"),
+    WELCOME("Hi! Welcome to FindOurSEP! Enter 'help' for the list of commands."),
     EXIT("Goodbye! Have a great day!"),
     ALLOCATE_COMPLETE("Allocation algorithm complete! Run generate command to view."),
     HELP("""
