@@ -69,4 +69,9 @@ public class Student {
     public int getAllocatedUniversity() {
         return this.allocatedUniversity;
     }
+
+    public void resetAllocationStatus() {
+        this.isSuccessfullyAllocated = false;
+        this.allocatedUniversity = -1;
+    }
 }
