@@ -35,7 +35,7 @@ public class FileHandler {
     private Parser parser;
 
     public FileHandler(String filePath, Parser parser) {
-        this.filePath = filePath;
+        this.filePath = filePath.isEmpty() ? "data" : filePath;
         this.parser = parser;
     }
 

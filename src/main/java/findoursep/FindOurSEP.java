@@ -27,10 +27,10 @@ public class FindOurSEP {
     public void setUpStorage() {
         this.ui.printConfigMessage();
         String filePath = this.ui.promptFilePath();
+        this.fileHandler = new FileHandler(filePath,this.parser);
         if (filePath.isEmpty()) {
             return;
         }
-        this.fileHandler = new FileHandler(filePath,this.parser);
         try {
             if (!this.fileHandler.processFile()) {
                 this.ui.printProcessError();
@@ -61,6 +61,7 @@ public class FindOurSEP {
             assert choice != null;
             this.fileHandler.saveAllocationResults(this.studentList.getList(),choice);
         }
+        this.ui.sayBye();
     }
 
     /**

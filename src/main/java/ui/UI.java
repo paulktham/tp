@@ -229,4 +229,8 @@ public class UI {
         }
         return save.equals("yes");
     }
+
+    public void sayBye() {
+        printResponse("Adios, amigo!");
+    }
 }
