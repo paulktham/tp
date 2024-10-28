@@ -39,7 +39,6 @@ public class University {
     }
 
     public int getSpotsLeft() {
-        assert spotsLeft > 0 : "Cannot remove a spot when none are left";
         return spotsLeft;
     }
 
@@ -49,6 +48,7 @@ public class University {
      */
 
     public void removeASpot(){
+        assert spotsLeft > 0 : "Cannot remove a spot when none are left";
         this.spotsLeft--;
     }
 
