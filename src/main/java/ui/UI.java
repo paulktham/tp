@@ -232,5 +232,6 @@ public class UI {
 
     public void sayBye() {
         printResponse("Adios, amigo!");
+        scanner.close();
     }
 }

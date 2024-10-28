@@ -62,6 +62,7 @@ public class FindOurSEP {
             this.fileHandler.saveAllocationResults(this.studentList.getList(),choice);
         }
         this.ui.sayBye();
+
     }
 
     /**

@@ -16,12 +16,9 @@ import command.RevertCommand;
 import command.UnknownCommand;
 import command.ViewQuotaCommand;
 
-import exceptions.SEPEmptyException;
-import student.Student;
 import studentlist.StudentList;
 import ui.UI;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 

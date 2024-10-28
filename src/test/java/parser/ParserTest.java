@@ -78,7 +78,7 @@ public class ParserTest {
         assertFalse(result);
 
         // Verify the expected output
-        String expectedOutput = HORIZONTAL_LINE + "\n" + "Adios, amigo!" + "\n" + HORIZONTAL_LINE;
+        String expectedOutput = HORIZONTAL_LINE + "\n" + "Do you want to save your results?" + "\n" + HORIZONTAL_LINE;
         assertEquals(expectedOutput,outContent.toString().trim());
 
         // Reset the original System.out
