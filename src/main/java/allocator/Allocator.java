@@ -44,18 +44,25 @@ public class Allocator {
      * @throws SEPException if there are any errors in the input.
      */
     public void setMinimumGPA(String input) throws SEPException {
+        assert input != null : "Input cannot be null";
+        assert !input.isEmpty() : "Input cannot be empty";
+    
         Set<String> errorMessages = new HashSet<>();
         String[] parts = input.split(" ");
+        assert parts.length > 1 : "Input must contain at least two parts separated by spaces";
+    
         String stringGpa = parts[1];
         float gpa = studentList.validateGpa(stringGpa, errorMessages);
-
+    
         if (!errorMessages.isEmpty()) {
             throw new SEPException(String.join("\n", errorMessages));
         }
-
+    
+        assert gpa >= 0.0 && gpa <= 5.0 : "GPA must be between 0.0 and 5.0"; // Adjust range if necessary
+    
         // Setting the static minimum GPA criteria to the input
         minimumGPA = gpa;
-    }
+    }    
 
     /**
      * Returns the current minimum GPA requirement for allocation.

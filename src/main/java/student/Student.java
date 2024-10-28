@@ -21,6 +21,10 @@ public class Student {
      * @param uniPreferences A list of the student's university preferences.
      */
     public Student(String id, float gpa, ArrayList<Integer> uniPreferences){
+        assert id != null : "Student ID cannot be null";
+        assert gpa >= 0.0 && gpa <= 5.0 : "GPA must be between 0.0 and 5.0"; // Assuming GPA scale from 0.0 to 5.0
+        assert uniPreferences != null : "University preferences cannot be null";
+        
         this.id = id;
         this.gpa = gpa;
         this.uniPreferences = uniPreferences;
