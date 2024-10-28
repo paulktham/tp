@@ -1,56 +1,43 @@
+/**
+ * The AllocateCommand class is responsible for performing the student allocation process.
+ * This command utilizes the {@link Allocator} to assign students and updates the
+ * {@link StudentList} with the allocation results. Additionally, it interacts with the
+ * {@link UI} to display a message indicating that allocation is in progress.
+ */
 package command;
-
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import allocator.Allocator;
 import studentlist.StudentList;
 import ui.UI;
 
+/**
+ * Represents a command to allocate students to resources or groups.
+ * Initializes and uses an {@link Allocator} to manage the allocation process
+ * for the given {@link StudentList}.
+ */
 public class AllocateCommand extends Command {
     private Allocator allocator;
     private UI ui;
-    private ExecutorService executor = Executors.newFixedThreadPool(2); // Create a thread pool
 
+    /**
+     * Constructs an AllocateCommand with the specified student list and UI.
+     * 
+     * @param studentList The list of students to be allocated.
+     * @param ui          The user interface used to display allocation messages.
+     */
     public AllocateCommand(StudentList studentList, UI ui) {
         super(studentList);
         this.ui = ui;
         this.allocator = new Allocator(studentList);
     }
 
+    /**
+     * Executes the allocation process by setting the allocated student list in
+     * {@link StudentList} and printing an allocation message in the UI.
+     */
     @Override
     public void run() {
-        try {
-            // Submit the allocation task
-            Future<StudentList> allocationTask = executor.submit(() -> {
-                return allocator.allocate();
-            });
-
-            // Submit the loading message task
-            Future<?> loadingTask = executor.submit(() -> {
-                while (!allocationTask.isDone()) {
-                    this.ui.printAllocatingMessage();
-                }
-            });
-
-            // Check periodically if the allocation is done
-            while (!allocationTask.isDone()) {
-                Thread.sleep(100); // Small delay to avoid busy-waiting
-            }
-
-            // Interrupt the loading task once allocation is done
-            loadingTask.cancel(true);
-
-            // Retrieve the result of the allocation task
-            this.studentList.setStudentList(allocationTask.get());
-
-            // Shut down the executor service
-            executor.shutdown();
-
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        this.studentList.setStudentList(allocator.allocate());
+        this.ui.printAllocatingMessage();
     }
 }
