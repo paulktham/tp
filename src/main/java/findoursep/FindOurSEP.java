@@ -24,7 +24,6 @@ public class FindOurSEP {
         this.parser = new Parser(this.studentList,this.ui);
     }
 
-
     public void setUpStorage() {
         this.ui.printConfigMessage();
         String filePath = this.ui.promptFilePath();
@@ -56,6 +55,11 @@ public class FindOurSEP {
         while (isRunning) {
             line = this.ui.getUserInput();
             isRunning = this.parser.parseInput(line);
+        }
+        if (this.ui.toSave()) {
+            String choice = this.ui.getSaveChoice();
+            assert choice != null;
+            this.fileHandler.saveAllocationResults(this.studentList.getList(),choice);
         }
     }
 
