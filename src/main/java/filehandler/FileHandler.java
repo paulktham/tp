@@ -16,6 +16,7 @@ import exceptions.SEPException;
 import exceptions.SEPIOException;
 import exceptions.SEPUnknownException;
 import parser.Parser;
+import student.Student;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -24,6 +25,7 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import static studentlist.StudentList.ADD_STUDENT_REGEX;
@@ -33,7 +35,7 @@ public class FileHandler {
     private Parser parser;
 
     public FileHandler(String filePath, Parser parser) {
-        this.filePath = filePath;
+        this.filePath = filePath.isEmpty() ? "data" : filePath;
         this.parser = parser;
     }
 
@@ -312,5 +314,18 @@ public class FileHandler {
             return false;
         }
         return true;
+    }
+
+    public void saveAllocationResults(ArrayList<Student> results, String choice) {
+        switch (choice) {
+        case "csv":
+            break;
+        case "json":
+            break;
+        case "txt":
+            break;
+        default:
+            break;
+        }
     }
 }

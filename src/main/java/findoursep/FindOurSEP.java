@@ -24,14 +24,13 @@ public class FindOurSEP {
         this.parser = new Parser(this.studentList,this.ui);
     }
 
-
     public void setUpStorage() {
         this.ui.printConfigMessage();
         String filePath = this.ui.promptFilePath();
+        this.fileHandler = new FileHandler(filePath,this.parser);
         if (filePath.isEmpty()) {
             return;
         }
-        this.fileHandler = new FileHandler(filePath,this.parser);
         try {
             if (!this.fileHandler.processFile()) {
                 this.ui.printProcessError();
@@ -57,6 +56,13 @@ public class FindOurSEP {
             line = this.ui.getUserInput();
             isRunning = this.parser.parseInput(line);
         }
+        if (this.ui.toSave()) {
+            String choice = this.ui.getSaveChoice();
+            assert choice != null;
+            this.fileHandler.saveAllocationResults(this.studentList.getList(),choice);
+        }
+        this.ui.sayBye();
+
     }
 
     /**
