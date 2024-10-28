@@ -67,8 +67,7 @@ public class UI {
      * Prints a farewell message to the console.
      */
     public void cleanupAndExit() {
-        printResponse("Adios, amigo!");
-        scanner.close();
+        printResponse("Do you want to save your results?");
     }
 
     /**
@@ -156,12 +155,8 @@ public class UI {
         System.out.println("Would you like to:");
         System.out.println("1. Manually input students data");
         System.out.println("2. Upload a file (.csv, .txt, .json)");
-        System.out.println("Please choose 1 or 2 :)");
+        System.out.println("Please choose 1 or 2 or exit :)");
         System.out.println(HORIZONTAL_LINE);
-    }
-
-    public void promptFilePath() {
-        System.out.println("Please enter the ABSOLUTE path to the file: ");
     }
 
     public void printProcessError() {
@@ -170,5 +165,73 @@ public class UI {
 
     public void printFileLoadSuccessMessage() {
         printResponse("File loaded successfully! Let's begin!");
+    }
+
+    public boolean isValidOption(String option) {
+        return option.equals("1") || option.equals("2") || option.equals("exit");
+    }
+
+    public String promptFilePath() {
+        String command = pollInitialInput();
+        return processInput(command);
+    }
+
+    public String pollInitialInput() {
+        String input = getUserInput();
+        while (!isValidOption(input)) {
+            printResponse("Boss, type 1 or 2 or exit only leh!");
+            input = getUserInput().toLowerCase();
+        }
+        return input;
+    }
+
+    public String processFilePathInput() {
+        String input = getUserInput();
+        while (input.isEmpty()) {
+            printResponse("Filepath cannot be empty!");
+            input = getUserInput();
+        }
+        return input;
+    }
+
+    public String processInput(String input) {
+        if (input.equals("exit")) {
+            cleanupAndExit();
+            System.exit(0);
+        }
+        if (input.equals("2")) {
+            printResponse("Please enter the ABSOLUTE path to the file: ");
+            return processFilePathInput();
+        }
+        sayHi();
+        return "";
+    }
+
+    public boolean isValidSaveChoice(String input) {
+        return input.equals("csv") || input.equals("txt") || input.equals("json");
+    }
+
+    public String getSaveChoice() {
+        printResponse("Please choose a file type (CSV, JSON, TXT) to save your results.");
+        String input = getUserInput().toLowerCase();
+        while (!isValidSaveChoice(input)) {
+            printResponse("Please enter a valid (CSV, JSON, TXT) save choice!");
+            input = getUserInput();
+        }
+        return input;
+    }
+
+    public boolean toSave() {
+        String save = getUserInput().toLowerCase();
+        while (!(save.equals("yes") || save.equals("no"))) {
+            printResponse("Please enter a valid command (Yes/No)!");
+            save = getUserInput().toLowerCase();
+        }
+        return save.equals("yes");
+    }
+
+    public void sayBye() {
+        printResponse("Adios, amigo!");
+        scanner.close();
     }
 }

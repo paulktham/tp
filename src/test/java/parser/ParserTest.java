@@ -3,6 +3,7 @@ package parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import student.Student;
 import studentlist.StudentList;
 import ui.Messages;
 import ui.UI;
@@ -77,7 +78,7 @@ public class ParserTest {
         assertFalse(result);
 
         // Verify the expected output
-        String expectedOutput = HORIZONTAL_LINE + "\n" + "Adios, amigo!" + "\n" + HORIZONTAL_LINE;
+        String expectedOutput = HORIZONTAL_LINE + "\n" + "Do you want to save your results?" + "\n" + HORIZONTAL_LINE;
         assertEquals(expectedOutput,outContent.toString().trim());
 
         // Reset the original System.out
@@ -178,6 +179,41 @@ public class ParserTest {
         System.setOut(originalOut);
     }
 
+    @Test
+    public void testRevertCommand() {
+        // Simulate user input for allocating a list of students
+        parser.parseInput("add id/A1234567I gpa/5.0 p/{36,61,43}");
+        parser.parseInput("add id/A2468101J gpa/4.9 p/{32,50,8}");
+        parser.parseInput("add id/A3691215K gpa/4.8 p/{29,61,17}");
+        parser.parseInput("allocate");
+
+        // Simulate user input for 'revert' command
+        String input = "revert";
+
+        // Set up the output stream to capture console output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        // Run the parser
+        boolean result = parser.parseInput(input);
+
+        // Assert that the parser continues execution
+        assertTrue(result);
+
+        // Verify that student list changes to original state
+        for (Student student : studentList.getList()) {
+            assertFalse(student.getSuccessfullyAllocated());
+            assertEquals(-1, student.getAllocatedUniversity());
+        }
+
+        // Verify expected output
+        String expectedOutput = HORIZONTAL_LINE + "\n" + Messages.REVERT_COMPLETE + "\n" + HORIZONTAL_LINE;
+        assertEquals(expectedOutput,outContent.toString().trim());
+
+        // Reset the original System.out
+        System.setOut(originalOut);
+    }
 
     @Test
     public void testHelpCommand() {

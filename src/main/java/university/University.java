@@ -21,6 +21,10 @@ public class University {
      */
 
     public University(String fullName, String acronym, int spotsLeft) {
+        assert fullName != null : "Full name cannot be null";
+        assert acronym != null : "Acronym cannot be null";
+        assert spotsLeft >= 0 : "Spots left cannot be negative";
+
         this.fullName = fullName;
         this.acronym = acronym;
         this.spotsLeft = spotsLeft;
@@ -44,6 +48,7 @@ public class University {
      */
 
     public void removeASpot(){
+        assert spotsLeft > 0 : "Cannot remove a spot when none are left";
         this.spotsLeft--;
     }
 

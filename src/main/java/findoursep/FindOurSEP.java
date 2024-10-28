@@ -1,16 +1,18 @@
 package findoursep;
 
 import exceptions.SEPException;
-import storage.Storage;
+import filehandler.FileHandler;
 import studentlist.StudentList;
 import ui.UI;
 import parser.Parser;
+
+import java.io.IOException;
 
 public class FindOurSEP {
     private UI ui;
     private Parser parser;
     private StudentList studentList;
-    private Storage storage;
+    private FileHandler fileHandler;
 
     /**
      * Constructs a new FindOurSEP object.
@@ -22,37 +24,24 @@ public class FindOurSEP {
         this.parser = new Parser(this.studentList,this.ui);
     }
 
-    public boolean isValidOption(String option) {
-        return option.equals("1") || option.equals("2");
-    }
-
-
     public void setUpStorage() {
         this.ui.printConfigMessage();
-        String input = this.ui.getUserInput().trim();
-        String filePath;
-        while (!isValidOption(input)) {
-            ui.printResponse("Boss, type 1 or 2 only leh!");
-            input = this.ui.getUserInput().trim();
-        }
-        if (input.equals("2")) {
-            ui.promptFilePath();
-            filePath = this.ui.getUserInput();
-        } else {
-            ui.printResponse("Let's begin!");
+        String filePath = this.ui.promptFilePath();
+        this.fileHandler = new FileHandler(filePath,this.parser);
+        if (filePath.isEmpty()) {
             return;
         }
-        this.storage = new Storage(filePath,this.parser);
         try {
-            if (this.storage.processFile()) {
-                this.ui.printFileLoadSuccessMessage();
+            if (!this.fileHandler.processFile()) {
+                this.ui.printProcessError();
+                System.exit(0);
             }
-        } catch (SEPException e) {
+            this.ui.printFileLoadSuccessMessage();
+        } catch (SEPException | IOException e) {
             this.ui.printResponse(e.getMessage());
             System.exit(0);
         }
     }
-
 
     /**
      * The main loop of the application.
@@ -67,6 +56,13 @@ public class FindOurSEP {
             line = this.ui.getUserInput();
             isRunning = this.parser.parseInput(line);
         }
+        if (this.ui.toSave()) {
+            String choice = this.ui.getSaveChoice();
+            assert choice != null;
+            this.fileHandler.saveAllocationResults(this.studentList.getList(),choice);
+        }
+        this.ui.sayBye();
+
     }
 
     /**
