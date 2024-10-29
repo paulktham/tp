@@ -168,6 +168,11 @@ the `UI` to print the templated response from the `Messages` enum.
 
 #### Generate Command
 
+![GenerateSequence](/docs/UML_Diagrams/GenerateCommandSequence.drawio.svg)
+
+The `generate` command is calls the `generateReport()` method in `StudentList`, which then calls the `generateReport()`
+in the `UI` using the student array list, which prints an ASCII table representing the allocation outcome.
+
 #### Unknown Command
 
 ### Allocator
