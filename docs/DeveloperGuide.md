@@ -149,6 +149,16 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 #### Delete Command
 
+#### Find Command
+
+#### Filter Command
+
+#### Criteria Command
+
+#### Stats Command
+
+#### ViewQuota Command
+
 #### List Command
 
 #### Allocate Command
@@ -174,6 +184,8 @@ The `generate` command is calls the `generateReport()` method in `StudentList`, 
 in the `UI` using the student array list, which prints an ASCII table representing the allocation outcome.
 
 #### Unknown Command
+
+#### Exit Command
 
 ### Allocator
 
