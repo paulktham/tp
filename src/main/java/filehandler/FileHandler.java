@@ -380,7 +380,7 @@ public class FileHandler {
     /**
      * Saves the allocation results to a .txt file at the specified file path.
      * The .txt file will contain each student's details, with each line formatted
-     * as follows: id/<id>, gpa/<gpa>, p/[<rank1>, <rank2>, ...], alloc/<allocatedUni>
+     * as follows: id/[id], gpa/[gpa], p/[rank1, rank2, ...], alloc/[allocatedUni]
      * 
      * @param results The list of students with their allocation results to be saved.
      * @param filePath The file path where the .txt file will be saved.
