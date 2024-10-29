@@ -353,4 +353,29 @@ public class FileHandler {
             System.err.println("Error saving allocation results to JSON: " + e.getMessage());
         }
     }
+
+    public void saveToTXT(ArrayList<Student> results, String filePath) {
+        Path path = Paths.get(filePath);
+
+        try {
+            // Ensure parent directories exist
+            Files.createDirectories(path.getParent());
+
+            // Create a BufferedWriter to write to the .txt file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
+                for (Student student : results) {
+                    String line = String.format("id/%s, gpa/%.1f, p/%s, alloc/%d",
+                            student.getId(),
+                            student.getGpa(),
+                            student.getUniPreferences().toString(),
+                            student.getAllocatedUniversity());
+                    writer.write(line);
+                    writer.newLine();
+                }
+                System.out.println("Allocation results saved to TXT file at " + filePath);
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving allocation results to TXT: " + e.getMessage());
+        }
+    }
 }
