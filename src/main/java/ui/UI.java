@@ -149,14 +149,17 @@ public class UI {
         printResponse("Here is the allocation report:\n" + at.render());
     }
 
+    /**
+     * Prints a prompt for the user on program entry.
+     */
     public void printConfigMessage() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(Messages.WELCOME);
-        System.out.println("Would you like to:");
-        System.out.println("1. Manually input students data");
-        System.out.println("2. Upload a file (.csv, .txt, .json)");
-        System.out.println("Please choose 1 or 2 or exit :)");
-        System.out.println(HORIZONTAL_LINE);
+        StringBuilder output = new StringBuilder();
+        output.append(Messages.WELCOME + "\n")
+            .append("Would you like to:\n")
+            .append("1. Manually input students data\n")
+            .append("2. Upload a file (.csv, .txt, .json)\n")
+            .append("Please choose 1 or 2 or exit :)");
+        printResponse(output.toString());
     }
 
     public void printProcessError() {
@@ -168,15 +171,31 @@ public class UI {
         printResponse("File loaded successfully! Let's begin!");
     }
 
+    /**
+     * Checks if the user's input matches the expected input format.
+     *
+     * @param option The user's input response to the initial prompt
+     * @return A boolean that indicates validity of the input string
+     */
     public boolean isValidOption(String option) {
         return option.equals("1") || option.equals("2") || option.equals("exit");
     }
 
+    /**
+     * Gets the user's input for file storage option.
+     *
+     * @return A string guaranteed to contain the user's choice for preferred input mode.
+     */
     public String promptFilePath() {
         String command = pollInitialInput();
         return processInput(command);
     }
 
+    /**
+     * Verifies the input required for processing the user's choice.
+     *
+     * @return A string guaranteed to be in the expected form.
+     */
     public String pollInitialInput() {
         String input = getUserInput();
         while (!isValidOption(input)) {
@@ -186,6 +205,11 @@ public class UI {
         return input;
     }
 
+    /**
+     * Verifies the input required for processing the input file path.
+     *
+     * @return The file path of the input file as a string guaranteed to be in the expected form.
+     */
     public String processFilePathInput() {
         String input = getUserInput();
         while (input.isEmpty()) {
@@ -195,6 +219,15 @@ public class UI {
         return input;
     }
 
+    /**
+     * Ensures that the response for selecting input mode is not empty. Exits the program if the user
+     * inputs the exit command. Prompts for file path if user chooses input file option.
+     *
+     * @param input The user's input response to the initial prompt
+     * @return If the user chooses to select an input file source, returns a string containing
+     *         the file path of the user's student list file.
+     *         If the user chooses manual input, returns an empty string.
+     */
     public String processInput(String input) {
         if (input.equals("exit")) {
             cleanupAndExit();
@@ -208,10 +241,21 @@ public class UI {
         return "";
     }
 
+    /**
+     * Verifies that the user's choice of file extension is valid.
+     *
+     * @param input The user's choice of file output extension format.
+     * @return A boolean representing the validity of choice.
+     */
     public boolean isValidSaveChoice(String input) {
         return input.equals("csv") || input.equals("txt") || input.equals("json");
     }
 
+    /**
+     * Prompts the user for their choice of file type for the save file, and checks the input.
+     *
+     * @return A string guaranteed to contain a valid file extension.
+     */
     public String getSaveChoice() {
         printResponse("Please choose a file type (CSV, JSON, TXT) to save your results.");
         String input = getUserInput().toLowerCase();
@@ -222,6 +266,11 @@ public class UI {
         return input;
     }
 
+    /**
+     * Prompts the user whether they want to save the allocation results.
+     *
+     * @return A boolean representing whether the user chooses to save a file.
+     */
     public boolean toSave() {
         String save = getUserInput().toLowerCase();
         while (!(save.equals("yes") || save.equals("no"))) {
@@ -231,6 +280,9 @@ public class UI {
         return save.equals("yes");
     }
 
+    /**
+     * Prints a farewell message and shuts down the scanner object.
+     */
     public void sayBye() {
         printResponse("Adios, amigo!");
         scanner.close();
