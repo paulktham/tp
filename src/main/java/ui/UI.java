@@ -202,6 +202,10 @@ public class UI {
             printResponse("Boss, type 1 or 2 or exit only leh!");
             input = getUserInput().toLowerCase();
         }
+        if (input.equals("exit")) {
+            sayBye();
+            System.exit(0);
+        }
         return input;
     }
 
