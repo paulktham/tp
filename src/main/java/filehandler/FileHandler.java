@@ -371,7 +371,7 @@ public class FileHandler {
             // Write the map to a JSON file
             File jsonFile = new File(path.toString());
             mapper.writeValue(jsonFile, studentsMap);
-            System.out.println("Allocation results saved to JSON file.");
+            System.out.println("Allocation results saved to JSON file at " + filePath);
         } catch (IOException e) {
             System.err.println("Error saving allocation results to JSON: " + e.getMessage());
         }
