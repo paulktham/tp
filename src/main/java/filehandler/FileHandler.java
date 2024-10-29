@@ -3,6 +3,7 @@ package filehandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.opencsv.CSVParser;
@@ -18,15 +19,19 @@ import exceptions.SEPUnknownException;
 import parser.Parser;
 import student.Student;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static studentlist.StudentList.ADD_STUDENT_REGEX;
 
@@ -316,16 +321,92 @@ public class FileHandler {
         return true;
     }
 
+    /**
+     * Saves the allocation results to a file in the specified format.
+     * 
+     * @param results The list of students with their allocation results.
+     * @param choice  The format of the file to be saved, either "csv", "json", or
+     *                "txt". If choice is "csv", the allocation results will be
+     *                saved to a CSV file. If choice is "json", the allocation
+     *                results will be saved to a JSON file. If choice is "txt", the
+     *                allocation results will be saved to a text file.
+     */
     public void saveAllocationResults(ArrayList<Student> results, String choice) {
         switch (choice) {
         case "csv":
             break;
         case "json":
+            saveToJSON(results, "data/allocation_results.json");
             break;
         case "txt":
+            saveToTXT(results, "data/allocation_results.txt");
             break;
         default:
             break;
+        }
+    }
+
+    /**
+     * Saves the allocation results to a JSON file at the specified file path.
+     * The JSON file will contain an array of students, each with their respective
+     * fields. The output is formatted with indentation for readability.
+     * 
+     * @param results The list of students with their allocation results to be saved.
+     * @param filePath The file path where the JSON file will be saved.
+     */
+    public void saveToJSON(ArrayList<Student> results, String filePath) {
+        // Create an ObjectMapper instance
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        // Create a map to hold the students array
+        Map<String, ArrayList<Student>> studentsMap = new HashMap<>();
+        studentsMap.put("students", results);
+
+        Path path = Paths.get(filePath);
+
+        try {
+            Files.createDirectories(path.getParent());
+
+            // Write the map to a JSON file
+            File jsonFile = new File(path.toString());
+            mapper.writeValue(jsonFile, studentsMap);
+            System.out.println("Allocation results saved to JSON file.");
+        } catch (IOException e) {
+            System.err.println("Error saving allocation results to JSON: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves the allocation results to a .txt file at the specified file path.
+     * The .txt file will contain each student's details, with each line formatted
+     * as follows: id/[id], gpa/[gpa], p/[rank1, rank2, ...], alloc/[allocatedUni]
+     * 
+     * @param results The list of students with their allocation results to be saved.
+     * @param filePath The file path where the .txt file will be saved.
+     */
+    public void saveToTXT(ArrayList<Student> results, String filePath) {
+        Path path = Paths.get(filePath);
+
+        try {
+            // Ensure parent directories exist
+            Files.createDirectories(path.getParent());
+
+            // Create a BufferedWriter to write to the .txt file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
+                for (Student student : results) {
+                    String line = String.format("id/%s, gpa/%.1f, p/%s, alloc/%d",
+                            student.getId(),
+                            student.getGpa(),
+                            student.getUniPreferences().toString(),
+                            student.getAllocatedUniversity());
+                    writer.write(line);
+                    writer.newLine();
+                }
+                System.out.println("Allocation results saved to TXT file at " + filePath);
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving allocation results to TXT: " + e.getMessage());
         }
     }
 }
