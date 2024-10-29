@@ -161,7 +161,7 @@ The `StatCommand` class implements the `stats` command, which provides GPA-relat
 
 The `ViewQuotaCommand` class handles the `viewQuota` command to display information about a university’s remaining quota (available spots) based on a specified university index.
 
-![ViewQuotaSequence](UML_Diagrams\ViewQuotaSequence.drawio.svg)
+![ViewQuotaSequence](UML_Diagrams/ViewQuotaSequence.drawio.svg)
 
 #### Allocate Command
 
