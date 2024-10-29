@@ -154,12 +154,11 @@ public class UI {
      */
     public void printConfigMessage() {
         StringBuilder output = new StringBuilder();
-        output.append(Messages.WELCOME)
-            .append("Would you like to:")
-            .append("1. Manually input students data")
-            .append("2. Upload a file (.csv, .txt, .json)")
-            .append("Please choose 1 or 2 or exit :)")
-            .append(HORIZONTAL_LINE);
+        output.append(Messages.WELCOME + "\n")
+            .append("Would you like to:\n")
+            .append("1. Manually input students data\n")
+            .append("2. Upload a file (.csv, .txt, .json)\n")
+            .append("Please choose 1 or 2 or exit :)");
         printResponse(output.toString());
     }
 
@@ -241,10 +240,21 @@ public class UI {
         return "";
     }
 
+    /**
+     * Verifies that the user's choice of file extension is valid.
+     *
+     * @param input The user's choice of file output extension format.
+     * @return A boolean representing the validity of choice.
+     */
     public boolean isValidSaveChoice(String input) {
         return input.equals("csv") || input.equals("txt") || input.equals("json");
     }
 
+    /**
+     * Prompts the user for their choice of file type for the save file, and checks the input.
+     *
+     * @return A string guaranteed to contain a valid file extension.
+     */
     public String getSaveChoice() {
         printResponse("Please choose a file type (CSV, JSON, TXT) to save your results.");
         String input = getUserInput().toLowerCase();
@@ -255,6 +265,11 @@ public class UI {
         return input;
     }
 
+    /**
+     * Prompts the user whether they want to save the allocation results.
+     *
+     * @return A boolean representing whether the user chooses to save a file.
+     */
     public boolean toSave() {
         String save = getUserInput().toLowerCase();
         while (!(save.equals("yes") || save.equals("no"))) {
@@ -264,6 +279,9 @@ public class UI {
         return save.equals("yes");
     }
 
+    /**
+     * Prints a farewell message and shuts down the scanner object.
+     */
     public void sayBye() {
         printResponse("Adios, amigo!");
         scanner.close();
