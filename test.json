@@ -3,17 +3,20 @@
     {
       "ID": "A1234567J",
       "GPA": "4.5",
-      "PREFERENCES": "{1,2,3}"
+      "PREFERENCES": "{1,2,3}",
+      "ALLOCATED_UNIVERSITY": "National University of Singapore"
     },
     {
       "ID": "A7654321K",
       "GPA": "3.8",
-      "PREFERENCES": "{2,3,1}"
+      "PREFERENCES": "{2,3,1}",
+      "ALLOCATED_UNIVERSITY": "The University of Melbourne"
     },
     {
       "ID": "A1357913L",
       "GPA": "5.0",
-      "PREFERENCES": "{3,1,2}"
+      "PREFERENCES": "{3,1,2}",
+      "ALLOCATED_UNIVERSITY": "Simon Fraser University"
     }
   ]
 }

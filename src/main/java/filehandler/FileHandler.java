@@ -3,6 +3,7 @@ package filehandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.opencsv.CSVParser;
@@ -18,15 +19,14 @@ import exceptions.SEPUnknownException;
 import parser.Parser;
 import student.Student;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static studentlist.StudentList.ADD_STUDENT_REGEX;
 
@@ -321,11 +321,36 @@ public class FileHandler {
         case "csv":
             break;
         case "json":
+            saveToJSON(results, "data/allocation_results.json");
             break;
         case "txt":
+            saveToTXT(results, "data/allocation_results.txt");
             break;
         default:
             break;
+        }
+    }
+
+    public void saveToJSON(ArrayList<Student> results, String filePath) {
+        // Create an ObjectMapper instance
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        // Create a map to hold the students array
+        Map<String, ArrayList<Student>> studentsMap = new HashMap<>();
+        studentsMap.put("students", results);
+
+        Path path = Paths.get(filePath);
+
+        try {
+            Files.createDirectories(path.getParent());
+
+            // Write the map to a JSON file
+            File jsonFile = new File(path.toString());
+            mapper.writeValue(jsonFile, studentsMap);
+            System.out.println("Allocation results saved to JSON file.");
+        } catch (IOException e) {
+            System.err.println("Error saving allocation results to JSON: " + e.getMessage());
         }
     }
 }
