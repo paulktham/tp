@@ -61,6 +61,12 @@ public class FindOurSEP {
             line = this.ui.getUserInput();
             isRunning = this.parser.parseInput(line);
         }
+        if (this.ui.toSave()) {
+            String choice = this.ui.getSaveChoice();
+            assert choice != null;
+            this.fileHandler.saveAllocationResults(this.studentList.getList(),choice);
+        }
+        this.ui.sayBye();
     }
 
     /**
