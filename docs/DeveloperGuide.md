@@ -151,13 +151,13 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 Delete Command removes an exisiting Student in the StudentList.
 
-[DeleteCommandSequence](./UML_Diagrams/deleteCommand.drawio.svg)
+![DeleteCommandSequence](./UML_Diagrams/deleteCommand.drawio.svg)
 
 #### Criteria Command
 
 Criteria Command sets a minimum GPA every student must acheieve before they can be allocated to a university.
 
-[CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
+![CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
 
 #### List Command
 
