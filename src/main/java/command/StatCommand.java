@@ -1,8 +1,8 @@
 package command;
 
+import exceptions.SEPEmptyException;
 import exceptions.SEPException;
 import exceptions.SEPFormatException;
-import exceptions.SEPNotFoundException;
 
 import studentlist.StudentList;
 import ui.UI;
@@ -64,7 +64,7 @@ public class StatCommand extends Command {
 
             // Check if the university exists in the repository
             if (UniversityRepository.getUniversityByIndex(uniIndex) == null) {
-                throw SEPNotFoundException.rejectUniversityNotFound();
+                throw SEPEmptyException.rejectUniversityNotFound();
             }
 
             // Process the command based on the stat type

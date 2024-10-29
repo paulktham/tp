@@ -4,30 +4,50 @@
 
 {Give a product intro}
 
+## Table of Contents
+[Quick Start](#quick-start)  
+[Features](#features)  
+[FAQ](#faq)  
+[Command Summary](#command-summary)  
+
 ## Quick Start
 
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Down the latest version of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
 
-## Features 
+## Features
 
-{Give detailed description of each feature}
+### *Notes about the command format:*
+- Words in UPPER_CASE are the parameters to be supplied by the user.
+- Extraneous parameters for commands that do not take in parameters (such as help, list and exit) will be ignored.
+  - e.g. if the command specifies `help 123`, it will be interpreted as help.
+- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple 
+lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+### Viewing help: `help`
+Shows a message explaining how to use the program. (Commands, etc.)  
+Format: `help`
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+### Print current student list: `list`
+Outputs a list of all current students in the student list.  
+Format: `list`  
+Example output:  
+```shell
+Here is the list:
+┌───────────────┬──────────┬─────────────────────────┐
+│    Student    │   GPA    │   Preference Rankings   │
+├───────────────┼──────────┼─────────────────────────┤
+│   A1234567I   │   5.0    │        13,61,43         │
+│   A2113113X   │   4.99   │           61            │
+└───────────────┴──────────┴─────────────────────────┘
+```
 
-Example of usage: 
-
-`todo n/Write the rest of the User Guide d/next week`
-
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+### Revert allocation outcome: `revert`
+Reverses the allocation algorithm. To be used when changes need to be made to the student list.  
+Format: `revert`
 
 ## FAQ
 
@@ -37,6 +57,13 @@ Example of usage:
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+| Action    | Format/Example                                                                                        |
+|-----------|-------------------------------------------------------------------------------------------------------|
+| Add       | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}` |
+| Delete    | `delete STUDENT_ID` <br> e.g. `delete A1234567I`                                                      |
+| List      | `list`                                                                                                |
+| Allocate  | `allocate`                                                                                            |
+| Revert    | `revert`                                                                                               |
+| GetReport | `generate`                                                                                            |
+| Exit      | `bye`, `exit`, `quit`                                                                                 |
+| Help      | `help`                                                                                                |

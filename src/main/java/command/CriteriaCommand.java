@@ -17,19 +17,23 @@ public class CriteriaCommand extends Command {
         this.allocator = new Allocator(studentList);
     }
 
-    /*
-     * Takes the input and sends the second part of the input into the setMinimumGPA function in allocator
+    /**
+     * Processes the user input to set a minimum GPA requirement.
+     * This method takes the user-provided input and extracts the necessary part
+     * to set the minimum GPA through the allocator's setMinimumGPA method.
+     * If the GPA is valid, a confirmation message is printed; otherwise, an error
+     * message is displayed.
+     * 
+     * @throws SEPException if there are issues with GPA validation.
      */
-
     @Override
     public void run() {
-        try{
-            String[] parts = input.split(" ");
-            allocator.setMinimumGPA(parts[1]);
-            ui.printResponse("Minimum requirement of GPA set to " + parts[1] + " successfully.");
+        try {
+            allocator.setMinimumGPA(input);
+            ui.printResponse("Minimum requirement of GPA set to " + allocator.getMinimumGPA() + " successfully.");
         } catch (SEPException e) {
             ui.printResponse(e.getMessage());
         }
     }
-    
+
 }

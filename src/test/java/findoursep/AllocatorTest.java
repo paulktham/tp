@@ -37,7 +37,7 @@ public class AllocatorTest {
 
     @Test
     public void testSetMinimumGPA() throws SEPException{
-        allocator.setMinimumGPA("4.0");
+        allocator.setMinimumGPA("minimum 4.0");
         assertEquals(4.0, allocator.getMinimumGPA());
     }
 
@@ -64,7 +64,7 @@ public class AllocatorTest {
 
     @Test
     public void testAllocateWithCriteria() throws SEPException{
-        allocator.setMinimumGPA("4.0");
+        allocator.setMinimumGPA("minimum 4.0");
         StudentList allocatedStudents = allocator.allocate();
 
         assertEquals(-1, allocatedStudents.getList().get(0).getAllocatedUniversity());

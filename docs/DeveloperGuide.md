@@ -9,6 +9,7 @@
   - [Parser](#parser)
   - [Commands](#commands)
     - [Add Command](#add-command)
+  - [Allocator](#allocator)
 
 
 ## Acknowledgements
@@ -50,13 +51,73 @@ To get started with this project, follow these steps:
 
 🎉 Congratulations! You’re all set to dive into the wonders of this project. Enjoy the ride!
 
-## Design
+## Design & Implementation
 
 ### Architecture
 
 ![Architecture](UML_Diagrams/Architecture.drawio.svg)
 
+
 ### Frontend / User Interface
+FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. The frontend currently consists of 2 main
+components:
+1. `UI` class - Manages interactions with the user, including printing messages, tables, and capturing user inputs.
+2. `Messages` enum - Stores standardized messages for consistent user prompts and feedback across the application.
+#### 1. `UI` Class
+   The `UI` class is designed to handle both input and output for the command-line interface. It manages user prompts, 
+   input retrieval, and formatting for both regular messages and ASCII tables displaying lists.
+   
+Here is the class diagram highlighting the structure of the `UI` class.
+   ![UIClass](UML_Diagrams/UIClass.drawio.svg)
+
+How `UI` Works:
+1. Whenever the program needs to interact with the user, it does so through the `UI` class, which serves as a **facade** 
+    between the logical backend components and the user interface elements.
+
+2. The `UI` class is responsible for displaying messages, receiving user input, and printing data formatted as tables or 
+text responses.
+
+3. Upon receiving a message or command request, the UI class formats the message, incorporating relevant content 
+(e.g., student details or allocation results) before displaying it to the user. This approach maintains separation 
+between backend logic and the presentation layer.
+
+4. For each user action, such as displaying a list of students or allocating slots, the `UI` class uses helper methods 
+(e.g., `printStudentList`, `generateReport`) to format and render the output. The methods ensure the responses are 
+consistent and user-friendly.
+
+The `UI` class methods typically return `void`, but will print responses directly to the console or handle user input, 
+streamlining interactions and allowing the backend to focus solely on data processing.
+
+#### 2. `Messages` Enum
+   The `Messages` enum centralizes common UI messages. For example, `Messages.ERROR` is passed to the UI for 
+   display for default errors. This keeps responses uniform and allows for changes to user-facing text without modifying 
+   backend logic. List of all `Messages`:
+
+`WELCOME`: Greeting message displayed at startup.
+
+`EXIT`: Farewell message when exiting.
+
+`ALLOCATE_COMPLETE`: Shown upon completion of the allocation process.
+
+`HELP`: Multi-line help message listing all available commands and their descriptions.
+
+`ERROR`: General error message for unexpected issues.
+
+`REVERT_COMPLETE`: Message displayed after a successful revert operation.
+
+Each message can be accessed and printed via `Messages.<MESSAGE_NAME>` in the `UI` class or any other class that 
+references it.
+
+#### Customizing and Extending the UI
+   Adding New Messages:
+1.  Open the `Messages` enum.
+2.  Add a new constant with the message text. Example:
+```java
+NEW_MESSAGE("Your custom message text here");
+```
+3. Reference the new message in the `UI` class or any other relevant part of the application using `Messages.NEW_MESSAGE`
+
+
 
 ### Parser
 
@@ -92,6 +153,8 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 #### Allocate Command
 
+#### Revert Command
+
 #### Exit Command
 
 #### Help Command
@@ -100,7 +163,29 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 #### Unknown Command
 
-### Implementation
+### Allocator
+
+The `Allocator` class is responsible for allocating students to universities based on their preferences and GPA. It interacts with the `StudentList`, `UniversityRepository`, and `Student` classes to perform the allocation.
+
+In ``V1.0`` version, the allocation logic is designed as follows:
+
+* **Sorting by GPA**: The list of students is sorted in descending order of GPA, so higher-GPA students are prioritized.
+* **Preference-Based Allocation**: For each student:
+  * Iterates through the student’s university preferences.
+  * Checks if the university has open spots and if the student’s GPA meets the `minimumGPA` requirement.
+  * If both conditions are met, the student is allocated to that university, and the university’s spot count is reduced.
+  * The allocation stops once a student is assigned to a university.
+* **Sorting by ID**: After allocation, the list is re-sorted by student ID.
+
+Note that ``Allocator`` will copy the passed student list, therefore any modifications to the student list inside ``Allocator`` will not reflect in the original one.
+
+Here is a class diagram highlighting the fundamental structure of the `Allocator` class.
+
+![AllocatorClass](UML_Diagrams/AllocatorClass.drawio.svg)
+
+``Allocator`` mainly participates in the execution of ``allocate`` command. The sequence diagram below showcases the program workflow when a user inputs the command ``allocate`` (assume before that several students have been added into the student list).
+
+![AllocatorSequence](UML_Diagrams/AllocatorSequence.drawio.svg)
 
 #### Student
 
@@ -119,6 +204,7 @@ The sequence below illustrates the interactions between ```StudentList``` and ``
 These two classes have a composition relationship, where ```UniversityRepository``` is composed of ```University``` objects. The ```University``` object holds the various crucial information of any single university that is provided in the list of available universities. The ```UniversityRepository``` class then creates a static HashMap and statically inputs the list of universities into this HashMap. This HashMap is then easily accessible by other classes to get any information which may be necessary from the universities. 
 
 ## Product scope
+
 ### Target user profile
 
 This was designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS.

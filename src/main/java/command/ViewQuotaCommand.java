@@ -1,8 +1,8 @@
 package command;
 
+import exceptions.SEPEmptyException;
 import exceptions.SEPException;
 import exceptions.SEPFormatException;
-import exceptions.SEPNotFoundException;
 
 import studentlist.StudentList;
 import ui.UI;
@@ -58,7 +58,7 @@ public class ViewQuotaCommand extends Command {
             // Retrieve the university from the repository and check if it exists
             University university = UniversityRepository.getUniversityByIndex(uniIndex);
             if (university == null) {
-                throw SEPNotFoundException.rejectUniversityNotFound();
+                throw SEPEmptyException.rejectUniversityNotFound();
             }
 
             // Display the university's information, including its quota
