@@ -159,11 +159,27 @@ Criteria Command sets a minimum GPA every student must acheieve before they can 
 
 ![CriteriaCommandSequence](./UML_Diagrams/criteriaCommand.drawio.svg)
 
+#### Find Command
+
+#### Filter Command
+
+#### Stats Command
+
+#### ViewQuota Command
+
+
 #### List Command
 
 #### Allocate Command
 
 #### Revert Command
+
+![RevertSequence](/docs/UML_Diagrams/RevertCommandSequence.drawio.svg)
+
+Upon parsing a `revert` command, a `RevertCommand` instance is created. `RevertCommand` then calls the `revertAllocation()`
+method in `StudentList`, which loops through all the students in the `students` array list. The method `revertAllocation()`
+within the `Student` objects resets the allocation status and allocated university. The operation is completed by calling
+the `UI` to print the templated response from the `Messages` enum.
 
 #### Exit Command
 
@@ -171,7 +187,14 @@ Criteria Command sets a minimum GPA every student must acheieve before they can 
 
 #### Generate Command
 
+![GenerateSequence](/docs/UML_Diagrams/GenerateCommandSequence.drawio.svg)
+
+The `generate` command is calls the `generateReport()` method in `StudentList`, which then calls the `generateReport()`
+in the `UI` using the student array list, which prints an ASCII table representing the allocation outcome.
+
 #### Unknown Command
+
+#### Exit Command
 
 ### Allocator
 

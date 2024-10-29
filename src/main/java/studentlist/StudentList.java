@@ -167,6 +167,9 @@ public class StudentList {
         return new Student(studentId, gpa, preferences);
     }
 
+    /**
+     * Calls the UI to print the allocation report.
+     */
     public void generateReport() {
         try {
             ui.generateReport(students);
