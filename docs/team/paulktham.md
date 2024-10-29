@@ -22,6 +22,7 @@ manage the allocation process using automated workflows and data-driven decision
 
 ### User Guide Contributions:
 - Along with the other group members we discuss the structure of our User Guide.
+    - Content Table.
     - Explained how to run our application through Quick Start.
     - Added `Add` and `Minimum` Command.
 

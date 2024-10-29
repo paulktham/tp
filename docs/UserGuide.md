@@ -5,10 +5,18 @@
 FindMySEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making.
 
 ## Table of Contents
-[Quick Start](#quick-start)  
-[Features](#features)  
-[FAQ](#faq)  
-[Command Summary](#command-summary)  
+- [Quick Start](#quick-start)  
+- [Features](#features)
+  - [Add](#add-student-application-add)
+  - [Help](#view-help-help)
+  - [List](#print-current-student-list-list)
+  - [Minimum](#set-minimum-gpa-criteria-minimum)
+  - [Stats](#view-allocation-statistics-stats)
+  - [viewQuota](#view-remaining-quota-viewquota)
+  - [Allocate](#run-allocation-algorithm-allocate)
+  - [Revert](#revert-allocation-outcome-revert)
+- [FAQ](#faq)  
+- [Command Summary](#command-summary)  
 
 ## Quick Start
 
