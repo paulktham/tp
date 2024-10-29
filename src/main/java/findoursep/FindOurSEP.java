@@ -39,7 +39,8 @@ public class FindOurSEP {
         try {
             if (!this.fileHandler.processFile()) {
                 this.ui.printProcessError();
-                System.exit(0);
+                return;
+                //System.exit(0);
             }
             this.ui.printFileLoadSuccessMessage();
         } catch (SEPException | IOException e) {
