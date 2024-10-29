@@ -73,7 +73,7 @@ public class UITest {
     @Test
     void cleanupAndExit() {
         ui.cleanupAndExit();
-        assertTrue(outContent.toString().contains("Adios, amigo!"));
+        assertTrue(outContent.toString().contains("Do you want to save your results?"));
     }
 
     @Test

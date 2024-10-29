@@ -67,8 +67,7 @@ public class UI {
      * Prints a farewell message to the console.
      */
     public void cleanupAndExit() {
-        printResponse("Adios, amigo!");
-        scanner.close();
+        printResponse("Do you want to save your results?");
     }
 
     /**
@@ -240,5 +239,33 @@ public class UI {
         }
         sayHi();
         return "";
+    }
+
+    public boolean isValidSaveChoice(String input) {
+        return input.equals("csv") || input.equals("txt") || input.equals("json");
+    }
+
+    public String getSaveChoice() {
+        printResponse("Please choose a file type (CSV, JSON, TXT) to save your results.");
+        String input = getUserInput().toLowerCase();
+        while (!isValidSaveChoice(input)) {
+            printResponse("Please enter a valid (CSV, JSON, TXT) save choice!");
+            input = getUserInput();
+        }
+        return input;
+    }
+
+    public boolean toSave() {
+        String save = getUserInput().toLowerCase();
+        while (!(save.equals("yes") || save.equals("no"))) {
+            printResponse("Please enter a valid command (Yes/No)!");
+            save = getUserInput().toLowerCase();
+        }
+        return save.equals("yes");
+    }
+
+    public void sayBye() {
+        printResponse("Adios, amigo!");
+        scanner.close();
     }
 }
