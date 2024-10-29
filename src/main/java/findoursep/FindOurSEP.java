@@ -24,7 +24,11 @@ public class FindOurSEP {
         this.parser = new Parser(this.studentList,this.ui);
     }
 
-
+    /**
+     * Initializes the program using the user's .csv, .json or .txt file.
+     * Alternatively by the user's manual input. Calls FileHandler to parse
+     * the text in the file and create the corresponding Student object.
+     */
     public void setUpStorage() {
         this.ui.printConfigMessage();
         String filePath = this.ui.promptFilePath();

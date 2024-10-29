@@ -150,6 +150,9 @@ public class UI {
         printResponse("Here is the allocation report:\n" + at.render());
     }
 
+    /**
+     * Prints a prompt for the user on program entry.
+     */
     public void printConfigMessage() {
         StringBuilder output = new StringBuilder();
         output.append(Messages.WELCOME)
@@ -169,15 +172,31 @@ public class UI {
         printResponse("File loaded successfully! Let's begin!");
     }
 
+    /**
+     * Checks if the user's input matches the expected input format.
+     *
+     * @param option The user's input response to the initial prompt
+     * @return A boolean that indicates validity of the input string
+     */
     public boolean isValidOption(String option) {
         return option.equals("1") || option.equals("2") || option.equals("exit");
     }
 
+    /**
+     * Gets the user's input for file storage option.
+     *
+     * @return A string guaranteed to contain the user's choice for preferred input mode.
+     */
     public String promptFilePath() {
         String command = pollInitialInput();
         return processInput(command);
     }
 
+    /**
+     * Verifies the input required for processing the user's choice.
+     *
+     * @return A string guaranteed to be in the expected form.
+     */
     public String pollInitialInput() {
         String input = getUserInput();
         while (!isValidOption(input)) {
@@ -187,6 +206,11 @@ public class UI {
         return input;
     }
 
+    /**
+     * Verifies the input required for processing the input file path.
+     *
+     * @return The file path of the input file as a string guaranteed to be in the expected form.
+     */
     public String processFilePathInput() {
         String input = getUserInput();
         while (input.isEmpty()) {
@@ -196,6 +220,15 @@ public class UI {
         return input;
     }
 
+    /**
+     * Ensures that the response for selecting input mode is not empty. Exits the program if the user
+     * inputs the exit command. Prompts for file path if user chooses input file option.
+     *
+     * @param input The user's input response to the initial prompt
+     * @return If the user chooses to select an input file source, returns a string containing
+     *         the file path of the user's student list file.
+     *         If the user chooses manual input, returns an empty string.
+     */
     public String processInput(String input) {
         if (input.equals("exit")) {
             cleanupAndExit();
