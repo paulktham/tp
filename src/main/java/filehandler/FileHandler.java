@@ -321,6 +321,16 @@ public class FileHandler {
         return true;
     }
 
+    /**
+     * Saves the allocation results to a file in the specified format.
+     * 
+     * @param results The list of students with their allocation results.
+     * @param choice  The format of the file to be saved, either "csv", "json", or
+     *                "txt". If choice is "csv", the allocation results will be
+     *                saved to a CSV file. If choice is "json", the allocation
+     *                results will be saved to a JSON file. If choice is "txt", the
+     *                allocation results will be saved to a text file.
+     */
     public void saveAllocationResults(ArrayList<Student> results, String choice) {
         switch (choice) {
         case "csv":
@@ -336,6 +346,14 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Saves the allocation results to a JSON file at the specified file path.
+     * The JSON file will contain an array of students, each with their respective
+     * fields. The output is formatted with indentation for readability.
+     * 
+     * @param results The list of students with their allocation results to be saved.
+     * @param filePath The file path where the JSON file will be saved.
+     */
     public void saveToJSON(ArrayList<Student> results, String filePath) {
         // Create an ObjectMapper instance
         ObjectMapper mapper = new ObjectMapper();
@@ -359,6 +377,14 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Saves the allocation results to a .txt file at the specified file path.
+     * The .txt file will contain each student's details, with each line formatted
+     * as follows: id/<id>, gpa/<gpa>, p/[<rank1>, <rank2>, ...], alloc/<allocatedUni>
+     * 
+     * @param results The list of students with their allocation results to be saved.
+     * @param filePath The file path where the .txt file will be saved.
+     */
     public void saveToTXT(ArrayList<Student> results, String filePath) {
         Path path = Paths.get(filePath);
 
