@@ -5,10 +5,18 @@
 FindMySEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making.
 
 ## Table of Contents
-[Quick Start](#quick-start)  
-[Features](#features)  
-[FAQ](#faq)  
-[Command Summary](#command-summary)  
+- [Quick Start](#quick-start)  
+- [Features](#features)
+  - [Add](#add-student-application-add)
+  - [Help](#view-help-help)
+  - [List](#print-current-student-list-list)
+  - [Minimum](#set-minimum-gpa-criteria-minimum)
+  - [Stats](#view-allocation-statistics-stats)
+  - [viewQuota](#view-remaining-quota-viewquota)
+  - [Allocate](#run-allocation-algorithm-allocate)
+  - [Revert](#revert-allocation-outcome-revert)
+- [FAQ](#faq)  
+- [Command Summary](#command-summary)  
 
 ## Quick Start
 
@@ -16,6 +24,8 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
 
 1. Ensure that you have Java 17 or above installed.
 2. Down the latest version of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
+3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar FindMySEP.jar command to run the application.
 
 ## Features
 
@@ -25,6 +35,14 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
   - e.g. if the command specifies `help 123`, it will be interpreted as help.
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple 
 lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+### Add Student Application: `add`
+
+Adds a student to the student list. `PREFERENCE_RANKINGS`  should be enclosed in curly braces. We allow students to have a preference of up to 3 universities and they are ranked left to right, with the HIGHEST priority starting on the left.
+
+Format: `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}`
+e.g.
+`add id/A1234567I gpa/5.0 p/{13,61,43}`
 
 
 ### View help: `help`
@@ -46,6 +64,16 @@ Here is the list:
 │   A2113113X   │   4.99   │           61            │
 └───────────────┴──────────┴─────────────────────────┘
 ```
+
+### Set minimum GPA criteria: `minimum`
+
+This sets the minimum GPA for the cohort.
+
+Format: `minimum GPA`
+The student must achieve the same or a higher GPA to be considered for exchange. Any student below this GPA will not be allocated to any universities.
+e.g.
+`minimum 4.0`
+
 
 ### View allocation statistics: ``stats``
 
@@ -97,6 +125,7 @@ Format: `revert`
 | Statistic | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42`` |
 | viewQuota | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``           |
 | Allocate  | `allocate`                                                   |
+| Minimum   | `minimum 4.0`                                                |
 | Revert    | `revert`                                                     |
 | GetReport | `generate`                                                   |
 | Exit      | `bye`, `exit`, `quit`                                        |
