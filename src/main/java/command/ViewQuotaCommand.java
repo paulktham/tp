@@ -15,6 +15,7 @@ import university.UniversityRepository;
  * the university's name and the number of spots left for allocation.
  */
 public class ViewQuotaCommand extends Command {
+    private static final String INTEGER_REGEX = "-?\\d+";
     private String input;
     private UI ui;
 
@@ -27,6 +28,10 @@ public class ViewQuotaCommand extends Command {
      */
     public ViewQuotaCommand(StudentList studentList, String input, UI ui) {
         super(studentList);
+        assert studentList != null : "StudentList must not be null";
+        assert input != null && !input.isEmpty() : "Input must not be null or empty";
+        assert ui != null : "UI instance must not be null";
+        
         this.input = input;
         this.ui = ui;
     }
@@ -43,28 +48,38 @@ public class ViewQuotaCommand extends Command {
         try {
             // Split the input and validate the parts
             String[] parts = input.split(" ");
+            assert parts.length > 0 : "Input split should produce parts";
+
             if (parts.length != 2) {
                 throw SEPFormatException.rejectViewQuotaFormat();
             }
 
             // Validate the university index format
-            String uniIndeString = parts[1].trim();
-            if (!uniIndeString.matches("-?\\d+")) {
+            String uniIndexString = parts[1].trim();
+            assert uniIndexString != null : "University index string should not be null";
+            if (!uniIndexString.matches(INTEGER_REGEX)) {
                 throw SEPFormatException.rejectViewQuotaFormat();
             }
 
-            int uniIndex = Integer.parseInt(uniIndeString);
+            int uniIndex = Integer.parseInt(uniIndexString);
+            assert uniIndex >= 0 : "University index must be non-negative";
 
             // Retrieve the university from the repository and check if it exists
             University university = UniversityRepository.getUniversityByIndex(uniIndex);
+            assert university != null : "University should not be null if found";
+
             if (university == null) {
                 throw SEPEmptyException.rejectUniversityNotFound();
             }
 
+            // Assert that spots left are non-negative before displaying
+            int spotsLeft = university.getSpotsLeft();
+            assert spotsLeft >= 0 : "Spots left must be non-negative";
+
             // Display the university's information, including its quota
             ui.printResponse(" Index: " + uniIndex + "\n" +
                              " Name:  " + university.getFullName() + "\n" +
-                             " Quota: " + university.getSpotsLeft());
+                             " Quota: " + spotsLeft);
         } catch (SEPException e) {
             ui.printResponse(e.getMessage());
         }
