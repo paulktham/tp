@@ -157,7 +157,7 @@ Delete Command removes an exisiting Student in the StudentList.
 
 Criteria Command sets a minimum GPA every student must acheieve before they can be allocated to a university.
 
-![CriteriaCommandSequence](./UML_Diagrams/criteriaCommand.drawio.svg)
+![CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
 
 #### Find Command
 
