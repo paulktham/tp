@@ -24,17 +24,23 @@ public class FindOurSEP {
         this.parser = new Parser(this.studentList,this.ui);
     }
 
+    /**
+     * Initializes the program using the user's .csv, .json or .txt file.
+     * Alternatively by the user's manual input. Calls FileHandler to parse
+     * the text in the file and create the corresponding Student object.
+     */
     public void setUpStorage() {
         this.ui.printConfigMessage();
         String filePath = this.ui.promptFilePath();
-        this.fileHandler = new FileHandler(filePath,this.parser);
         if (filePath.isEmpty()) {
             return;
         }
+        this.fileHandler = new FileHandler(filePath,this.parser);
         try {
             if (!this.fileHandler.processFile()) {
                 this.ui.printProcessError();
-                System.exit(0);
+                return;
+                //System.exit(0);
             }
             this.ui.printFileLoadSuccessMessage();
         } catch (SEPException | IOException e) {
@@ -62,7 +68,6 @@ public class FindOurSEP {
             this.fileHandler.saveAllocationResults(this.studentList.getList(),choice);
         }
         this.ui.sayBye();
-
     }
 
     /**
