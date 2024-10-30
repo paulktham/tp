@@ -190,7 +190,7 @@ You could refer to [Allocator](#allocator) section to check the detailed workflo
 
 #### Revert Command
 
-![RevertSequence](/docs/UML_Diagrams/RevertCommandSequence.drawio.svg)
+![RevertSequence](UML_Diagrams/RevertCommandSequence.drawio.svg)
 
 Upon parsing a `revert` command, a `RevertCommand` instance is created. `RevertCommand` then calls the `revertAllocation()`
 method in `StudentList`, which loops through all the students in the `students` array list. The method `revertAllocation()`
@@ -203,7 +203,7 @@ the `UI` to print the templated response from the `Messages` enum.
 
 #### Generate Command
 
-![GenerateSequence](/docs/UML_Diagrams/GenerateCommandSequence.drawio.svg)
+![GenerateSequence](UML_Diagrams/GenerateCommandSequence.drawio.svg)
 
 The `generate` command is calls the `generateReport()` method in `StudentList`, which then calls the `generateReport()`
 in the `UI` using the student array list, which prints an ASCII table representing the allocation outcome.
