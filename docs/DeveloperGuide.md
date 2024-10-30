@@ -66,7 +66,7 @@ components:
 #### 1. `UI` Class
    The `UI` class is designed to handle both input and output for the command-line interface. It manages user prompts, 
    input retrieval, and formatting for both regular messages and ASCII tables displaying lists.
-   
+
 Here is the class diagram highlighting the structure of the `UI` class.
    ![UIClass](UML_Diagrams/UIClass.drawio.svg)
 
@@ -170,7 +170,23 @@ Criteria Command sets a minimum GPA every student must acheieve before they can 
 
 #### List Command
 
+#### Stats Command
+
+The `StatCommand` class implements the `stats` command, which provides GPA-related statistics (average GPA or minimum GPA) for students associated with a specified university. The command syntax is `stats <stat_type> <UNI_INDEX>`, where `<stat_type>` can be `-avggpa` for average GPA or `-mingpa` for minimum GPA.
+
+![StatSequence](UML_Diagrams/StatSequence.drawio.svg)
+
+#### ViewQuota Command
+
+The `ViewQuotaCommand` class handles the `viewQuota` command to display information about a university’s remaining quota (available spots) based on a specified university index.
+
+![ViewQuotaSequence](UML_Diagrams/ViewQuotaSequence.drawio.svg)
+
 #### Allocate Command
+
+The `AllocateCommand` class manages the allocation process of students using the `Allocator` class. This command sets up an allocation process for students in the specified `StudentList` and informs the user that allocation is underway.
+
+You could refer to [Allocator](#allocator) section to check the detailed workflow of ``AllocateCommand``. 
 
 #### Revert Command
 
