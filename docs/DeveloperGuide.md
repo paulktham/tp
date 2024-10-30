@@ -150,6 +150,8 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 #### Delete Command
 
 #### Find Command
+1. The user initiates the tries to find a user by entering something like "find A1234567I"
+2. The command is resolved by Parser, which would create a FindCommand object.
 
 #### List Command
 
