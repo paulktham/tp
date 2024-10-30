@@ -14,6 +14,12 @@ public class DeleteCommand extends Command {
         this.ui = ui;
     }
 
+    /**
+     * Executes the DeleteCommand, which removes a student based on the input data
+     * from the student list. If successful, displays a confirmation message.
+     * If an error occurs, an error message is displayed instead.
+     */
+
     @Override
     public void run() {
         try {
