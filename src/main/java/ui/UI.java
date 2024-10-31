@@ -260,7 +260,7 @@ public class UI {
      *
      * @return A string guaranteed to contain a valid file extension.
      */
-    public String getSaveChoice() {
+    public String getSaveFileChoice() {
         printResponse("Please choose a file type (CSV, JSON, TXT) to save your results.");
         String input = getUserInput().toLowerCase();
         while (!isValidSaveChoice(input)) {

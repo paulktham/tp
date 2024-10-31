@@ -3,13 +3,27 @@
 ## Table of Contents
 - [Acknowledgements](#Acknowledgements)
 - [Installation](#Installation)
-- [Design & Implementation](#design)
+- [Design & Implementation](#design--implementation)
   - [Architecture](#architecture)
-  - [Frontend / User Interface](#frontend--user-interface)
-  - [Parser](#parser)
   - [Commands](#commands)
     - [Add Command](#add-command)
-  - [Allocator](#allocator)
+    - [Delete Command]()
+    - [Criteria Command]()
+    - [Find Command]()
+    - [Filter Command]()
+    - [List Command]()
+    - [Stats Command]()
+    - [ViewQuota Command]()
+    - [Allocate Command]()
+    - [Revert Command]()
+    - [Generate Command]()
+    - [Help Command]()
+    - [Exit Command]()
+    - [Unknown Command]()
+  - [Components]()
+    - [Frontend / User Interface](#frontend--user-interface)
+    - [Parser](#parser)
+    - [Allocator](#allocator)
 
 
 ## Acknowledgements
@@ -27,12 +41,12 @@ Many thanks to the developers and maintainers of these libraries for their incre
 
 To get started with this project, follow these steps:
 
-### Prerequisites
+## Prerequisites
 
 - Java 17
 - Download the latest `.jar` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases/tag/v1.0).
 
-### Steps
+## Steps
 
 1. **Copy the `.jar` file:**
     - Move the downloaded `.jar` file into a designated folder on your computer.
@@ -57,41 +71,90 @@ To get started with this project, follow these steps:
 
 ![Architecture](UML_Diagrams/Architecture.drawio.svg)
 
+### Commands
+
+#### Add Command
+
+#### Delete Command
+
+#### Criteria Command
+
+#### Find Command
+
+#### Filter Command
+
+#### List Command
+
+#### Stats Command
+
+#### ViewQuota Command
+
+#### Allocate Command
+
+#### Revert Command
+
+![RevertSequence](/docs/UML_Diagrams/RevertCommandSequence.drawio.svg)
+
+Upon parsing a `revert` command, a `RevertCommand` instance is created. `RevertCommand` then calls the `revertAllocation()`
+method in `StudentList`, which loops through all the students in the `students` array list. The method `revertAllocation()`
+within the `Student` objects resets the allocation status and allocated university. The operation is completed by calling
+the `UI` to print the templated response from the `Messages` enum.
+
+#### Generate Command
+
+![GenerateSequence](/docs/UML_Diagrams/GenerateCommandSequence.drawio.svg)
+
+The `generate` command is calls the `generateReport()` method in `StudentList`, which then calls the `generateReport()`
+in the `UI` using the student array list, which prints an ASCII table representing the allocation outcome.
+
+#### Help Command
+
+#### Exit Command
+![ExitSequence](UML_Diagrams/ExitSequence.drawio.svg)
+
+#### Unknown Command
+
+
+
+
+
+## Components
 
 ### Frontend / User Interface
 FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. The frontend currently consists of 2 main
 components:
 1. `UI` class - Manages interactions with the user, including printing messages, tables, and capturing user inputs.
 2. `Messages` enum - Stores standardized messages for consistent user prompts and feedback across the application.
+
 #### 1. `UI` Class
-   The `UI` class is designed to handle both input and output for the command-line interface. It manages user prompts, 
-   input retrieval, and formatting for both regular messages and ASCII tables displaying lists.
-   
+The `UI` class is designed to handle both input and output for the command-line interface. It manages user prompts,
+input retrieval, and formatting for both regular messages and ASCII tables displaying lists.
+
 Here is the class diagram highlighting the structure of the `UI` class.
-   ![UIClass](UML_Diagrams/UIClass.drawio.svg)
+![UIClass](UML_Diagrams/UIClass.drawio.svg)
 
 How `UI` Works:
-1. Whenever the program needs to interact with the user, it does so through the `UI` class, which serves as a **facade** 
-    between the logical backend components and the user interface elements.
+1. Whenever the program needs to interact with the user, it does so through the `UI` class, which serves as a **facade**
+   between the logical backend components and the user interface elements.
 
-2. The `UI` class is responsible for displaying messages, receiving user input, and printing data formatted as tables or 
-text responses.
+2. The `UI` class is responsible for displaying messages, receiving user input, and printing data formatted as tables or
+   text responses.
 
-3. Upon receiving a message or command request, the UI class formats the message, incorporating relevant content 
-(e.g., student details or allocation results) before displaying it to the user. This approach maintains separation 
-between backend logic and the presentation layer.
+3. Upon receiving a message or command request, the UI class formats the message, incorporating relevant content
+   (e.g., student details or allocation results) before displaying it to the user. This approach maintains separation
+   between backend logic and the presentation layer.
 
-4. For each user action, such as displaying a list of students or allocating slots, the `UI` class uses helper methods 
-(e.g., `printStudentList`, `generateReport`) to format and render the output. The methods ensure the responses are 
-consistent and user-friendly.
+4. For each user action, such as displaying a list of students or allocating slots, the `UI` class uses helper methods
+   (e.g., `printStudentList`, `generateReport`) to format and render the output. The methods ensure the responses are
+   consistent and user-friendly.
 
-The `UI` class methods typically return `void`, but will print responses directly to the console or handle user input, 
+The `UI` class methods typically return `void`, but will print responses directly to the console or handle user input,
 streamlining interactions and allowing the backend to focus solely on data processing.
 
 #### 2. `Messages` Enum
-   The `Messages` enum centralizes common UI messages. For example, `Messages.ERROR` is passed to the UI for 
-   display for default errors. This keeps responses uniform and allows for changes to user-facing text without modifying 
-   backend logic. List of all `Messages`:
+The `Messages` enum centralizes common UI messages. For example, `Messages.ERROR` is passed to the UI for
+display for default errors. This keeps responses uniform and allows for changes to user-facing text without modifying
+backend logic. List of all `Messages`:
 
 `WELCOME`: Greeting message displayed at startup.
 
@@ -105,11 +168,11 @@ streamlining interactions and allowing the backend to focus solely on data proce
 
 `REVERT_COMPLETE`: Message displayed after a successful revert operation.
 
-Each message can be accessed and printed via `Messages.<MESSAGE_NAME>` in the `UI` class or any other class that 
+Each message can be accessed and printed via `Messages.<MESSAGE_NAME>` in the `UI` class or any other class that
 references it.
 
 #### Customizing and Extending the UI
-   Adding New Messages:
+Adding New Messages:
 1.  Open the `Messages` enum.
 2.  Add a new constant with the message text. Example:
 ```java
@@ -126,14 +189,14 @@ The `Parser` class is a crucial component instantiated as soon as FindOurSEP is 
 Some of its core features include:
 - Breaking down user input and extracting the relevant command and data for further processing.
 - Provide robust error handling when unknown command is received.
-- Validate data parsed in from external file (.CSV, .JSON, .TXT) sources. (Further details in the `Storage` class)
+- Validate data parsed in from external file (.CSV, .JSON, .TXT) sources. (Further details in the `FileHandler` class)
 
 Here is a class diagram highlighting the fundamental structure of the `Parser` class.
 
 ![ParserClass](UML_Diagrams/ParserClass.drawio.svg)
 
 How `Parser` works:
-1. Whenever the user enters an input, the input will be directed to the `Parser` class's `parseInput()` method. 
+1. Whenever the user enters an input, the input will be directed to the `Parser` class's `parseInput()` method.
 2. Within the method, the command will be extracted and the appropriate `XYZCommand` object (XYZCommand is a placeholder for various commands such as DeleteCommand, ListCommand, etc.) will be instantiated.
 3. Upon instantiation, the `XYZCommand` is prepared for execution. Each `XYZCommand` class, inheriting from the abstract `Command` class, has a `run()` method that executes its specific instructions.
 
@@ -143,49 +206,6 @@ The sequence diagram below demonstrates the interactions within the `Parser` com
 
 The boolean return value of `parseInput()` indicates whether the user has chosen to continue or terminate the program. A `true` value keeps FindOurSEP running, while a `false` value ends the program.
 
-### Commands
-
-#### Add Command
-
-#### Delete Command
-
-#### Find Command
-
-#### Filter Command
-
-#### Criteria Command
-
-#### Stats Command
-
-#### ViewQuota Command
-
-#### List Command
-
-#### Allocate Command
-
-#### Revert Command
-
-![RevertSequence](/docs/UML_Diagrams/RevertCommandSequence.drawio.svg)
-
-Upon parsing a `revert` command, a `RevertCommand` instance is created. `RevertCommand` then calls the `revertAllocation()`
-method in `StudentList`, which loops through all the students in the `students` array list. The method `revertAllocation()`
-within the `Student` objects resets the allocation status and allocated university. The operation is completed by calling
-the `UI` to print the templated response from the `Messages` enum.
-
-#### Exit Command
-
-#### Help Command
-
-#### Generate Command
-
-![GenerateSequence](/docs/UML_Diagrams/GenerateCommandSequence.drawio.svg)
-
-The `generate` command is calls the `generateReport()` method in `StudentList`, which then calls the `generateReport()`
-in the `UI` using the student array list, which prints an ASCII table representing the allocation outcome.
-
-#### Unknown Command
-
-#### Exit Command
 
 ### Allocator
 

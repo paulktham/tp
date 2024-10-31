@@ -29,7 +29,7 @@ public class FindOurSEP {
      * Alternatively by the user's manual input. Calls FileHandler to parse
      * the text in the file and create the corresponding Student object.
      */
-    public void setUpStorage() {
+    public void setUpFileHandler() {
         this.ui.printConfigMessage();
         String filePath = this.ui.promptFilePath();
         if (filePath.isEmpty()) {
@@ -40,7 +40,6 @@ public class FindOurSEP {
             if (!this.fileHandler.processFile()) {
                 this.ui.printProcessError();
                 return;
-                //System.exit(0);
             }
             this.ui.printFileLoadSuccessMessage();
         } catch (SEPException | IOException e) {
@@ -55,7 +54,7 @@ public class FindOurSEP {
      * application. It will read the user's input, process it.
      */
     public void start() {
-        this.setUpStorage();
+        this.setUpFileHandler();
         String line;
         boolean isRunning = true;
         while (isRunning) {
@@ -63,7 +62,7 @@ public class FindOurSEP {
             isRunning = this.parser.parseInput(line);
         }
         if (this.ui.toSave()) {
-            String choice = this.ui.getSaveChoice();
+            String choice = this.ui.getSaveFileChoice();
             assert choice != null;
             this.fileHandler.saveAllocationResults(this.studentList.getList(),choice);
         }
