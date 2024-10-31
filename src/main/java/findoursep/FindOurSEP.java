@@ -33,10 +33,12 @@ public class FindOurSEP {
         this.ui.printConfigMessage();
         String filePath = this.ui.promptFilePath();
         this.fileHandler = new FileHandler(filePath,this.parser);
+        if (filePath.isEmpty()) {
+            return;
+        }
         try {
             if (this.fileHandler.hasProcessFileSuccessfully()) {
-                this.ui.printFileLoadSuccessMessage();
-
+                this.ui.printLoadSuccessMessage();
             } else {
                 this.ui.printProcessError();
             }
