@@ -86,7 +86,8 @@ between backend logic and the presentation layer.
 consistent and user-friendly.
 
 The `UI` class methods typically return `void`, but will print responses directly to the console or handle user input, 
-streamlining interactions and allowing the backend to focus solely on data processing.
+streamlining interactions and allowing the backend to focus solely on data processing. `UI` returns a type when there is
+data that needs to be passed from the frontend to the program logic, e.g. `getUserInput` return a `String`
 
 #### 2. `Messages` Enum
    The `Messages` enum centralizes common UI messages. For example, `Messages.ERROR` is passed to the UI for 
