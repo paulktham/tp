@@ -69,7 +69,7 @@ public class FileHandler {
      * @throws SEPException if there is an issue with the file, such as it
      *     being missing, or having an unknown extension
      */
-    public boolean processFile() throws SEPException, IOException {
+    public boolean hasProcessFileSuccessfully() throws SEPException, IOException {
         Path path = Paths.get(this.filePath);
         boolean result;
 
@@ -325,14 +325,14 @@ public class FileHandler {
      * Saves the allocation results to a file in the specified format.
      * 
      * @param results The list of students with their allocation results.
-     * @param choice  The format of the file to be saved, either "csv", "json", or
+     * @param fileChoice  The format of the file to be saved, either "csv", "json", or
      *                "txt". If choice is "csv", the allocation results will be
      *                saved to a CSV file. If choice is "json", the allocation
      *                results will be saved to a JSON file. If choice is "txt", the
      *                allocation results will be saved to a text file.
      */
-    public void saveAllocationResults(ArrayList<Student> results, String choice) {
-        switch (choice) {
+    public void saveAllocationResults(ArrayList<Student> results, String fileChoice) {
+        switch (fileChoice) {
         case "csv":
             break;
         case "json":

@@ -9,6 +9,10 @@ Please choose 1 or 2 or exit :)
 Hi! Welcome to FindOurSEP! Enter 'help' for the list of commands.
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+This file don't exist...Don't make me go through your folder for nothing leh :(.
+Process Outcome: No data is loaded. You can continue using the program.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 Added A1234567J successfully.
 There are 1 student(s) in the list.
 --------------------------------------------------------------------------------
