@@ -16,6 +16,12 @@ public class AddCommand extends Command {
         this.ui = ui;
     }
 
+    /**
+     * Executes the AddCommand, which creates a new student based on the input data
+     * and adds it to the student list. If successful, displays a confirmation message.
+     * If an error occurs, an error message is displayed instead.
+     */
+    
     @Override
     public void run() {
         try {

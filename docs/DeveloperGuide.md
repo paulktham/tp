@@ -127,29 +127,30 @@ components:
 2. `Messages` enum - Stores standardized messages for consistent user prompts and feedback across the application.
 
 #### 1. `UI` Class
-The `UI` class is designed to handle both input and output for the command-line interface. It manages user prompts,
-input retrieval, and formatting for both regular messages and ASCII tables displaying lists.
+   The `UI` class is designed to handle both input and output for the command-line interface. It manages user prompts, 
+   input retrieval, and formatting for both regular messages and ASCII tables displaying lists.
 
 Here is the class diagram highlighting the structure of the `UI` class.
 ![UIClass](UML_Diagrams/UIClass.drawio.svg)
 
 How `UI` Works:
-1. Whenever the program needs to interact with the user, it does so through the `UI` class, which serves as a **facade**
-   between the logical backend components and the user interface elements.
+1. Whenever the program needs to interact with the user, it does so through the `UI` class, which serves as a **facade** 
+    between the logical backend components and the user interface elements.
 
-2. The `UI` class is responsible for displaying messages, receiving user input, and printing data formatted as tables or
-   text responses.
+2. The `UI` class is responsible for displaying messages, receiving user input, and printing data formatted as tables or 
+text responses.
 
-3. Upon receiving a message or command request, the UI class formats the message, incorporating relevant content
-   (e.g., student details or allocation results) before displaying it to the user. This approach maintains separation
-   between backend logic and the presentation layer.
+3. Upon receiving a message or command request, the UI class formats the message, incorporating relevant content 
+(e.g., student details or allocation results) before displaying it to the user. This approach maintains separation 
+between backend logic and the presentation layer.
 
-4. For each user action, such as displaying a list of students or allocating slots, the `UI` class uses helper methods
-   (e.g., `printStudentList`, `generateReport`) to format and render the output. The methods ensure the responses are
-   consistent and user-friendly.
+4. For each user action, such as displaying a list of students or allocating slots, the `UI` class uses helper methods 
+(e.g., `printStudentList`, `generateReport`) to format and render the output. The methods ensure the responses are 
+consistent and user-friendly.
 
-The `UI` class methods typically return `void`, but will print responses directly to the console or handle user input,
-streamlining interactions and allowing the backend to focus solely on data processing.
+The `UI` class methods typically return `void`, but will print responses directly to the console or handle user input, 
+streamlining interactions and allowing the backend to focus solely on data processing. `UI` returns a type when there is
+data that needs to be passed from the frontend to the program logic, e.g. `getUserInput` return a `String`
 
 #### 2. `Messages` Enum
 The `Messages` enum centralizes common UI messages. For example, `Messages.ERROR` is passed to the UI for
@@ -206,6 +207,74 @@ The sequence diagram below demonstrates the interactions within the `Parser` com
 
 The boolean return value of `parseInput()` indicates whether the user has chosen to continue or terminate the program. A `true` value keeps FindOurSEP running, while a `false` value ends the program.
 
+### Commands
+
+#### Add Command
+
+#### Delete Command
+
+Delete Command removes an exisiting Student in the StudentList.
+
+![DeleteCommandSequence](./UML_Diagrams/DeleteCommand.drawio.svg)
+
+#### Criteria Command
+
+Criteria Command sets a minimum GPA every student must acheieve before they can be allocated to a university.
+
+![CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
+
+#### Find Command
+
+#### Filter Command
+
+#### Stats Command
+
+#### ViewQuota Command
+
+
+#### List Command
+
+#### Stats Command
+
+The `StatCommand` class implements the `stats` command, which provides GPA-related statistics (average GPA or minimum GPA) for students associated with a specified university. The command syntax is `stats <stat_type> <UNI_INDEX>`, where `<stat_type>` can be `-avggpa` for average GPA or `-mingpa` for minimum GPA.
+
+![StatSequence](UML_Diagrams/StatSequence.drawio.svg)
+
+#### ViewQuota Command
+
+The `ViewQuotaCommand` class handles the `viewQuota` command to display information about a university’s remaining quota (available spots) based on a specified university index.
+
+![ViewQuotaSequence](UML_Diagrams/ViewQuotaSequence.drawio.svg)
+
+#### Allocate Command
+
+The `AllocateCommand` class manages the allocation process of students using the `Allocator` class. This command sets up an allocation process for students in the specified `StudentList` and informs the user that allocation is underway.
+
+You could refer to [Allocator](#allocator) section to check the detailed workflow of ``AllocateCommand``. 
+
+#### Revert Command
+
+![RevertSequence](UML_Diagrams/RevertCommandSequence.drawio.svg)
+
+Upon parsing a `revert` command, a `RevertCommand` instance is created. `RevertCommand` then calls the `revertAllocation()`
+method in `StudentList`, which loops through all the students in the `students` array list. The method `revertAllocation()`
+within the `Student` objects resets the allocation status and allocated university. The operation is completed by calling
+the `UI` to print the templated response from the `Messages` enum.
+
+#### Exit Command
+
+#### Help Command
+
+#### Generate Command
+
+![GenerateSequence](UML_Diagrams/GenerateCommandSequence.drawio.svg)
+
+The `generate` command is calls the `generateReport()` method in `StudentList`, which then calls the `generateReport()`
+in the `UI` using the student array list, which prints an ASCII table representing the allocation outcome.
+
+#### Unknown Command
+
+#### Exit Command
 
 ### Allocator
 
