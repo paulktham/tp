@@ -168,7 +168,7 @@ public class UI {
     }
 
     public void printFileLoadSuccessMessage() {
-        printResponse("File Loaded successfully! Let's begin!");
+        printResponse("File loaded successfully! Let's begin!");
     }
 
     /**
