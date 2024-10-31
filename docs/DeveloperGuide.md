@@ -24,6 +24,7 @@
     - [Frontend / User Interface](#frontend--user-interface)
     - [Parser](#parser)
     - [Allocator](#allocator)
+    - [FileHandler](#filehandler)
 
 
 ## Acknowledgements
@@ -234,6 +235,7 @@ Some of its core features include:
 
 Here is a class diagram highlighting the fundamental structure of the `Parser` class.
 
+
 ![ParserClass](UML_Diagrams/ParserClass.drawio.svg)
 
 How `Parser` works:
@@ -242,6 +244,7 @@ How `Parser` works:
 3. Upon instantiation, the `XYZCommand` is prepared for execution. Each `XYZCommand` class, inheriting from the abstract `Command` class, has a `run()` method that executes its specific instructions.
 
 The sequence diagram below demonstrates the interactions within the `Parser` component when a user inputs the command: `add id/A1234567I gpa/5.0 p/{13,61,43}`.
+
 
 ![ParserSequence](UML_Diagrams/ParserSequence.drawio.svg)
 
