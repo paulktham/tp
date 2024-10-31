@@ -88,7 +88,8 @@ public class SEPFormatException extends SEPException {
 
     public static SEPFormatException rejectFilterFormat() {
         return new SEPFormatException("Invalid filter format. Please enter: " +
-                "'filter <list/report> <allocated/unallocated>'\n" +
-                "or 'filter <list> <gpa/id> <ascending/descending>'.");
+                "'filter <list/report> <allocated/unallocated>',\n" +
+                "or 'filter <list> <gpa/id> <ascending/descending>',\n" +
+                "or 'filter <list> <allocated/unallocated>'.");
     }
 }
