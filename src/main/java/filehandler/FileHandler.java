@@ -10,6 +10,7 @@ import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
 import exceptions.SEPEmptyException;
@@ -334,6 +335,7 @@ public class FileHandler {
     public void saveAllocationResults(ArrayList<Student> results, String fileChoice) {
         switch (fileChoice) {
         case "csv":
+            saveToCSV(results,  "data/allocation_results.csv");
             break;
         case "json":
             saveToJSON(results, "data/allocation_results.json");
@@ -407,6 +409,44 @@ public class FileHandler {
             }
         } catch (IOException e) {
             System.err.println("Error saving allocation results to TXT: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves a list of students to a CSV file at the specified file path.
+     * The file includes columns for student ID, GPA, university preferences,
+     * and allocation status.
+     *
+     * @param students  The list of Student objects to be saved in the CSV file.
+     * @param filePath  The file path where the CSV file will be saved.
+     */
+    public void saveToCSV(ArrayList<Student> students, String filePath) {
+        Path path = Paths.get(filePath);
+        try {
+            // Ensure directories exist before creating the file
+            Files.createDirectories(path.getParent());
+
+            // Use try-with-resources to automatically close the writer
+            try (CSVWriter writer = new CSVWriter(new FileWriter(path.toString()))) {
+                // Add header row
+                String[] header = { "ID", "GPA", "Preference Rankings", "Allocation Status" };
+                writer.writeNext(header);
+
+                for (Student student : students) {
+                    String[] data = {
+                            student.getId(),
+                            String.valueOf(student.getGpa()),
+                            String.valueOf(student.getUniPreferences()),
+                            String.valueOf(student.getAllocatedUniversity())
+                    };
+                    writer.writeNext(data);
+                }
+
+                System.out.println("CSV file saved successfully to " + path);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error while saving CSV file: " + e.getMessage());
         }
     }
 }
