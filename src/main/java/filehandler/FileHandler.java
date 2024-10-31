@@ -412,6 +412,14 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Saves a list of students to a CSV file at the specified file path.
+     * The file includes columns for student ID, GPA, university preferences,
+     * and allocation status.
+     *
+     * @param students  The list of Student objects to be saved in the CSV file.
+     * @param filePath  The file path where the CSV file will be saved.
+     */
     public void saveToCSV(ArrayList<Student> students, String filePath) {
         Path path = Paths.get(filePath);
         try {
