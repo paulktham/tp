@@ -152,7 +152,7 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 Delete Command removes an exisiting Student in the StudentList.
 
-![DeleteCommandSequence](./UML_Diagrams/deleteCommand.drawio.svg)
+![DeleteCommandSequence](./UML_Diagrams/DeleteCommand.drawio.svg)
 
 #### Criteria Command
 
