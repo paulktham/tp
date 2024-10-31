@@ -27,7 +27,8 @@ public class SEPEmptyException extends SEPException {
      */
     public static SEPEmptyException rejectFileNotFound() {
         return new SEPEmptyException("This file don't exist...Don't make me go " +
-                "through your folder for nothing leh :(.\nDon't want talk to you already la BYE");
+                "through your folder for nothing leh :(.\nProcess Outcome: No data is loaded. " +
+                "You can continue using the program.");
     }
 
     public static SEPEmptyException rejectEmptyFile() {

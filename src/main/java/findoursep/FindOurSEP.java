@@ -32,19 +32,16 @@ public class FindOurSEP {
     public void setUpFileHandler() {
         this.ui.printConfigMessage();
         String filePath = this.ui.promptFilePath();
-        if (filePath.isEmpty()) {
-            return;
-        }
         this.fileHandler = new FileHandler(filePath,this.parser);
         try {
-            if (!this.fileHandler.processFile()) {
+            if (this.fileHandler.hasProcessFileSuccessfully()) {
+                this.ui.printFileLoadSuccessMessage();
+
+            } else {
                 this.ui.printProcessError();
-                return;
             }
-            this.ui.printFileLoadSuccessMessage();
         } catch (SEPException | IOException e) {
             this.ui.printResponse(e.getMessage());
-            System.exit(0);
         }
     }
 

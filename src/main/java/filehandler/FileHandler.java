@@ -69,7 +69,7 @@ public class FileHandler {
      * @throws SEPException if there is an issue with the file, such as it
      *     being missing, or having an unknown extension
      */
-    public boolean processFile() throws SEPException, IOException {
+    public boolean hasProcessFileSuccessfully() throws SEPException, IOException {
         Path path = Paths.get(this.filePath);
         boolean result;
 

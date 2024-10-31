@@ -292,6 +292,14 @@ These two classes have a composition relationship, where ```UniversityRepository
 
 ### FileHandler
 
+The `FileHandler` class is responsible for parsing file inputs from users as well as writing allocation results to an external file in which the file type is determined by the user.
+
+![FileHandlerSequence](UML_Diagrams/FileHandlerSequence.drawio.svg)
+
+After successfully processing the file, the program compiles the student data into a comprehensive student list. This list serves as the foundational data structure upon which the program performs allocation operations, ensuring efficient and accurate data handling.
+
+The program continues to run afterward, prompting the user for commands.
+
 ## Product scope
 
 ### Target user profile
