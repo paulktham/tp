@@ -77,7 +77,15 @@ To get started with this project, follow these steps:
 
 #### Delete Command
 
+Delete Command removes an exisiting Student in the StudentList.
+
+![DeleteCommandSequence](./UML_Diagrams/DeleteCommand.drawio.svg)
+
 #### Criteria Command
+
+Criteria Command sets a minimum GPA every student must acheieve before they can be allocated to a university.
+
+![CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
 
 #### Find Command
 
@@ -87,13 +95,25 @@ To get started with this project, follow these steps:
 
 #### Stats Command
 
+The `StatCommand` class implements the `stats` command, which provides GPA-related statistics (average GPA or minimum GPA) for students associated with a specified university. The command syntax is `stats <stat_type> <UNI_INDEX>`, where `<stat_type>` can be `-avggpa` for average GPA or `-mingpa` for minimum GPA.
+
+![StatSequence](UML_Diagrams/StatSequence.drawio.svg)
+
 #### ViewQuota Command
+
+The `ViewQuotaCommand` class handles the `viewQuota` command to display information about a university’s remaining quota (available spots) based on a specified university index.
+
+![ViewQuotaSequence](UML_Diagrams/ViewQuotaSequence.drawio.svg)
 
 #### Allocate Command
 
+The `AllocateCommand` class manages the allocation process of students using the `Allocator` class. This command sets up an allocation process for students in the specified `StudentList` and informs the user that allocation is underway.
+
+You could refer to [Allocator](#allocator) section to check the detailed workflow of `AllocateCommand`.
+
 #### Revert Command
 
-![RevertSequence](/docs/UML_Diagrams/RevertCommandSequence.drawio.svg)
+![RevertSequence](UML_Diagrams/RevertCommandSequence.drawio.svg)
 
 Upon parsing a `revert` command, a `RevertCommand` instance is created. `RevertCommand` then calls the `revertAllocation()`
 method in `StudentList`, which loops through all the students in the `students` array list. The method `revertAllocation()`
@@ -102,20 +122,40 @@ the `UI` to print the templated response from the `Messages` enum.
 
 #### Generate Command
 
-![GenerateSequence](/docs/UML_Diagrams/GenerateCommandSequence.drawio.svg)
+![GenerateSequence](UML_Diagrams/GenerateCommandSequence.drawio.svg)
 
 The `generate` command is calls the `generateReport()` method in `StudentList`, which then calls the `generateReport()`
 in the `UI` using the student array list, which prints an ASCII table representing the allocation outcome.
 
 #### Help Command
 
+- The help command provides users with a comprehensive guide to all the commands that the program can recognize and respond to. 
+
+- When this command is executed, the program prints out a detailed list of available commands, each accompanied by a brief description of its functionality. 
+
+- Additionally, the help command specifies the correct input format for each command, ensuring that users understand how to interact effectively with the program.
+
+- This feature is designed to enhance user experience by providing clear instructions and support, facilitating easier and more efficient use of the program's capabilities.
+
 #### Exit Command
+
+- The `ExitCommand` class is initialised whenever the parser extracts out the commands `exit`, `bye` and `quit`. The execution of `ExitCommand` prompts the user to choose whether to save the allocation results. 
+
+- After execution, `parseInput()` method returns a `false` which sets `isRunning` to `false` and breaks out of the loop.
+
+- If the user inputted `yes` previously to choose to save their allocation results, they will be asked to choose their desired file format (.CSV, .JSON, .TXT) to save their allocation results.
+
+- Subsequently, the `saveAllocationResults` method is called on the `FileHandler` class to save the results before the `UI` class prints a lovely goodbye message to the user.
+
+Note: For further details on the `FileHandler` class, please refer to [this](#filehandler).
+
 ![ExitSequence](UML_Diagrams/ExitSequence.drawio.svg)
 
 #### Unknown Command
 
+- The `UnknownCommand` is triggered when the parser is unable to recognise the command inputted by the user. 
 
-
+- The execution of this command notifies the user of their invalid command and prompts them to type `help` to display a list of all valid commands and their correct formats
 
 
 ## Components
@@ -207,75 +247,6 @@ The sequence diagram below demonstrates the interactions within the `Parser` com
 
 The boolean return value of `parseInput()` indicates whether the user has chosen to continue or terminate the program. A `true` value keeps FindOurSEP running, while a `false` value ends the program.
 
-### Commands
-
-#### Add Command
-
-#### Delete Command
-
-Delete Command removes an exisiting Student in the StudentList.
-
-![DeleteCommandSequence](./UML_Diagrams/DeleteCommand.drawio.svg)
-
-#### Criteria Command
-
-Criteria Command sets a minimum GPA every student must acheieve before they can be allocated to a university.
-
-![CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
-
-#### Find Command
-
-#### Filter Command
-
-#### Stats Command
-
-#### ViewQuota Command
-
-
-#### List Command
-
-#### Stats Command
-
-The `StatCommand` class implements the `stats` command, which provides GPA-related statistics (average GPA or minimum GPA) for students associated with a specified university. The command syntax is `stats <stat_type> <UNI_INDEX>`, where `<stat_type>` can be `-avggpa` for average GPA or `-mingpa` for minimum GPA.
-
-![StatSequence](UML_Diagrams/StatSequence.drawio.svg)
-
-#### ViewQuota Command
-
-The `ViewQuotaCommand` class handles the `viewQuota` command to display information about a university’s remaining quota (available spots) based on a specified university index.
-
-![ViewQuotaSequence](UML_Diagrams/ViewQuotaSequence.drawio.svg)
-
-#### Allocate Command
-
-The `AllocateCommand` class manages the allocation process of students using the `Allocator` class. This command sets up an allocation process for students in the specified `StudentList` and informs the user that allocation is underway.
-
-You could refer to [Allocator](#allocator) section to check the detailed workflow of ``AllocateCommand``. 
-
-#### Revert Command
-
-![RevertSequence](UML_Diagrams/RevertCommandSequence.drawio.svg)
-
-Upon parsing a `revert` command, a `RevertCommand` instance is created. `RevertCommand` then calls the `revertAllocation()`
-method in `StudentList`, which loops through all the students in the `students` array list. The method `revertAllocation()`
-within the `Student` objects resets the allocation status and allocated university. The operation is completed by calling
-the `UI` to print the templated response from the `Messages` enum.
-
-#### Exit Command
-
-#### Help Command
-
-#### Generate Command
-
-![GenerateSequence](UML_Diagrams/GenerateCommandSequence.drawio.svg)
-
-The `generate` command is calls the `generateReport()` method in `StudentList`, which then calls the `generateReport()`
-in the `UI` using the student array list, which prints an ASCII table representing the allocation outcome.
-
-#### Unknown Command
-
-#### Exit Command
-
 ### Allocator
 
 The `Allocator` class is responsible for allocating students to universities based on their preferences and GPA. It interacts with the `StudentList`, `UniversityRepository`, and `Student` classes to perform the allocation.
@@ -315,6 +286,8 @@ The sequence below illustrates the interactions between ```StudentList``` and ``
 #### University and UniversityRepository
 
 These two classes have a composition relationship, where ```UniversityRepository``` is composed of ```University``` objects. The ```University``` object holds the various crucial information of any single university that is provided in the list of available universities. The ```UniversityRepository``` class then creates a static HashMap and statically inputs the list of universities into this HashMap. This HashMap is then easily accessible by other classes to get any information which may be necessary from the universities. 
+
+### FileHandler
 
 ## Product scope
 
