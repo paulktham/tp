@@ -167,8 +167,8 @@ public class UI {
                 "You can continue to use the program.");
     }
 
-    public void printLoadSuccessMessage() {
-        printResponse("Success! Let's begin!");
+    public void printFileLoadSuccessMessage() {
+        printResponse("File Loaded successfully! Let's begin!");
     }
 
     /**

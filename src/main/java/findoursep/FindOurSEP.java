@@ -38,7 +38,7 @@ public class FindOurSEP {
         }
         try {
             if (this.fileHandler.hasProcessFileSuccessfully()) {
-                this.ui.printLoadSuccessMessage();
+                this.ui.printFileLoadSuccessMessage();
             } else {
                 this.ui.printProcessError();
             }
