@@ -298,9 +298,14 @@ public class StudentList {
      * @param filter The allocation status to filter by, either "allocated" or "unallocated".
      * @return An ArrayList of students who match the specified allocation status.
      */
-    public ArrayList<Student> filterByAllocationStatus(String filter) {
+    public ArrayList<Student> filterByAllocationStatus(String filter) throws SEPException {
         ArrayList<Student> filteredStudents = new ArrayList<>();
         boolean isAllocated = filter.equals("allocated");
+        if (!isAllocated) {
+            if (!filter.equals("unallocated")) {
+                throw SEPFormatException.rejectFilterFormat();
+            }
+        }
         for (Student student : students) {
             if (student.getSuccessfullyAllocated() == isAllocated) {
                 filteredStudents.add(student);
@@ -327,7 +332,7 @@ public class StudentList {
      * and generates a report for the filtered students.
      *
      * @param filter Either "allocated" or "unallocated" to filter by status.
-     * @throws SEPException If report is empty.
+     * @throws SEPException If report is empty or if format is invalid.
      */
     public void filterStudentReport(String filter) throws SEPException {
         ArrayList<Student> filteredStudents = filterByAllocationStatus(filter);
