@@ -78,7 +78,7 @@ To get started with this project, follow these steps:
 
 #### Delete Command
 
-Delete Command removes an exisiting Student in the StudentList.
+Delete Command removes an existing Student in the StudentList.
 
 ![DeleteCommandSequence](./UML_Diagrams/DeleteCommand.drawio.svg)
 
@@ -90,7 +90,87 @@ Criteria Command sets a minimum GPA every student must acheieve before they can 
 
 #### Find Command
 
+The find mechanism is facilitated by `StudentList`. Every instance of `FindCommand` is created with a string `input`,
+which contains the keywords for finding a student, and a `UI` instance for output handling.
+
+The following sequence diagram shows how the find command works.
+
+![FindCommandSequence](./UML_Diagrams/FindSequence.drawio.svg)
+
+(*Sd frames from references will be shown in the `Ui` class.*)
+
+Given below is an example usage scenario and how the find mechanism behaves at each step.
+
+1. The user launches the application, initialising `StudentList`, which contains stored `Student` entries if any.
+
+2. The user executes a command such as `find list A12345` or `find report B1234567I` to search for a student 
+   by their ID in the StudentList. (*Note: input is case-sensitive*)
+
+3. The command is parsed by `Parser`, which creates a `FindCommand` object with the keywords passed as 
+   the input parameter.
+
+4. The `FindCommand` constructor stores the `input` string and initializes `StudentList` and `UI` for managing 
+   search and output, respectively.
+
+5. When `run()` is called on `FindCommand`, it invokes the `findStudent()` method in `StudentList`, 
+   passing `input` to find the students based on the given keywords.
+
+6. Within `findStudent()`, the input is validated and parsed. If the format is invalid, 
+   a `SEPFormatException` is thrown. An error message will be displayed informing the user.
+   If the command includes `list`, the output will print a `list` format of the students found. 
+   Alternatively, if the command includes `report`, the output will generate a `report` format of the students found.
+   
+7. If students are found, a `list` or `report` will be displayed.
+   However, if no students are found, an `SEPEmptyException` is thrown. An error message will inform the user that
+   no students are found.
+
 #### Filter Command
+
+The filter mechanism is facilitated by `StudentList`. Every instance of `FilterCommand` is created 
+with a string `input`, which contains the filter criteria, and a `UI` instance for output handling.
+
+The following sequence diagram shows how the find command works.
+
+![FilterCommandSequence](./UML_Diagrams/FilterSequence.drawio.svg)
+
+![FilterStudentId](./UML_Diagrams/FilterStudentIdsd.drawio.svg)
+
+![FilterStudentGPA](./UML_Diagrams/FilterStudentGpasd.drawio.svg)
+
+![FilterStudentAllocationList](./UML_Diagrams/FilterStudentAllocationListsd.drawio.svg)
+
+![FilterStudentReport](./UML_Diagrams/FilterStudentReportsd.drawio.svg)
+
+(*Remaining sd frames from references will be shown in the `Ui` class.*)
+
+Given below is an example usage scenario and how the find mechanism behaves at each step.
+
+1. The user launches the application, initialising `StudentList`, which contains stored `Student` entries if any.
+
+2. The user executes a command such as `filter list gpa ascending` or `filter report allocated` to filter students
+   by criteria based on GPA, ID, or allocation status.
+
+3. The command is parsed by `Parser`, which creates a `FilterCommand` object with the criteria passed as
+   the input parameter.
+
+4. The `FilterCommand` constructor stores the `input` string and initializes `StudentList` and `UI` for managing
+   filter and output, respectively.
+
+5. When `run()` is called on `FilterCommand`, it invokes the `filterStudent()` method in `StudentList`,
+   passing `input` to filter students based on the specified criteria.
+
+6. Within `filterStudent()`, the input is validated and parsed. If the format is invalid,
+   a `SEPFormatException` is thrown. An error message will be displayed informing the user.
+   If the command includes `list`, the output will print a `list` format of the students filtered.
+   Alternatively, if the command includes `report`, the output will generate a `report` format of the students filtered.
+
+7. Depending on the filter criteria (e.g., `gpa ascending`, `id descending`, `unallocated`), 
+   the appropriate method (e.g., `filterStudentGpa()`, `filterStudentId()`, or `filterByAllocationStatus()`) is invoked 
+   respectively, to filter students by the specified attribute and order.
+
+8. If students are found after the filter, a `list` or `report` will be displayed.
+   However, if no students remain, an `SEPEmptyException` is thrown. An error message will inform the user that
+   no students are found.
 
 #### List Command
 
@@ -188,6 +268,12 @@ between backend logic and the presentation layer.
 4. For each user action, such as displaying a list of students or allocating slots, the `UI` class uses helper methods 
 (e.g., `printStudentList`, `generateReport`) to format and render the output. The methods ensure the responses are 
 consistent and user-friendly.
+
+Below are sd frames for `printStudentList` and `generateReport` respectively.
+
+![printStudentList](./UML_Diagrams/PrintStudentListsd.drawio.svg)
+
+![generateReport](./UML_Diagrams/GenerateReportsd.drawio.svg)
 
 The `UI` class methods typically return `void`, but will print responses directly to the console or handle user input, 
 streamlining interactions and allowing the backend to focus solely on data processing. `UI` returns a type when there is

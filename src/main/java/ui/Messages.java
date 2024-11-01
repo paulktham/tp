@@ -20,8 +20,7 @@ public enum Messages {
             filter      Filters student data with a keyword, returning either a list or report.
                         User can choose between ascending/descending id/gpa and allocation status.
                         The format is: 'filter <list/report> <allocated/unallocated>',
-                                       or 'filter <list> <gpa/id> <ascending/descending>',
-                                       or 'filter <list> <allocated/unallocated>'
+                                       or 'filter <list> <gpa/id> <ascending/descending>'
                         Example: filter list gpa ascending
 
             list        Lists all students currently in the system.
