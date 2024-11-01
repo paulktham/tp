@@ -3,9 +3,11 @@ package filehandler;
 import exceptions.SEPEmptyException;
 import exceptions.SEPException;
 import exceptions.SEPUnknownException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
+import student.Student;
 import studentlist.StudentList;
 import ui.UI;
 
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -24,20 +27,24 @@ class FileHandlerTest {
     private Parser parser;
     private StudentList studentList;
     private UI ui;
+    private ArrayList<Student> results;
 
     private static final Path CSV_FILE_PATH = Paths.get("test.csv");
     private static final Path JSON_FILE_PATH = Paths.get("test.json");
     private static final Path TXT_FILE_PATH = Paths.get("test.txt");
 
     @BeforeEach
-    void setUp() {
-        ui = new UI();
-        studentList = new StudentList(ui);
-        parser = new Parser(studentList, ui);
+    void setUp() throws SEPException, IOException {
+        this.ui = new UI();
+        this.studentList = new StudentList(ui);
+        this.parser = new Parser(studentList, ui);
+        this.fileHandler = new FileHandler("test.csv", parser);
+        this.fileHandler.hasProcessFileSuccessfully();
+        results = this.studentList.getList();
     }
 
     @Test
-    void hasProcessFileSuccessfully_CSVFile_ProcessedSuccessfully() throws IOException, SEPException {
+    void hasProcessFileSuccessfully_CSVFile_processedSuccessfully() throws IOException, SEPException {
         fileHandler = new FileHandler(CSV_FILE_PATH.toString(), parser);
 
         boolean result = fileHandler.hasProcessFileSuccessfully();
@@ -46,7 +53,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_JSONFile_ProcessedSuccessfully() throws IOException, SEPException {
+    void hasProcessFileSuccessfully_JSONFile_processedSuccessfully() throws IOException, SEPException {
         fileHandler = new FileHandler(JSON_FILE_PATH.toString(), parser);
 
         boolean result = fileHandler.hasProcessFileSuccessfully();
@@ -55,7 +62,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_TXTFile_ProcessedSuccessfully() throws IOException, SEPException {
+    void hasProcessFileSuccessfully_TXTFile_processedSuccessfully() throws IOException, SEPException {
         fileHandler = new FileHandler(TXT_FILE_PATH.toString(), parser);
 
         boolean result = fileHandler.hasProcessFileSuccessfully();
@@ -64,7 +71,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_missingFile_FileNotFound() throws IOException {
+    void hasProcessFileSuccessfully_missingFile_fileNotFound() throws IOException {
         fileHandler = new FileHandler("nonexistent.glb", parser);
 
         SEPException exception = assertThrows(SEPEmptyException.class, fileHandler::hasProcessFileSuccessfully);
@@ -73,7 +80,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_blankFile_EmptyFile() throws IOException, SEPException {
+    void hasProcessFileSuccessfully_blankFile_emptyFileDetected() throws IOException, SEPException {
         File emptyFile = Files.createTempFile("empty", ".csv").toFile();
         emptyFile.deleteOnExit();
 
@@ -84,10 +91,37 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully__UnknownFileType() throws IOException {
+    void hasProcessFileSuccessfully_invalidFileType_unknownFileDetected() throws IOException {
         fileHandler = new FileHandler("test.xml", parser);
 
         SEPException exception = assertThrows(SEPUnknownException.class, fileHandler::hasProcessFileSuccessfully);
         assertEquals("Unknown/Unsupported file type detected!", exception.getMessage());
+    }
+
+
+    @Test
+    void saveAllocationResults_saveInCSV_resultsSavedSuccessfully() throws IOException, SEPException {
+        Path p = Paths.get("data/allocation_results.csv");
+        fileHandler.saveAllocationResults(this.results, "csv");
+        assertTrue(Files.exists(p));
+        assertTrue(Files.size(p) != 0);
+    }
+
+
+    @Test
+    void saveAllocationResults_saveInJSON_resultsSavedSuccessfully() throws IOException {
+        Path p = Paths.get("data/allocation_results.json");
+        this.fileHandler.saveAllocationResults(this.results, "json");
+        assertTrue(Files.exists(p));
+        assertTrue(Files.size(p) != 0);
+    }
+
+
+    @Test
+    void saveAllocationResults_saveInTXT_resultsSaveSuccessfully() throws IOException {
+        Path p = Paths.get("data/allocation_results.txt");
+        this.fileHandler.saveAllocationResults(this.results, "txt");
+        assertTrue(Files.exists(p));
+        assertTrue(Files.size(p) != 0);
     }
 }
