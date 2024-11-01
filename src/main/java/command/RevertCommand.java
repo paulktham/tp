@@ -40,7 +40,7 @@ public class RevertCommand extends Command {
      */
     @Override
     public void run() {
-        logger.log(Level.INFO, "Starting revert operation.");
+        logger.log(Level.FINE, "Starting revert operation.");
 
         // Ensure studentList is initialized
         assert studentList != null : "StudentList cannot be null during revert operation";
@@ -50,7 +50,7 @@ public class RevertCommand extends Command {
         UniversityRepository.resetMap();
 
         // Log completion and notify the user
-        logger.log(Level.INFO, "Revert operation completed.");
+        logger.log(Level.FINE, "Revert operation completed.");
         ui.printResponse(Messages.REVERT_COMPLETE);
     }
 }
