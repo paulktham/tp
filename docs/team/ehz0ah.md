@@ -11,14 +11,14 @@ Code Contributed: [RepoSense (tP Code Dashboard)](https://nus-cs2113-ay2425s1.gi
 
 ### v1.0 Enhancements: 
 
-1. Parser Class
+1. Parser Class ([#22](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/22))
    - **Purpose**: To analyze and interpret user commands, ensuring that each input is accurately understood by the system.
    - **Justification**: Streamlines the command processing workflow by providing a unified approach to parsing user inputs, thus enhancing overall efficiency and reliability.
    - **Highlights**: 
      - Robust error handling for unrecognized commands
      - Modular design, allowing easy updates and maintenance.
 
-2. Abstract Command Class
+2. Abstract Command Class ([#23](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/23))
    - **Purpose**: To serve as a foundational template for all specific command classes, encapsulating shared functionalities and promoting code reusability.
    - **Justification**: Reduces code redundancy and facilitates the implementation of new commands by providing a consistent framework for command execution.
    - **Highlights**: 
@@ -26,7 +26,7 @@ Code Contributed: [RepoSense (tP Code Dashboard)](https://nus-cs2113-ay2425s1.gi
      - Standardized error handling and validation mechanisms. 
      - Supports a wide range of command types with minimal code duplication.
 
-3. XYZCommands Class
+3. XYZCommands Class ([#23](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/23), [#37](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/37))
    - **Purpose**: Implements specific commands that interact directly with core functionalities, driving the primary operations of the application.
    - **Justification**: Adds concrete functionality to the abstract command framework, ensuring that the application can execute essential operations efficiently.
    - **Highlights**: 
@@ -46,15 +46,11 @@ Code Contributed: [RepoSense (tP Code Dashboard)](https://nus-cs2113-ay2425s1.gi
 
 ### User Guide Contributions:
 
-Added documentation for the following:
+Added documentation for the following: ([#90](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/90))
 1. Uploading Information
    - Manual Input
    - File Input
 2. Exit Program
-
-Related issue: [#89](https://github.com/AY2425S1-CS2113-W12-2/tp/issues/89)
-
-Related PRs: [#90](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/90)
 
 ### Developer Guide Contributions:
 
@@ -75,8 +71,8 @@ PR for 1-3: [#61](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/61)
 
 ### Contributions to Team-Based Tasks
 1. Set up team GitHub Organisation/Repository
-2. Managed release `v1.0` on GitHub
+2. Managed release `v1.0` on GitHub ([v1.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases/tag/v1.0))
 3. Maintained issue tracker
 4. Incorporated third-party libraries (OpenCSV & Jackson)
-5. Updated `gradle.yml` to ensure smooth running of GitHub Actions (Continuous Integration)
+5. Updated `gradle.yml` to ensure smooth running of GitHub Continuous Integration Actions ([#38](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/38))
 6. PRs reviewed: [#97](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/97), [#70](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/70), [#49](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/49), [#40](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/40), [#30](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/30)
