@@ -8,13 +8,18 @@ import java.util.HashMap;
  * It provides a static method to retrieve a university by its index.
  */
 public class UniversityRepository {
-
     // HashMap storing universities with an Integer index as the key and University as the value
-    private static final HashMap<Integer, University> universityMap = new HashMap<>();
+    private static HashMap<Integer, University> universityMap = new HashMap<>();
 
     // Static block to initialize the repository with predefined universities
-
     static {
+        initialiseMap();
+    }
+
+    /**
+     * Initialises the map of universities in this UniRepo class.
+     */
+    private static void initialiseMap() {
         universityMap.put(1, new University("The Uni of Western Australia", "UWA",1 ));
         universityMap.put(2, new University("The University of Melbourne", "UM",1));
         universityMap.put(3, new University("The Australian National Uni", "TANU",1));
@@ -115,9 +120,13 @@ public class UniversityRepository {
      * @param index The index of the university to retrieve.
      * @return The University object corresponding to the given index, or null if no such university exists.
      */
-    
     public static University getUniversityByIndex(int index) {
         return universityMap.get(index);
+    }
+
+    public static void resetMap() {
+        universityMap = new HashMap<>();
+        initialiseMap();
     }
 }
 
