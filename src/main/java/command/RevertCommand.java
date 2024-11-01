@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import studentlist.StudentList;
 import ui.Messages;
 import ui.UI;
+import university.UniversityRepository;
 
 /**
  * Command to revert the allocation status of all students in the StudentList.
@@ -44,8 +45,9 @@ public class RevertCommand extends Command {
         // Ensure studentList is initialized
         assert studentList != null : "StudentList cannot be null during revert operation";
 
-        // Perform the revert action
+        // Perform the revert action on student list and uni repo
         studentList.revertAllocation();
+        UniversityRepository.resetMap();
 
         // Log completion and notify the user
         logger.log(Level.INFO, "Revert operation completed.");
