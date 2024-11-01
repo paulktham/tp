@@ -23,15 +23,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FileHandlerTest {
+    private static final Path CSV_FILE_PATH = Paths.get("test.csv");
+    private static final Path JSON_FILE_PATH = Paths.get("test.json");
+    private static final Path TXT_FILE_PATH = Paths.get("test.txt");
+
     private FileHandler fileHandler;
     private Parser parser;
     private StudentList studentList;
     private UI ui;
     private ArrayList<Student> results;
-
-    private static final Path CSV_FILE_PATH = Paths.get("test.csv");
-    private static final Path JSON_FILE_PATH = Paths.get("test.json");
-    private static final Path TXT_FILE_PATH = Paths.get("test.txt");
 
     @BeforeEach
     void setUp() throws SEPException, IOException {
@@ -44,7 +44,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_CSVFile_fileProcessed() throws IOException, SEPException {
+    void testCSVFileProcessing() throws IOException, SEPException {
         fileHandler = new FileHandler(CSV_FILE_PATH.toString(), parser);
 
         boolean result = fileHandler.hasProcessFileSuccessfully();
@@ -53,7 +53,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_JSONFile_fileProcessed() throws IOException, SEPException {
+    void testJSONFileProcessing() throws IOException, SEPException {
         fileHandler = new FileHandler(JSON_FILE_PATH.toString(), parser);
 
         boolean result = fileHandler.hasProcessFileSuccessfully();
@@ -62,7 +62,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_TXTFile_fileProcessed() throws IOException, SEPException {
+    void testTXTFileProcessing() throws IOException, SEPException {
         fileHandler = new FileHandler(TXT_FILE_PATH.toString(), parser);
 
         boolean result = fileHandler.hasProcessFileSuccessfully();
