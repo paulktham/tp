@@ -12,6 +12,8 @@ import student.Student;
 import university.University;
 import university.UniversityRepository;
 
+import static filehandler.FileHandler.isValidPath;
+
 /**
  * Handles user interface FindMySEP application.
  * Methods to print messages, retrieve user input, display ASCII table
@@ -216,8 +218,13 @@ public class UI {
      */
     public String processFilePathInput() {
         String input = getUserInput();
-        while (input.isEmpty()) {
-            printResponse("Filepath cannot be empty!");
+        while (input.isEmpty() || !isValidPath(input)) {
+            if (input.isEmpty()) {
+                printResponse("Filepath cannot be empty!");
+            }
+            if (!isValidPath(input)) {
+                printResponse("Invalid filepath!");
+            }
             input = getUserInput();
         }
         return input;
