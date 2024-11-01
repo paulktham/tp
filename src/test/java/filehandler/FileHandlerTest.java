@@ -44,7 +44,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_CSVFile_processedSuccessfully() throws IOException, SEPException {
+    void hasProcessFileSuccessfully_CSVFile_fileProcessed() throws IOException, SEPException {
         fileHandler = new FileHandler(CSV_FILE_PATH.toString(), parser);
 
         boolean result = fileHandler.hasProcessFileSuccessfully();
@@ -53,7 +53,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_JSONFile_processedSuccessfully() throws IOException, SEPException {
+    void hasProcessFileSuccessfully_JSONFile_fileProcessed() throws IOException, SEPException {
         fileHandler = new FileHandler(JSON_FILE_PATH.toString(), parser);
 
         boolean result = fileHandler.hasProcessFileSuccessfully();
@@ -62,7 +62,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void hasProcessFileSuccessfully_TXTFile_processedSuccessfully() throws IOException, SEPException {
+    void hasProcessFileSuccessfully_TXTFile_fileProcessed() throws IOException, SEPException {
         fileHandler = new FileHandler(TXT_FILE_PATH.toString(), parser);
 
         boolean result = fileHandler.hasProcessFileSuccessfully();
@@ -87,7 +87,8 @@ class FileHandlerTest {
         fileHandler = new FileHandler(emptyFile.getAbsolutePath(), parser);
 
         SEPException exception = assertThrows(SEPEmptyException.class, fileHandler::hasProcessFileSuccessfully);
-        assertEquals("Nothing to read from the file. Please ensure there is content next time.", exception.getMessage());
+        assertEquals("Nothing to read from the file. Please ensure there is content next time.",
+                exception.getMessage());
     }
 
     @Test
