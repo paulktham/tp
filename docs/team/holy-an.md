@@ -10,22 +10,22 @@ manage the allocation process using automated workflows and data-driven decision
 
 ### v1.0 Enhancements: `Exception` class, `Exception` helper methods
 - `SEPException` Development
-    - Developed the Exception classes and methods for the team project to throw whenever needed.
-    - Also helped to test, as well as implement edge cases needed to be handled in methods for v1.0
-    - Added helper methods to validate user inputs, such as `validateStudentId()` and others.
+  - Developed the Exception classes and methods for the team project to throw whenever needed.
+  - Also helped to test, as well as implement edge cases needed to be handled in methods for v1.0
+  - Added helper methods to validate user inputs, such as `validateStudentId()` and others.
 
 ### v2.0 Enhancements: `saveCSV`,`find` and `filter` command
 - `saveToCSV` Implementation
-    - Designed and implemented `saveToCSV()` method to allow users to save their results via a CSV file.
+  - Designed and implemented `saveToCSV()` method to allow users to save their results via a CSV file.
 
 - `find` Command Implementation
-    - Designed and implemented the FindCommand class to allow users to search for student IDs,
-      outputting either a list or a report.
+  - Designed and implemented the FindCommand class to allow users to search for student IDs,
+    outputting either a list or a report.
   
 - `filter` Command Implementation
-    - Designed and implemented the FilterCommand class to allow users to filter for student IDs, GPAs,
-      or allocation status, outputting either a list or a report.
-    - Created more validation helper methods such as `validateFindFilterFormat()`.
+  - Designed and implemented the FilterCommand class to allow users to filter for student IDs, GPAs,
+    or allocation status, outputting either a list or a report.
+  - Created more validation helper methods such as `validateFindFilterFormat()`.
 
 ### User Guide Contributions:
 - Along with the other group members, we discussed the structure of our User Guide.
