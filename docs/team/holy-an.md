@@ -28,9 +28,14 @@ manage the allocation process using automated workflows and data-driven decision
     - Created more validation helper methods such as `validateFindFilterFormat()`.
 
 ### User Guide Contributions:
+- Along with the other group members, we discussed the structure of our User Guide.
+
+- Added `find` and `filter` command.
 
 ### Developer Guide Contributions:
 - Along with the other group members, we drew the main high-level diagrams needed in our Developer guide.
-    - Added `find` and `filter` sequence diagrams, as well as any methods inside it, such as
-      `printStudentList()` and `generateReport`.
-    - Explained the `find` and `filter` commands.
+
+- Added `find` and `filter` sequence diagrams, as well as any methods inside it, such as
+  `printStudentList()` and `generateReport`.
+
+- Explained the `find` and `filter` commands.

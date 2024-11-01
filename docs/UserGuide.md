@@ -113,6 +113,7 @@ Example output:
 
 ```shell
 > list
+--------------------------------------------------------------------------------
 Here is the list:
 ┌───────────────┬──────────┬─────────────────────────┐
 │    Student    │   GPA    │   Preference Rankings   │
@@ -120,6 +121,31 @@ Here is the list:
 │   A1234567I   │   5.0    │        13,61,43         │
 │   A2113113X   │   4.99   │           61            │
 └───────────────┴──────────┴─────────────────────────┘
+--------------------------------------------------------------------------------
+```
+### Find Student: `find`
+Finds the student with the keyword, returning either a list or report. Input is case-sensitive and 
+full IDs are not required, but merely keyword.
+
+Format: `find <list/report> STUDENT_ID`
+e.g.
+`find list A123`
+
+Example output:
+
+```shell
+--------------------------------------------------------------------------------
+Finding for students... student(s) found.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Here is the list:
+┌───────────────┬──────────┬─────────────────────────┐
+│    Student    │   GPA    │   Preference Rankings   │
+├───────────────┼──────────┼─────────────────────────┤
+│   A1234567I   │   5.0    │        13,61,43         │
+│   A2113113X   │   4.99   │           61            │
+└───────────────┴──────────┴─────────────────────────┘
+--------------------------------------------------------------------------------
 ```
 
 ### Set minimum GPA criteria: `minimum`
@@ -131,6 +157,29 @@ The student must achieve the same or a higher GPA to be considered for exchange.
 e.g.
 `minimum 4.0`
 
+### Filter Student: `filter`
+
+Filters student data with a keyword, returning either a list or report.
+User can choose between ascending/descending id/gpa and allocation status.
+
+Format: `filter <list/report> <allocated/unallocated>`, 
+        or `filter <list> <gpa/id> <ascending/descending>`
+e.g. 
+`filter list gpa ascending`
+
+Example output:
+
+```shell
+--------------------------------------------------------------------------------
+Here is the list:
+┌───────────────┬──────────┬─────────────────────────┐
+│    Student    │   GPA    │   Preference Rankings   │
+├───────────────┼──────────┼─────────────────────────┤
+│   A1237154B   │   4.50   │           64            │
+│   A1234567I   │   5.0    │        13,61,43         │
+└───────────────┴──────────┴─────────────────────────┘
+--------------------------------------------------------------------------------
+```
 
 ### View allocation statistics: ``stats``
 
@@ -204,16 +253,18 @@ Adios, amigo!
 
 ## Command Summary
 
-| Action    | Format/Example                                               |
-| --------- | ------------------------------------------------------------ |
-| Add       | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}` |
-| Delete    | `delete STUDENT_ID` <br> e.g. `delete A1234567I`             |
-| List      | `list`                                                       |
-| Statistic | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42`` |
-| viewQuota | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``           |
-| Allocate  | `allocate`                                                   |
-| Minimum   | `minimum 4.0`                                                |
-| Revert    | `revert`                                                     |
-| GetReport | `generate`                                                   |
-| Exit      | `bye`, `exit`, `quit`                                        |
-| Help      | `help`                                                       |
+| Action    | Format/Example                                                                                                                          |
+|-----------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Add       | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}`                                   |
+| Delete    | `delete STUDENT_ID` <br> e.g. `delete A1234567I`                                                                                        |
+| Find      | `find <list/report> STUDENT_ID` <br> e.g. `find list A1234567I`                                                                         |
+| Filter    | `filter <list/report> <allocated/unallocated>` or `filter <list> <gpa/id> <ascending/descending>`<br/> e.g. `filter list gpa ascending` |
+| List      | `list`                                                                                                                                  |
+| Statistic | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42``                                              |
+| viewQuota | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``                                                                                      |
+| Allocate  | `allocate`                                                                                                                              |
+| Minimum   | `minimum 4.0`                                                                                                                           |
+| Revert    | `revert`                                                                                                                                |
+| GetReport | `generate`                                                                                                                              |
+| Exit      | `bye`, `exit`, `quit`                                                                                                                   |
+| Help      | `help`                                                                                                                                  |
