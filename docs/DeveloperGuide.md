@@ -42,12 +42,12 @@ Many thanks to the developers and maintainers of these libraries for their incre
 
 To get started with this project, follow these steps:
 
-## Prerequisites
+### Prerequisites
 
 - Java 17
 - Download the latest `.jar` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases/tag/v1.0).
 
-## Steps
+### Steps
 
 1. **Copy the `.jar` file:**
     - Move the downloaded `.jar` file into a designated folder on your computer.
