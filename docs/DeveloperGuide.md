@@ -7,23 +7,26 @@
   - [Architecture](#architecture)
   - [Commands](#commands)
     - [Add Command](#add-command)
-    - [Delete Command]()
-    - [Criteria Command]()
-    - [Find Command]()
-    - [Filter Command]()
-    - [List Command]()
-    - [Stats Command]()
-    - [ViewQuota Command]()
-    - [Allocate Command]()
-    - [Revert Command]()
-    - [Generate Command]()
-    - [Help Command]()
-    - [Exit Command]()
-    - [Unknown Command]()
-  - [Components]()
+    - [Delete Command](#delete-command)
+    - [Criteria Command](#criteria-command)
+    - [Find Command](#find-command)
+    - [Filter Command](#filter-command)
+    - [List Command](#list-command)
+    - [Stats Command](#stats-command)
+    - [ViewQuota Command](#viewquota-command)
+    - [Allocate Command](#allocate-command)
+    - [Revert Command](#revert-command)
+    - [Generate Command](#generate-command)
+    - [Help Command](#help-command)
+    - [Exit Command](#exit-command)
+    - [Unknown Command](#unknown-command)
+  - [Components](#components)
     - [Frontend / User Interface](#frontend--user-interface)
     - [Parser](#parser)
     - [Allocator](#allocator)
+    - [Student](#student)
+    - [StudentList](#studentlist)
+    - [University and UniversityRepository](#university-and-universityrepository)
     - [FileHandler](#filehandler)
 
 
@@ -75,6 +78,10 @@ To get started with this project, follow these steps:
 ### Commands
 
 #### Add Command
+
+Add Command adds a new Student into the StudentList.
+
+![AddCommandSequence](./UML_Diagrams/AddCommand.drawio.svg)
 
 #### Delete Command
 
@@ -362,7 +369,7 @@ Here is a class diagram highlighting the fundamental structure of the `Allocator
 
 #### Student
 
-The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status.
+The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status. Please refer to diagrams in [!StudentList](#studentlist) to see a detailed sequence diagram and class diagram.
 
 #### StudentList
 
@@ -371,6 +378,10 @@ The ```StudentList``` is a fundamental component which is initiated as soon as F
 The sequence below illustrates the interactions between ```StudentList``` and ```Student``` when an addCommand is called with the appropriate inputs.
 
 ![StudentListSequence](UML_Diagrams/StudentList.drawio.svg)
+
+This diagram below shows the class diagram of Student and StudentList.
+
+![StudentandStudentListClassDiagram](./UML_Diagrams/studentandstudentlist.drawio.svg)
 
 #### University and UniversityRepository
 
