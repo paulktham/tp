@@ -93,6 +93,9 @@ public class Allocator {
     public StudentList allocate() {
         studentList.sortStudentsByDescendingGPA(studentList.getList());
         for (Student student : studentList.getList()) {
+            if (student.getSuccessfullyAllocated()) {
+                continue;
+            }
             for (int uni : student.getUniPreferences()) {
                 University university = UniversityRepository.getUniversityByIndex(uni);
                 if (university.getSpotsLeft() > 0 && student.getGpa() >= minimumGPA) {
