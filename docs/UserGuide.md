@@ -247,9 +247,13 @@ Adios, amigo!
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q**: Can I input multiple student applications at once?
 
-**A**: {your answer here}
+**A**: Currently, applications must be inputted one at a time using the add command.
+
+**Q**: How do I export the generated report?
+
+**A**: Exit the program using `bye`, `exit`, or `quit`. The program will prompt you for the format you wish to save the file in.
 
 ## Command Summary
 
