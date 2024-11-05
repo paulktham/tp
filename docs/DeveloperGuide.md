@@ -30,7 +30,6 @@
   - [Value Proposition](#value-proposition)
   - [User Stories](#user-stories)
 - [Non-Functional Requirements](#non-functional-requirements)
-- [Glossary](#glossary)
 - [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 
@@ -424,11 +423,8 @@ The app allows administrators to efficiently manage the allocation process using
 
 6. High Availability: The application must be available at all times with minimal dependency on the internet or other APIs.
 
-## Glossary
 
-
-
-## Instructions for manual testing
+## Instructions for Manual Testing
 
 - Do refer to our [User Guide](https://ay2425s1-cs2113-w12-2.github.io/tp/UserGuide.html) for quick start details.
 
