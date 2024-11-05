@@ -37,7 +37,7 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
 
 ### Uploading Information
 Upon start-up, the user will see this interface:
-```shell
+```bash
 --------------------------------------------------------------------------------
 Hi! Welcome to FindOurSEP! Enter 'help' for the list of commands.
 Would you like to:
@@ -80,7 +80,7 @@ However, if the file has any abnormality, an error message will be displayed to 
 
 For e.g, the following is the error message shown when the user's CSV file contains data with wrong formatting.
 ```shell
-A1234567I,5, {12,61,43}, ]" is not in correct format! Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.
+A1234567I,5, {12,61,43}, ] is not in correct format! Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.
 --------------------------------------------------------------------------------
 Process error! Please ensure file is formatted correctly before retrying. You can continue to use the program.
 --------------------------------------------------------------------------------
@@ -247,9 +247,24 @@ Adios, amigo!
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+## Frequently Asked Questions (FAQs)
 
-**A**: {your answer here}
+> **Q: I am facing trouble starting the application. Do you know what might be the issue?**
+>
+> A: Please ensure that you have Java 17 or above installed on your machine. You may find more instructions in the [Quick Start](#quick-start) section.
+
+> **Q: How do I know whether the data entered is saved?**
+>
+> A: Your data is safely stored in the `data` folder located in the folder where your jar file is. The file will be named `allocation_results` with the extension you selected before the application closed.
+
+> **Q: My application crashed. How do I report the problem to the developers?**
+>
+> A: We are sorry for the unpleasant experience with FindOurSEP, and we would be more than happy to solve the issue. You may file an issue on our [GitHub](https://github.com/AY2425S1-CS2113-W12-2/tp/issues) stating how you arrived at the problem, so that our developers can assist you with the issue.
+
+> **Q: I am a developer. How can I find the source code and contribute to FindOurSEP?**
+>
+> A: FindOurSEP is an open-source application, and we welcome developers to share their ideas. You may find the source code on [GitHub](https://github.com/AY2425S1-CS2113-W12-2/tp).
+
 
 ## Command Summary
 
