@@ -412,7 +412,17 @@ The app allows administrators to efficiently manage the allocation process using
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. Cross-Platform Compatibility: The application must be compatible with various operating systems, provided that Java 17 or above is installed.
+
+2. User-Friendly CLI: The Command Line Interface (CLI) must have an intuitive, user-friendly design that is easy to navigate and understand.
+
+3. Stability: The application must be stable and capable of handling heavy usage without crashing.
+
+4. Maintainable Code: The application must have clear, detailed documentation and well-structured code to ensure ease of maintenance.
+
+5. Comprehensive User Guide: The User Guide must be thoroughly documented, including multiple examples of usage to facilitate understanding.
+
+6. High Availability: The application must be available at all times with minimal dependency on the internet or other APIs.
 
 ## Glossary
 
