@@ -20,10 +20,13 @@
     - [Help Command](#help-command)
     - [Exit Command](#exit-command)
     - [Unknown Command](#unknown-command)
-  - [Components]()
+  - [Components](#components)
     - [Frontend / User Interface](#frontend--user-interface)
     - [Parser](#parser)
     - [Allocator](#allocator)
+    - [Student](#student)
+    - [StudentList](#studentlist)
+    - [University and UniversityRepository](#university-and-universityrepository)
     - [FileHandler](#filehandler)
 - [Product scope](#product-scope)
   * [Target user profile](#target-user-profile)
@@ -89,7 +92,9 @@ Add Command adds a new student into the StudentList. Users need to provide the f
 * GPA (a valid float with a maximum of 2 decimal places, greater than 0.0 but lesser than 5.0)
 * Preferences (three integers ranging from 1 to 92, representing the partner universities, enclosed in curly brackets)
 
-You could refer to [Parser](#parser) section to check the detailed workflow of `AddCommand`.
+![AddCommandSequence](./UML_Diagrams/AddCommand.drawio.svg)
+
+You can also refer to [Parser](#parser) section to check the detailed workflow of `AddCommand`.
 
 #### Delete Command
 
@@ -409,7 +414,7 @@ The sequence diagram above showcases the program workflow when a user inputs the
 
 #### Student
 
-The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status.
+The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status. Please refer to diagrams in [!StudentList](#studentlist) to see a detailed sequence diagram and class diagram.
 
 #### StudentList
 
@@ -419,9 +424,17 @@ The sequence below illustrates the interactions between ```StudentList``` and ``
 
 ![StudentListSequence](UML_Diagrams/StudentList.drawio.svg)
 
+This diagram below shows the class diagram of Student and StudentList.
+
+![StudentandStudentListClassDiagram](./UML_Diagrams/StudentAndStudentList.drawio.svg)
+
 #### University and UniversityRepository
 
 These two classes have a composition relationship, where ```UniversityRepository``` is composed of ```University``` objects. The ```University``` object holds the various crucial information of any single university that is provided in the list of available universities. The ```UniversityRepository``` class then creates a static HashMap and statically inputs the list of universities into this HashMap. This HashMap is then easily accessible by other classes to get any information which may be necessary from the universities. 
+
+The diagram below shows the class diagram of University and UniversityRepository.
+
+![UniversityAndUniversityRepositoryClassDiagram](./UML_Diagrams/University.drawio.svg)
 
 ### FileHandler
 
