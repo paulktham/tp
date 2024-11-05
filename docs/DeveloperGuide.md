@@ -412,7 +412,7 @@ The app allows administrators to efficiently manage the allocation process using
 
 ## Non-Functional Requirements
 
-1. Cross-Platform Compatibility: The application must be compatible with various operating systems, provided that Java 17 or above is installed.
+1. Cross-Platform Compatibility: The application must be compatible with various operating systems, provided that `Java 17` or above is installed.
 
 2. User-Friendly CLI: The Command Line Interface (CLI) must have an intuitive, user-friendly design that is easy to navigate and understand.
 
@@ -426,8 +426,10 @@ The app allows administrators to efficiently manage the allocation process using
 
 ## Glossary
 
-* *glossary item* - Definition
+
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+- Do refer to our [User Guide](https://ay2425s1-cs2113-w12-2.github.io/tp/UserGuide.html) for quick start details.
+
+- When running the app, you can key in the command `help` for a list of executable commands and their usage on the application.
