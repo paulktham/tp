@@ -25,6 +25,13 @@
     - [Parser](#parser)
     - [Allocator](#allocator)
     - [FileHandler](#filehandler)
+- [Product scope](#product-scope)
+  * [Target user profile](#target-user-profile)
+  * [Value proposition](#value-proposition)
+- [User Stories](#user-stories)
+- [Non-Functional Requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Instruction for manual testing](#instruction-for-manual-testing)
 
 
 ## Acknowledgements
@@ -193,7 +200,7 @@ The above sequence diagram illustrates the execution of the `stats` command, spe
 * The `StatCommand` class initiates the command with the syntax `stats -avg <UNI_INDEX>`, where `-avg` indicates that the average GPA calculation is required, and `<UNI_INDEX>` specifies the target university by its index.
 * `StatCommand` calls the `getUniversityByIndex()` method on `UniversityRepo`, passing the university index as an argument.
 * `UniversityRepo` retrieves the `University` object corresponding to the specified index and returns it to `StatCommand`.
-* After obtaining the `University` object, `StatCommand` invokes the `calculateAverageGPAforUniversity()` method on `StudentList`, supplying the `University` object as an argument.
+* After checking the `University` object is not null, `StatCommand` invokes the `calculateAverageGPAforUniversity()` method on `StudentList`, supplying the university index as an argument.
 * `StudentList` calculates the average GPA for students associated with this university and returns the result as a `double` value (`avgGpa`).
 * `StatCommand` then calls `printResponse()` on `UI`, passing a formatted string that includes the calculated average GPA. This response is displayed to the user with a message like "The average GPA for university <UNI_INDEX> is: <avgGpa>."
 
@@ -464,7 +471,7 @@ The app allows administrators to efficiently manage the allocation process using
 * *CSV* (Comma-Separated Values): A file format used to store tabular data, such as student records.
 * *JSON* (JavaScript Object Notation): A lightweight data-interchange format used for storing student and university data.
 * *Allocator*: Class responsible for assigning students to universities based on GPA and preferences.
-* *Command*: A specific action or function executed by the program, such as `Add`, `Delete`, or `Allocate`.
+* *Command*: A specific action or function executed by the program, such as `add`, `delete`, or `allocate`.
 * *Parser*: Class that interprets and processes user input commands.
 * *StudentList*: Data structure containing records of all students in the SEP system.
 * *UniversityRepository*: A repository containing information on partner universities available for SEP.
