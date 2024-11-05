@@ -469,6 +469,10 @@ After successfully processing the file, the program compiles the student data in
 
 The program continues to run afterward, prompting the user for commands.
 
+For file outputs, `saveAllocationResults()` will be called. Below is a further sequence diagram 
+
+![saveAllocationResultsSequence](UML_Diagrams/saveAllocationResultsSequence.drawio.svg)
+
 ## Product scope
 
 ### Target User Profile
