@@ -25,14 +25,17 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
 
 ## Quick Start
 
-{Give steps to get started quickly}
-
-1. Ensure that you have Java 17 or above installed.
+1. Ensure that you have Java 17 or above installed. ([Installation Guide](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html))
 2. Down the latest version v2.0 of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
-3. Copy the file to the folder you want to use as the home folder for your AddressBook.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar FindMySEP.jar command to run the application.
-5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window. Some example commands you can try:
-6. Refer to the [Features](#features) below for details of each command.
+3. **Copy the `.jar` file:**
+   - Move the downloaded `.jar` file into a designated folder on your computer.
+4. **Run the `.jar` file:**
+   - Open a terminal.
+   - Navigate (`cd`) to the folder containing the `.jar` file.
+   - Execute the `.jar` file using the following command:
+     ```shell
+     java -jar FindOurSEP.jar
+     ```
 
 ## Features
 
@@ -40,7 +43,7 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
 Upon start-up, the user will see this interface:
 ```bash
 --------------------------------------------------------------------------------
-Hi! Welcome to FindOurSEP! Enter 'help' for the list of commands.
+Hi! Welcome to FindOurSEP!
 Would you like to:
 1. Manually input students data
 2. Upload a file (.csv, .txt, .json)
