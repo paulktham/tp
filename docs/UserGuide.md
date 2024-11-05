@@ -20,14 +20,15 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
   - [Revert Command](#revert-allocation-outcome-revert)
   - [Exit Command](#exit-program-bye-exit-quit)
 - [FAQ](#faq)  
-- [Command Summary](#command-summary)  
+- [Command Summary](#command-summary)
+- [Accepted File Format]()
 
 ## Quick Start
 
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
+2. Down the latest version v2.0 of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
 3. Copy the file to the folder you want to use as the home folder for your AddressBook.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar FindMySEP.jar command to run the application.
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window. Some example commands you can try:
@@ -85,6 +86,7 @@ A1234567I,5, {12,61,43}, ] is not in correct format! Please ensure that you only
 Process error! Please ensure file is formatted correctly before retrying. You can continue to use the program.
 --------------------------------------------------------------------------------
 ```
+For further support, please take a look at [Accepted File Format](#accepted-file-format).
 
 ### *Notes about the command format:*
 - Words in UPPER_CASE are the parameters to be supplied by the user.
@@ -283,3 +285,18 @@ Adios, amigo!
 | GetReport | `generate`                                                                                                                              |
 | Exit      | `bye`, `exit`, `quit`                                                                                                                   |
 | Help      | `help`                                                                                                                                  |
+
+## Accepted File Format
+The program supports files input in `.JSON`, `.CSV`, and `.TXT` formats.
+
+Please make sure your file matches one of these formats:
+### JSON:
+![CorrectJSONFormat](images/JSONFormat.png)
+
+### CSV:
+![CorrectCSVFormat](images/CSVFormat.png)
+
+### TXT:
+![CorrectTXTFormat](images/TXTFormat.png)
+
+Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.
