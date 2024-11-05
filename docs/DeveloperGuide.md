@@ -34,7 +34,7 @@
 - [User Stories](#user-stories)
 - [Non-Functional Requirements](#non-functional-requirements)
 - [Glossary](#glossary)
-- [Instructions for manual testing](#instructions-for-manual-testing)
+- [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 
 ## Acknowledgements
@@ -448,13 +448,23 @@ The program continues to run afterward, prompting the user for commands.
 
 ## Product scope
 
-### Target user profile
+### Target User Profile
 
-This was designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS.
+This application is designed for administrators responsible for handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at the National University of Singapore (NUS). These admins oversee the complex process of assigning students to various international exchange programs, ensuring that each student receives an appropriate placement based on their preferences and qualifications.
 
-### Value proposition
+### Value Proposition
 
-The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making. Giving the administrators greater convenience when allocating students for their SEP.
+The application provides a comprehensive solution to streamline the SEP allocation process. By leveraging automated workflows and data-driven decision-making, it allows administrators to manage the allocation process with greater efficiency and accuracy. The key benefits include:
+
+- **Efficiency**: Automated workflows reduce the time and effort required to match students with available SEP locations, freeing up administrators to focus on more strategic tasks.
+- **Accuracy**: Data-driven decision-making ensures that allocations are based on objective criteria, minimizing errors and bias.
+- **Convenience**: The user-friendly interface and clear documentation make it easy for administrators to navigate the system and carry out their tasks effectively.
+- **Scalability**: The application can handle a large number of student applications and SEP locations, making it suitable for both small and large cohorts.
+- **Transparency**: Detailed tracking and reporting features provide visibility into the allocation process, allowing for better oversight and accountability.
+- **Support**: Comprehensive support and maintenance services ensure that the application remains reliable and up-to-date, adapting to any changes in the SEP process or requirements.
+
+By integrating these features, the application significantly enhances the convenience and effectiveness of managing SEP allocations, ultimately benefiting both administrators and students.
+
 
 ## User Stories
 
@@ -489,6 +499,12 @@ The app allows administrators to efficiently manage the allocation process using
 
 **Portability**: The application should be compatible with any system running Java 17, ensuring wide accessibility across environments.
 
+**Comprehensive User Guide**: The User Guide must be thoroughly documented, including multiple examples of usage to facilitate understanding.
+
+**High Availability**: The application must be available at all times with minimal dependency on the internet or other APIs.
+
+
+
 ## Glossary
 
 * *SEP* (Student Exchange Programme): NUS’s largest global exchange initiative, enabling students to study at over 300 partner universities in 40+ countries. *FindOurSEP* project is designed specifically to assist in the SEP allocation process for CompEng (Computer Engineering) students.
@@ -501,6 +517,8 @@ The app allows administrators to efficiently manage the allocation process using
 * *StudentList*: Data structure containing records of all students in the SEP system.
 * *UniversityRepository*: A repository containing information on partner universities available for SEP.
 
-## Instructions for manual testing
+## Instructions for Manual Testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+- Do refer to our [User Guide](https://ay2425s1-cs2113-w12-2.github.io/tp/UserGuide.html) for quick start details.
+
+- When running the app, you can key in the command `help` for a list of executable commands and their usage on the application.

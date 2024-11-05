@@ -20,27 +20,31 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
   - [Revert Command](#revert-allocation-outcome-revert)
   - [Exit Command](#exit-program-bye-exit-quit)
 - [FAQ](#faq)  
-- [Command Summary](#command-summary)  
+- [Command Summary](#command-summary)
+- [Accepted File Format](#accepted-file-format)
 
 ## Quick Start
 
-{Give steps to get started quickly}
-
-1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
-3. Copy the file to the folder you want to use as the home folder for your AddressBook.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar FindMySEP.jar command to run the application.
-5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window. Some example commands you can try:
-6. Refer to the [Features](#features) below for details of each command.
+1. Ensure that you have Java 17 or above installed. ([Installation Guide](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html))
+2. Down the latest version v2.0 of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
+3. **Copy the `.jar` file:**
+   - Move the downloaded `.jar` file into a designated folder on your computer.
+4. **Run the `.jar` file:**
+   - Open a terminal.
+   - Navigate (`cd`) to the folder containing the `.jar` file.
+   - Execute the `.jar` file using the following command:
+     ```shell
+     java -jar FindOurSEP.jar
+     ```
 
 ## Features
 
 ### Uploading Information
 Upon start-up, the user will see this interface:
-```shell
+```bash
 --------------------------------------------------------------------------------
-Hi! Welcome to FindOurSEP! Enter 'help' for the list of commands.
-Would you like to:
+Good day to you!
+Before we begin, would you like to:
 1. Manually input students data
 2. Upload a file (.csv, .txt, .json)
 Please choose 1 or 2 or exit :)
@@ -80,11 +84,12 @@ However, if the file has any abnormality, an error message will be displayed to 
 
 For e.g, the following is the error message shown when the user's CSV file contains data with wrong formatting.
 ```shell
-A1234567I,5, {12,61,43}, ]" is not in correct format! Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.
+A1234567I,5, {12,61,43}, ] is not in correct format! Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.
 --------------------------------------------------------------------------------
 Process error! Please ensure file is formatted correctly before retrying. You can continue to use the program.
 --------------------------------------------------------------------------------
 ```
+For further support, please take a look at [Accepted File Format](#accepted-file-format).
 
 ### *Notes about the command format:*
 - Words in UPPER_CASE are the parameters to be supplied by the user.
@@ -247,13 +252,23 @@ Adios, amigo!
 
 ## FAQ
 
-**Q**: Can I input multiple student applications at once?
+## Frequently Asked Questions (FAQs)
 
-**A**: Currently, applications must be inputted one at a time using the add command.
+> **Q: I am facing trouble starting the application. Do you know what might be the issue?**
+>
+> A: Please ensure that you have Java 17 or above installed on your machine. You may find more instructions in the [Quick Start](#quick-start) section.
 
-**Q**: How do I export the generated report?
+> **Q: How do I know whether the data entered is saved?**
+>
+> A: Your data is safely stored in the `data` folder located in the folder where your jar file is. The file will be named `allocation_results` with the extension you selected before the application closed.
 
-**A**: Exit the program using `bye`, `exit`, or `quit`. The program will prompt you for the format you wish to save the file in.
+> **Q: My application crashed. How do I report the problem to the developers?**
+>
+> A: We are sorry for the unpleasant experience with FindOurSEP, and we would be more than happy to solve the issue. You may file an issue on our [GitHub](https://github.com/AY2425S1-CS2113-W12-2/tp/issues) stating how you arrived at the problem, so that our developers can assist you with the issue.
+
+> **Q: I am a developer. How can I find the source code and contribute to FindOurSEP?**
+>
+> A: FindOurSEP is an open-source application, and we welcome developers to share their ideas. You may find the source code on [GitHub](https://github.com/AY2425S1-CS2113-W12-2/tp).
 
 ## Command Summary
 
@@ -272,3 +287,18 @@ Adios, amigo!
 | GetReport | `generate`                                                                                                                              |
 | Exit      | `bye`, `exit`, `quit`                                                                                                                   |
 | Help      | `help`                                                                                                                                  |
+
+## Accepted File Format
+The program supports files input in `.JSON`, `.CSV`, and `.TXT` formats.
+
+Please make sure your file matches one of these formats:
+### JSON:
+![CorrectJSONFormat](images/JSONFormat.png)
+
+### CSV:
+![CorrectCSVFormat](images/CSVFormat.png)
+
+### TXT:
+![CorrectTXTFormat](images/TXTFormat.png)
+
+Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.

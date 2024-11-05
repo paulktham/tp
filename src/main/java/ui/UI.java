@@ -156,8 +156,8 @@ public class UI {
      */
     public void printConfigMessage() {
         StringBuilder output = new StringBuilder();
-        output.append(Messages.WELCOME + "\n")
-            .append("Would you like to:\n")
+        output.append("Good day to you!" + "\n")
+            .append("Before we begin, would you like to:\n")
             .append("1. Manually input students data\n")
             .append("2. Upload a file (.csv, .txt, .json)\n")
             .append("Please choose 1 or 2 or exit :)");
