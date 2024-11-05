@@ -84,7 +84,7 @@ Delete Command removes an existing Student in the StudentList.
 
 #### Criteria Command
 
-Criteria Command sets a minimum GPA every student must acheieve before they can be allocated to a university.
+Criteria Command sets a minimum GPA every student must achieve before they can be allocated to a university.
 
 ![CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
 
@@ -398,10 +398,22 @@ The app allows administrators to efficiently manage the allocation process using
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ...      | I want to ...                                                                  | So that I can ...                                             |
+|---------|---------------|--------------------------------------------------------------------------------|---------------------------------------------------------------|
+| v1.0    | Administrator | Upload and reference student data                                              | Easily access necessary information for each application      |
+| v1.0    | Administrator | Generate report on CLI for applications submitted, approved, and rejected      | Conveniently release results to students.                     |
+| v1.0    | Administrator | Upload data sources for university capacity reports and student records        | Ensure data accuracy.                                         |
+| v1.0    | Administrator | View list of all student applications                                          | See the current status of each application.                   |
+| v1.0    | Administrator | Designate alternate universities for students without first-choice slots       | Provide backup options in case of slot unavailability.        |
+|         |               |                                                                                |                                                               |
+| v2.0    | Administrator | Search for student applications by ID or destination                           | Quickly locate specific applications.                         |
+| v2.0    | Administrator | Access average GPA and minimum GPA for students choosing a partner university  | Evaluate university performance over time.                    |
+| v2.0    | Administrator | Set criteria for SEP allocation                                                | Ensure fair distribution of program slots.                    |
+| v2.0    | Administrator | Filter applications by GPA, destination, or priority                           | View targeted subsets of student applications easily.         |
+| v2.0    | Administrator | View university spot availability                                              | Make informed allocation decisions.                           |
+| v2.0    | Administrator | Export allocation data in user-based format                                    | Use data for offline analysis and reporting.                  |
+| v2.0    | Administrator | Be able to undo allocations                                                    | Correct allocations if needed due to mistakes or updates.     |
+| v2.0    | Administrator | Upload student and allocation data in various formats (e.g., CSV, TXT)         | Present data flexibly across different platforms or settings. |
 
 ## Non-Functional Requirements
 
