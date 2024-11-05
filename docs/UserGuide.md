@@ -43,8 +43,8 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
 Upon start-up, the user will see this interface:
 ```bash
 --------------------------------------------------------------------------------
-Hi! Welcome to FindOurSEP!
-Would you like to:
+Good day to you!
+Before we begin, would you like to:
 1. Manually input students data
 2. Upload a file (.csv, .txt, .json)
 Please choose 1 or 2 or exit :)
