@@ -31,7 +31,7 @@
 - [User Stories](#user-stories)
 - [Non-Functional Requirements](#non-functional-requirements)
 - [Glossary](#glossary)
-- [Instruction for manual testing](#instruction-for-manual-testing)
+- [Instructions for manual testing](#instructions-for-manual-testing)
 
 
 ## Acknowledgements
