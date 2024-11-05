@@ -387,6 +387,10 @@ This diagram below shows the class diagram of Student and StudentList.
 
 These two classes have a composition relationship, where ```UniversityRepository``` is composed of ```University``` objects. The ```University``` object holds the various crucial information of any single university that is provided in the list of available universities. The ```UniversityRepository``` class then creates a static HashMap and statically inputs the list of universities into this HashMap. This HashMap is then easily accessible by other classes to get any information which may be necessary from the universities. 
 
+The diagram below shows the class diagram of University and UniversityRepository.
+
+![UniversityAndUniversityRepositoryClassDiagram](./UML_Diagrams/University.drawio.svg)
+
 ### FileHandler
 
 The `FileHandler` class is responsible for parsing file inputs from users as well as writing allocation results to an external file in which the file type is determined by the user.
