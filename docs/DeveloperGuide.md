@@ -76,6 +76,9 @@ To get started with this project, follow these steps:
 
 #### Add Command
 
+Add Command adds a student to the StudentList.
+More about this command can be found in [StudentList](#StudentList)
+
 #### Delete Command
 
 Delete Command removes an existing Student in the StudentList.
@@ -240,10 +243,33 @@ Note: For further details on the `FileHandler` class, please refer to [this](#fi
 
 
 ## Components
+FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. The entry point to our application is
+`findoursep.FindOurSEP`. How it works:
+1. The user launches the application, which creates an instance of the `FindOurSEP` class.
+
+2. During initialization, the FindOurSEP constructor instantiates `UI`, `StudentList`, and `Parser` components, 
+   preparing them for managing user input, student data, and command parsing.
+
+3. After launching, the `start()` method calls `setUpFileHandler()`, where the user is prompted to provide a file path
+   (e.g., a `.csv`, `.json`, or `.txt`) containing student data, if the user selects 2, which is to upload student
+   data. 
+
+4. The `FileHandler` class is then initialized with the file path and `Parser` instance.
+
+5. If the file loads successfully, a success message is displayed. If there is an error, such as an incorrect format or 
+   missing data, an appropriate error message is shown.
+
+6. The program enters a loop where it waits for user commands, which will be processed by `Parser`. If an invalid 
+   command or incorrect format is detected, a `SEPException` is raised, and an error message is displayed.
+
+7. When the user decides to exit, the program checks if the user wants to save their data. If the user chooses to save, 
+   they can select the save format (e.g., `.csv`, `.json` or `.txt`), and `FileHandler` saves the current `StudentList` 
+   data accordingly.
+
+8. A farewell message is displayed, and the application terminates.
 
 ### Frontend / User Interface
-FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. The frontend currently consists of 2 main
-components:
+The frontend currently consists of 2 main components:
 1. `UI` class - Manages interactions with the user, including printing messages, tables, and capturing user inputs.
 2. `Messages` enum - Stores standardized messages for consistent user prompts and feedback across the application.
 
@@ -370,6 +396,7 @@ The ```StudentList``` is a fundamental component which is initiated as soon as F
 
 The sequence below illustrates the interactions between ```StudentList``` and ```Student``` when an addCommand is called with the appropriate inputs.
 
+<a name="section-add-command"></a>
 ![StudentListSequence](UML_Diagrams/StudentList.drawio.svg)
 
 #### University and UniversityRepository
@@ -385,6 +412,8 @@ The `FileHandler` class is responsible for parsing file inputs from users as wel
 After successfully processing the file, the program compiles the student data into a comprehensive student list. This list serves as the foundational data structure upon which the program performs allocation operations, ensuring efficient and accurate data handling.
 
 The program continues to run afterward, prompting the user for commands.
+
+
 
 ## Product scope
 
