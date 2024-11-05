@@ -1,27 +1,27 @@
 {
   "students" : [ {
-    "id" : "A1234567I",
-    "gpa" : 5.0,
-    "uniPreferences" : [ 12, 61, 43 ],
-    "allocatedUniversity" : 12,
-    "successfullyAllocated" : true
-  }, {
     "id" : "A1234567J",
     "gpa" : 4.5,
     "uniPreferences" : [ 1, 2, 3 ],
-    "allocatedUniversity" : 1,
-    "successfullyAllocated" : true
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
   }, {
-    "id" : "A1357913L",
-    "gpa" : 4.0,
-    "uniPreferences" : [ 3, 1, 2 ],
-    "allocatedUniversity" : 3,
-    "successfullyAllocated" : true
+    "id" : "A1234567I",
+    "gpa" : 5.0,
+    "uniPreferences" : [ 12, 61, 43 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
   }, {
     "id" : "A7654321K",
     "gpa" : 3.8,
     "uniPreferences" : [ 2, 3, 1 ],
-    "allocatedUniversity" : 2,
-    "successfullyAllocated" : true
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A1357913L",
+    "gpa" : 4.0,
+    "uniPreferences" : [ 3, 1, 2 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
   } ]
 }
