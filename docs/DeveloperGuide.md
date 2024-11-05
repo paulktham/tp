@@ -269,7 +269,7 @@ in the `UI` using the student array list, which prints an ASCII table representi
 
 - Subsequently, the `saveAllocationResults` method is called on the `FileHandler` class to save the results before the `UI` class prints a lovely goodbye message to the user.
 
-Note: For further details on the `FileHandler` class, please refer to [this](#filehandler).
+Note: For further details on the `FileHandler` class / `setUpFileHandler()` method, please refer to [this](#filehandler).
 
 ![ExitSequence](UML_Diagrams/ExitSequence.drawio.svg)
 
