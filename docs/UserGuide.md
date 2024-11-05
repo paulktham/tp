@@ -21,7 +21,7 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
   - [Exit Command](#exit-program-bye-exit-quit)
 - [FAQ](#faq)  
 - [Command Summary](#command-summary)
-- [Accepted File Format]()
+- [Accepted File Format](#accepted-file-format)
 
 ## Quick Start
 
