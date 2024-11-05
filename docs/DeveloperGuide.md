@@ -7,24 +7,31 @@
   - [Architecture](#architecture)
   - [Commands](#commands)
     - [Add Command](#add-command)
-    - [Delete Command]()
-    - [Criteria Command]()
-    - [Find Command]()
-    - [Filter Command]()
-    - [List Command]()
-    - [Stats Command]()
-    - [ViewQuota Command]()
-    - [Allocate Command]()
-    - [Revert Command]()
-    - [Generate Command]()
-    - [Help Command]()
-    - [Exit Command]()
-    - [Unknown Command]()
+    - [Delete Command](#delete-command)
+    - [Criteria Command](#criteria-command)
+    - [Find Command](#find-command)
+    - [Filter Command](#filter-command)
+    - [List Command](#list-command)
+    - [Stats Command](#stats-command)
+    - [ViewQuota Command](#viewquota-command)
+    - [Allocate Command](#allocate-command)
+    - [Revert Command](#revert-command)
+    - [Generate Command](#generate-command)
+    - [Help Command](#help-command)
+    - [Exit Command](#exit-command)
+    - [Unknown Command](#unknown-command)
   - [Components]()
     - [Frontend / User Interface](#frontend--user-interface)
     - [Parser](#parser)
     - [Allocator](#allocator)
     - [FileHandler](#filehandler)
+- [Product scope](#product-scope)
+  * [Target user profile](#target-user-profile)
+  * [Value proposition](#value-proposition)
+- [User Stories](#user-stories)
+- [Non-Functional Requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Instructions for manual testing](#instructions-for-manual-testing)
 
 
 ## Acknowledgements
@@ -75,6 +82,14 @@ To get started with this project, follow these steps:
 ### Commands
 
 #### Add Command
+
+Add Command adds a new student into the StudentList. Users need to provide the following information of the newly-added student so that he/she could participate in the allocation process:
+
+* Student ID (two uppercase alphabets with 7 natural numbers between it, e.g., ``A1234567N``) 
+* GPA (a valid float with a maximum of 2 decimal places, greater than 0.0 but lesser than 5.0)
+* Preferences (three integers ranging from 1 to 92, representing the partner universities, enclosed in curly brackets)
+
+You could refer to [Parser](#parser) section to check the detailed workflow of `AddCommand`.
 
 #### Delete Command
 
@@ -180,11 +195,32 @@ The `StatCommand` class implements the `stats` command, which provides GPA-relat
 
 ![StatSequence](UML_Diagrams/StatSequence.drawio.svg)
 
+The above sequence diagram illustrates the execution of the `stats` command, specifically the `stats -avg` example, which calculates the average GPA for students who have chosen the specified university.
+
+* The `StatCommand` class initiates the command with the syntax `stats -avg <UNI_INDEX>`, where `-avg` indicates that the average GPA calculation is required, and `<UNI_INDEX>` specifies the target university by its index.
+* `StatCommand` calls the `getUniversityByIndex()` method on `UniversityRepo`, passing the university index as an argument.
+* `UniversityRepo` retrieves the `University` object corresponding to the specified index and returns it to `StatCommand`.
+* After checking the `University` object is not null, `StatCommand` invokes the `calculateAverageGPAforUniversity()` method on `StudentList`, supplying the university index as an argument.
+* `StudentList` calculates the average GPA for students associated with this university and returns the result as a `double` value (`avgGpa`).
+* `StatCommand` then calls `printResponse()` on `UI`, passing a formatted string that includes the calculated average GPA. This response is displayed to the user with a message like "The average GPA for university <UNI_INDEX> is: <avgGpa>."
+
 #### ViewQuota Command
 
 The `ViewQuotaCommand` class handles the `viewQuota` command to display information about a university’s remaining quota (available spots) based on a specified university index.
 
 ![ViewQuotaSequence](UML_Diagrams/ViewQuotaSequence.drawio.svg)
+
+The sequence diagram illustrates the execution flow of the `viewQuota` command.
+
+* The `ViewQuotaCommand` initiates the command using a syntax like `viewQuota <UNI_INDEX>`, where `<UNI_INDEX>` specifies the university's index in the system.
+* `ViewQuotaCommand` calls the `getUniversityByIndex()` method on `UniversityRepo`, passing the university index as a parameter.
+* `UniversityRepo` returns the corresponding `University` object.
+* With the `University` object in hand, `ViewQuotaCommand` calls `getSpotsLeft()` on the `University` object to retrieve the number of available spots (quota) for the university.
+* The `University` object returns the quota as an `int` value (`spotsLeft`), representing the remaining spots.
+* Next, `ViewQuotaCommand` calls `getFullName()` on the `University` object to obtain the full name of the university.
+* The `University` object returns the university name as a `String` (`name`).
+* Finally, `ViewQuotaCommand` calls `printResponse()` on `UI`, passing a formatted string that includes the university's index, name, and remaining quota.
+* The message displayed to the user is structured as "Index: <index>, Name: <name>, Quota: <spotsLeft>," providing a summary of the requested information.
 
 #### Allocate Command
 
@@ -340,7 +376,7 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 The `Allocator` class is responsible for allocating students to universities based on their preferences and GPA. It interacts with the `StudentList`, `UniversityRepository`, and `Student` classes to perform the allocation.
 
-In ``V1.0`` version, the allocation logic is designed as follows:
+The allocation logic is designed as follows:
 
 * **Sorting by GPA**: The list of students is sorted in descending order of GPA, so higher-GPA students are prioritized.
 * **Preference-Based Allocation**: For each student:
@@ -356,9 +392,20 @@ Here is a class diagram highlighting the fundamental structure of the `Allocator
 
 ![AllocatorClass](UML_Diagrams/AllocatorClass.drawio.svg)
 
-``Allocator`` mainly participates in the execution of ``allocate`` command. The sequence diagram below showcases the program workflow when a user inputs the command ``allocate`` (assume before that several students have been added into the student list).
+``Allocator`` mainly participates in the execution of ``allocate`` command. 
 
 ![AllocatorSequence](UML_Diagrams/AllocatorSequence.drawio.svg)
+
+The sequence diagram above showcases the program workflow when a user inputs the command ``allocate`` (assume before that several students have been added into the student list).
+
+* The `FindOurSEP` class initiates the command by calling `parseInput("allocate")` on `Parser`, passing the `"allocate"` command as input.
+* `Parser` processes the command and creates an `AllocateCommand` object.
+* ``Parser`` invokes the `run()` method on `AllocateCommand` to start the allocation process.
+* Inside `run()`, `AllocateCommand` creates an instance of `Allocator`, which will handle the allocation of universities.
+* `AllocateCommand` calls the `allocate()` method on `Allocator`, initiating the main allocation logic. `Allocator` performs the allocation and returns a populated `StudentList` (with allocated students) to `AllocateCommand`.
+* `AllocateCommand` then calls `setStudentList()` on the `StudentList` object, updating it with the newly allocated data provided by `Allocator`.
+* Finally, `AllocateCommand` calls `printAllocatingMessage()` on `UI` to display a message to the user, indicating that the allocation process has completed successfully.
+* The command execution completes, returning a boolean result to indicate success or failure of the allocation.
 
 #### Student
 
@@ -405,11 +452,29 @@ The app allows administrators to efficiently manage the allocation process using
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+**Performance**: The application should process allocation commands and generate reports within 2 seconds under typical load conditions (e.g., 500 students).
+
+**Reliability**: Ensure 99.9% uptime, with automatic error handling and recovery mechanisms to prevent application crashes during operations.
+
+**Usability**: Designed with a clear command-line interface (CLI), allowing new users to perform essential tasks with minimal learning effort.
+
+**Maintainability**: The codebase should be modular and follow standard coding conventions, with detailed inline documentation to facilitate future updates.
+
+**Scalability**: Capable of handling an increase in student and university data volumes by up to 50% (e.g., 750 students) without significant degradation in performance.
+
+**Portability**: The application should be compatible with any system running Java 17, ensuring wide accessibility across environments.
 
 ## Glossary
 
-* *glossary item* - Definition
+* *SEP* (Student Exchange Programme): NUS’s largest global exchange initiative, enabling students to study at over 300 partner universities in 40+ countries. *FindOurSEP* project is designed specifically to assist in the SEP allocation process for CompEng (Computer Engineering) students.
+* *GPA* (Grade Point Average): A numeric score ranging from 0.0 to 5.0, representing a student's academic performance, used for allocation.
+* *CSV* (Comma-Separated Values): A file format used to store tabular data, such as student records.
+* *JSON* (JavaScript Object Notation): A lightweight data-interchange format used for storing student and university data.
+* *Allocator*: Class responsible for assigning students to universities based on GPA and preferences.
+* *Command*: A specific action or function executed by the program, such as `add`, `delete`, or `allocate`.
+* *Parser*: Class that interprets and processes user input commands.
+* *StudentList*: Data structure containing records of all students in the SEP system.
+* *UniversityRepository*: A repository containing information on partner universities available for SEP.
 
 ## Instructions for manual testing
 
