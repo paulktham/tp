@@ -46,11 +46,12 @@ Code Contributed: [RepoSense (tP Code Dashboard)](https://nus-cs2113-ay2425s1.gi
 
 ### User Guide Contributions:
 
-Added documentation for the following: ([#90](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/90))
+Added documentation for the following: ([#90](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/90), [#122](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/122))
 1. Uploading Information
    - Manual Input
    - File Input
 2. Exit Program
+3. Accepted File Format
 
 ### Developer Guide Contributions:
 
@@ -68,6 +69,10 @@ PR for 1-3: [#61](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/61)
 5. Components
    - Parser [#67](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/67)
    - FileHandler [#99](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/99)
+6. Product Scope [#122](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/122)
+   - Non-Functional Requirements
+   - Instructions for Manual Testing
+   - Target User Profile & Value Proposition
 
 ### Contributions to Team-Based Tasks
 1. Set up team GitHub Organisation/Repository
