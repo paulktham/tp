@@ -381,7 +381,7 @@ The sequence below illustrates the interactions between ```StudentList``` and ``
 
 This diagram below shows the class diagram of Student and StudentList.
 
-![StudentandStudentListClassDiagram](./UML_Diagrams/studentandstudentlist.drawio.svg)
+![StudentandStudentListClassDiagram](./UML_Diagrams/StudentAndStudentList.drawio.svg)
 
 #### University and UniversityRepository
 
