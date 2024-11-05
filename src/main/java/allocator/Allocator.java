@@ -8,6 +8,7 @@ import university.UniversityRepository;
 import java.util.Set;
 
 import exceptions.SEPException;
+import exceptions.SEPFormatException;
 
 import java.util.HashSet;
 
@@ -49,8 +50,12 @@ public class Allocator {
     
         Set<String> errorMessages = new HashSet<>();
         String[] parts = input.split(" ");
-        assert parts.length > 1 : "Input must contain at least two parts separated by spaces";
-    
+        assert parts.length >= 2 : "Input must contain at least two parts separated by spaces";
+        
+        if (parts.length < 2) {
+            throw SEPFormatException.rejectCriteriaFormat();
+        }
+
         String stringGpa = parts[1];
         float gpa = studentList.validateGpa(stringGpa, errorMessages);
     
@@ -88,6 +93,9 @@ public class Allocator {
     public StudentList allocate() {
         studentList.sortStudentsByDescendingGPA(studentList.getList());
         for (Student student : studentList.getList()) {
+            if (student.getSuccessfullyAllocated()) {
+                continue;
+            }
             for (int uni : student.getUniPreferences()) {
                 University university = UniversityRepository.getUniversityByIndex(uni);
                 if (university.getSpotsLeft() > 0 && student.getGpa() >= minimumGPA) {

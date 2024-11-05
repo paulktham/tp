@@ -27,6 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -43,6 +44,15 @@ public class FileHandler {
     public FileHandler(String filePath, Parser parser) {
         this.filePath = filePath.isEmpty() ? "data" : filePath;
         this.parser = parser;
+    }
+
+    public static boolean isValidPath(String path) {
+        try {
+            Path filePath = Paths.get(path);
+            return true;
+        } catch (InvalidPathException e) {
+            return false;
+        }
     }
 
     /**

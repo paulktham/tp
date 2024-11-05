@@ -86,9 +86,26 @@ public class SEPFormatException extends SEPException {
                 "'find <report/list> <Keyword>' ");
     }
 
+    /**
+     * Returns a SEPFormatException with a message indicating the
+     * invalid format for the filter command.
+     *
+     * @return A SEPFormatException with the appropriate message.
+     */
     public static SEPFormatException rejectFilterFormat() {
         return new SEPFormatException("Invalid filter format. Please enter: " +
                 "'filter <list/report> <allocated/unallocated>',\n" +
                 "or 'filter <list> <gpa/id> <ascending/descending>'.");
+    }
+
+    /**
+     * Returns a SEPFormatException with a message indicating the
+     * invalid format for the criteria command.
+     *
+     * @return A SEPFormatException with the appropriate message.
+     */
+    public static SEPFormatException rejectCriteriaFormat() {
+        return new SEPFormatException("Invalid criteria format. Please enter: " +
+                "'minimum <GPA>'");
     }
 }
