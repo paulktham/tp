@@ -270,8 +270,6 @@ Adios, amigo!
 >
 > A: FindOurSEP is an open-source application, and we welcome developers to share their ideas. You may find the source code on [GitHub](https://github.com/AY2425S1-CS2113-W12-2/tp).
 
-> **Q: Can I input multiple student applications at once?** > > **A:** Currently, applications must be inputted one at a time using the add command. > **Q: How do I export the generated report?** > > **A:** Exit the program using `bye`, `exit`, or `quit`. The program will then prompt you to select the format in which you wish to save the file.
-
 ## Command Summary
 
 | Action    | Format/Example                                                                                                                          |
