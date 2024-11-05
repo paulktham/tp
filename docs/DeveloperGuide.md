@@ -448,13 +448,23 @@ The program continues to run afterward, prompting the user for commands.
 
 ## Product scope
 
-### Target user profile
+### Target User Profile
 
-This was designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS.
+This application is designed for administrators responsible for handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at the National University of Singapore (NUS). These admins oversee the complex process of assigning students to various international exchange programs, ensuring that each student receives an appropriate placement based on their preferences and qualifications.
 
-### Value proposition
+### Value Proposition
 
-The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making. Giving the administrators greater convenience when allocating students for their SEP.
+The application provides a comprehensive solution to streamline the SEP allocation process. By leveraging automated workflows and data-driven decision-making, it allows administrators to manage the allocation process with greater efficiency and accuracy. The key benefits include:
+
+- **Efficiency**: Automated workflows reduce the time and effort required to match students with available SEP locations, freeing up administrators to focus on more strategic tasks.
+- **Accuracy**: Data-driven decision-making ensures that allocations are based on objective criteria, minimizing errors and bias.
+- **Convenience**: The user-friendly interface and clear documentation make it easy for administrators to navigate the system and carry out their tasks effectively.
+- **Scalability**: The application can handle a large number of student applications and SEP locations, making it suitable for both small and large cohorts.
+- **Transparency**: Detailed tracking and reporting features provide visibility into the allocation process, allowing for better oversight and accountability.
+- **Support**: Comprehensive support and maintenance services ensure that the application remains reliable and up-to-date, adapting to any changes in the SEP process or requirements.
+
+By integrating these features, the application significantly enhances the convenience and effectiveness of managing SEP allocations, ultimately benefiting both administrators and students.
+
 
 ## User Stories
 
