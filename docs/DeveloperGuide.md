@@ -7,24 +7,34 @@
   - [Architecture](#architecture)
   - [Commands](#commands)
     - [Add Command](#add-command)
-    - [Delete Command]()
-    - [Criteria Command]()
-    - [Find Command]()
-    - [Filter Command]()
-    - [List Command]()
-    - [Stats Command]()
-    - [ViewQuota Command]()
-    - [Allocate Command]()
-    - [Revert Command]()
-    - [Generate Command]()
-    - [Help Command]()
-    - [Exit Command]()
-    - [Unknown Command]()
-  - [Components]()
+    - [Delete Command](#delete-command)
+    - [Criteria Command](#criteria-command)
+    - [Find Command](#find-command)
+    - [Filter Command](#filter-command)
+    - [List Command](#list-command)
+    - [Stats Command](#stats-command)
+    - [ViewQuota Command](#viewquota-command)
+    - [Allocate Command](#allocate-command)
+    - [Revert Command](#revert-command)
+    - [Generate Command](#generate-command)
+    - [Help Command](#help-command)
+    - [Exit Command](#exit-command)
+    - [Unknown Command](#unknown-command)
+  - [Components](#components)
     - [Frontend / User Interface](#frontend--user-interface)
     - [Parser](#parser)
     - [Allocator](#allocator)
+    - [Student](#student)
+    - [StudentList](#studentlist)
+    - [University and UniversityRepository](#university-and-universityrepository)
     - [FileHandler](#filehandler)
+- [Product scope](#product-scope)
+  * [Target user profile](#target-user-profile)
+  * [Value proposition](#value-proposition)
+- [User Stories](#user-stories)
+- [Non-Functional Requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 
 ## Acknowledgements
@@ -76,8 +86,15 @@ To get started with this project, follow these steps:
 
 #### Add Command
 
-Add Command adds a student to the StudentList.
-More about this command can be found in [StudentList](#StudentList)
+Add Command adds a new student into the StudentList. Users need to provide the following information of the newly-added student so that he/she could participate in the allocation process:
+
+* Student ID (two uppercase alphabets with 7 natural numbers between it, e.g., ``A1234567N``) 
+* GPA (a valid float with a maximum of 2 decimal places, greater than 0.0 but lesser than 5.0)
+* Preferences (three integers ranging from 1 to 92, representing the partner universities, enclosed in curly brackets)
+
+![AddCommandSequence](./UML_Diagrams/AddCommand.drawio.svg)
+
+You can also refer to [Parser](#parser) section to check the detailed workflow of `AddCommand`.
 
 #### Delete Command
 
@@ -87,7 +104,7 @@ Delete Command removes an existing Student in the StudentList.
 
 #### Criteria Command
 
-Criteria Command sets a minimum GPA every student must acheieve before they can be allocated to a university.
+Criteria Command sets a minimum GPA every student must achieve before they can be allocated to a university.
 
 ![CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
 
@@ -183,11 +200,32 @@ The `StatCommand` class implements the `stats` command, which provides GPA-relat
 
 ![StatSequence](UML_Diagrams/StatSequence.drawio.svg)
 
+The above sequence diagram illustrates the execution of the `stats` command, specifically the `stats -avg` example, which calculates the average GPA for students who have chosen the specified university.
+
+* The `StatCommand` class initiates the command with the syntax `stats -avg <UNI_INDEX>`, where `-avg` indicates that the average GPA calculation is required, and `<UNI_INDEX>` specifies the target university by its index.
+* `StatCommand` calls the `getUniversityByIndex()` method on `UniversityRepo`, passing the university index as an argument.
+* `UniversityRepo` retrieves the `University` object corresponding to the specified index and returns it to `StatCommand`.
+* After checking the `University` object is not null, `StatCommand` invokes the `calculateAverageGPAforUniversity()` method on `StudentList`, supplying the university index as an argument.
+* `StudentList` calculates the average GPA for students associated with this university and returns the result as a `double` value (`avgGpa`).
+* `StatCommand` then calls `printResponse()` on `UI`, passing a formatted string that includes the calculated average GPA. This response is displayed to the user with a message like "The average GPA for university <UNI_INDEX> is: <avgGpa>."
+
 #### ViewQuota Command
 
 The `ViewQuotaCommand` class handles the `viewQuota` command to display information about a university’s remaining quota (available spots) based on a specified university index.
 
 ![ViewQuotaSequence](UML_Diagrams/ViewQuotaSequence.drawio.svg)
+
+The sequence diagram illustrates the execution flow of the `viewQuota` command.
+
+* The `ViewQuotaCommand` initiates the command using a syntax like `viewQuota <UNI_INDEX>`, where `<UNI_INDEX>` specifies the university's index in the system.
+* `ViewQuotaCommand` calls the `getUniversityByIndex()` method on `UniversityRepo`, passing the university index as a parameter.
+* `UniversityRepo` returns the corresponding `University` object.
+* With the `University` object in hand, `ViewQuotaCommand` calls `getSpotsLeft()` on the `University` object to retrieve the number of available spots (quota) for the university.
+* The `University` object returns the quota as an `int` value (`spotsLeft`), representing the remaining spots.
+* Next, `ViewQuotaCommand` calls `getFullName()` on the `University` object to obtain the full name of the university.
+* The `University` object returns the university name as a `String` (`name`).
+* Finally, `ViewQuotaCommand` calls `printResponse()` on `UI`, passing a formatted string that includes the university's index, name, and remaining quota.
+* The message displayed to the user is structured as "Index: <index>, Name: <name>, Quota: <spotsLeft>," providing a summary of the requested information.
 
 #### Allocate Command
 
@@ -247,23 +285,23 @@ FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. T
 `findoursep.FindOurSEP`. How it works:
 1. The user launches the application, which creates an instance of the `FindOurSEP` class.
 
-2. During initialization, the FindOurSEP constructor instantiates `UI`, `StudentList`, and `Parser` components, 
+2. During initialization, the FindOurSEP constructor instantiates `UI`, `StudentList`, and `Parser` components,
    preparing them for managing user input, student data, and command parsing.
 
 3. After launching, the `start()` method calls `setUpFileHandler()`, where the user is prompted to provide a file path
    (e.g., a `.csv`, `.json`, or `.txt`) containing student data, if the user selects 2, which is to upload student
-   data. 
+   data.
 
 4. The `FileHandler` class is then initialized with the file path and `Parser` instance.
 
-5. If the file loads successfully, a success message is displayed. If there is an error, such as an incorrect format or 
+5. If the file loads successfully, a success message is displayed. If there is an error, such as an incorrect format or
    missing data, an appropriate error message is shown.
 
-6. The program enters a loop where it waits for user commands, which will be processed by `Parser`. If an invalid 
+6. The program enters a loop where it waits for user commands, which will be processed by `Parser`. If an invalid
    command or incorrect format is detected, a `SEPException` is raised, and an error message is displayed.
 
-7. When the user decides to exit, the program checks if the user wants to save their data. If the user chooses to save, 
-   they can select the save format (e.g., `.csv`, `.json` or `.txt`), and `FileHandler` saves the current `StudentList` 
+7. When the user decides to exit, the program checks if the user wants to save their data. If the user chooses to save,
+   they can select the save format (e.g., `.csv`, `.json` or `.txt`), and `FileHandler` saves the current `StudentList`
    data accordingly.
 
 8. A farewell message is displayed, and the application terminates.
@@ -366,7 +404,7 @@ The boolean return value of `parseInput()` indicates whether the user has chosen
 
 The `Allocator` class is responsible for allocating students to universities based on their preferences and GPA. It interacts with the `StudentList`, `UniversityRepository`, and `Student` classes to perform the allocation.
 
-In ``V1.0`` version, the allocation logic is designed as follows:
+The allocation logic is designed as follows:
 
 * **Sorting by GPA**: The list of students is sorted in descending order of GPA, so higher-GPA students are prioritized.
 * **Preference-Based Allocation**: For each student:
@@ -382,13 +420,24 @@ Here is a class diagram highlighting the fundamental structure of the `Allocator
 
 ![AllocatorClass](UML_Diagrams/AllocatorClass.drawio.svg)
 
-``Allocator`` mainly participates in the execution of ``allocate`` command. The sequence diagram below showcases the program workflow when a user inputs the command ``allocate`` (assume before that several students have been added into the student list).
+``Allocator`` mainly participates in the execution of ``allocate`` command. 
 
 ![AllocatorSequence](UML_Diagrams/AllocatorSequence.drawio.svg)
 
+The sequence diagram above showcases the program workflow when a user inputs the command ``allocate`` (assume before that several students have been added into the student list).
+
+* The `FindOurSEP` class initiates the command by calling `parseInput("allocate")` on `Parser`, passing the `"allocate"` command as input.
+* `Parser` processes the command and creates an `AllocateCommand` object.
+* ``Parser`` invokes the `run()` method on `AllocateCommand` to start the allocation process.
+* Inside `run()`, `AllocateCommand` creates an instance of `Allocator`, which will handle the allocation of universities.
+* `AllocateCommand` calls the `allocate()` method on `Allocator`, initiating the main allocation logic. `Allocator` performs the allocation and returns a populated `StudentList` (with allocated students) to `AllocateCommand`.
+* `AllocateCommand` then calls `setStudentList()` on the `StudentList` object, updating it with the newly allocated data provided by `Allocator`.
+* Finally, `AllocateCommand` calls `printAllocatingMessage()` on `UI` to display a message to the user, indicating that the allocation process has completed successfully.
+* The command execution completes, returning a boolean result to indicate success or failure of the allocation.
+
 #### Student
 
-The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status.
+The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status. Please refer to diagrams in [!StudentList](#studentlist) to see a detailed sequence diagram and class diagram.
 
 #### StudentList
 
@@ -396,12 +445,19 @@ The ```StudentList``` is a fundamental component which is initiated as soon as F
 
 The sequence below illustrates the interactions between ```StudentList``` and ```Student``` when an addCommand is called with the appropriate inputs.
 
-<a name="section-add-command"></a>
 ![StudentListSequence](UML_Diagrams/StudentList.drawio.svg)
+
+This diagram below shows the class diagram of Student and StudentList.
+
+![StudentandStudentListClassDiagram](./UML_Diagrams/StudentAndStudentList.drawio.svg)
 
 #### University and UniversityRepository
 
 These two classes have a composition relationship, where ```UniversityRepository``` is composed of ```University``` objects. The ```University``` object holds the various crucial information of any single university that is provided in the list of available universities. The ```UniversityRepository``` class then creates a static HashMap and statically inputs the list of universities into this HashMap. This HashMap is then easily accessible by other classes to get any information which may be necessary from the universities. 
+
+The diagram below shows the class diagram of University and UniversityRepository.
+
+![UniversityAndUniversityRepositoryClassDiagram](./UML_Diagrams/University.drawio.svg)
 
 ### FileHandler
 
@@ -413,33 +469,79 @@ After successfully processing the file, the program compiles the student data in
 
 The program continues to run afterward, prompting the user for commands.
 
-
-
 ## Product scope
 
-### Target user profile
+### Target User Profile
 
-This was designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS.
+This application is designed for administrators responsible for handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at the National University of Singapore (NUS). These admins oversee the complex process of assigning students to various international exchange programs, ensuring that each student receives an appropriate placement based on their preferences and qualifications.
 
-### Value proposition
+### Value Proposition
 
-The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making. Giving the administrators greater convenience when allocating students for their SEP.
+The application provides a comprehensive solution to streamline the SEP allocation process. By leveraging automated workflows and data-driven decision-making, it allows administrators to manage the allocation process with greater efficiency and accuracy. The key benefits include:
+
+- **Efficiency**: Automated workflows reduce the time and effort required to match students with available SEP locations, freeing up administrators to focus on more strategic tasks.
+- **Accuracy**: Data-driven decision-making ensures that allocations are based on objective criteria, minimizing errors and bias.
+- **Convenience**: The user-friendly interface and clear documentation make it easy for administrators to navigate the system and carry out their tasks effectively.
+- **Scalability**: The application can handle a large number of student applications and SEP locations, making it suitable for both small and large cohorts.
+- **Transparency**: Detailed tracking and reporting features provide visibility into the allocation process, allowing for better oversight and accountability.
+- **Support**: Comprehensive support and maintenance services ensure that the application remains reliable and up-to-date, adapting to any changes in the SEP process or requirements.
+
+By integrating these features, the application significantly enhances the convenience and effectiveness of managing SEP allocations, ultimately benefiting both administrators and students.
+
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ...      | I want to ...                                                                  | So that I can ...                                             |
+|---------|---------------|--------------------------------------------------------------------------------|---------------------------------------------------------------|
+| v1.0    | Administrator | Upload and reference student data                                              | Easily access necessary information for each application      |
+| v1.0    | Administrator | Generate report on CLI for applications submitted, approved, and rejected      | Conveniently release results to students.                     |
+| v1.0    | Administrator | Upload data sources for university capacity reports and student records        | Ensure data accuracy.                                         |
+| v1.0    | Administrator | View list of all student applications                                          | See the current status of each application.                   |
+| v1.0    | Administrator | Designate alternate universities for students without first-choice slots       | Provide backup options in case of slot unavailability.        |
+|         |               |                                                                                |                                                               |
+| v2.0    | Administrator | Search for student applications by ID or destination                           | Quickly locate specific applications.                         |
+| v2.0    | Administrator | Access average GPA and minimum GPA for students choosing a partner university  | Evaluate university performance over time.                    |
+| v2.0    | Administrator | Set criteria for SEP allocation                                                | Ensure fair distribution of program slots.                    |
+| v2.0    | Administrator | Filter applications by GPA, destination, or priority                           | View targeted subsets of student applications easily.         |
+| v2.0    | Administrator | View university spot availability                                              | Make informed allocation decisions.                           |
+| v2.0    | Administrator | Export allocation data in user-based format                                    | Use data for offline analysis and reporting.                  |
+| v2.0    | Administrator | Be able to undo allocations                                                    | Correct allocations if needed due to mistakes or updates.     |
+| v2.0    | Administrator | Upload student and allocation data in various formats (e.g., CSV, TXT)         | Present data flexibly across different platforms or settings. |
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+**Performance**: The application should process allocation commands and generate reports within 2 seconds under typical load conditions (e.g., 500 students).
+
+**Reliability**: Ensure 99.9% uptime, with automatic error handling and recovery mechanisms to prevent application crashes during operations.
+
+**Usability**: Designed with a clear command-line interface (CLI), allowing new users to perform essential tasks with minimal learning effort.
+
+**Maintainability**: The codebase should be modular and follow standard coding conventions, with detailed inline documentation to facilitate future updates.
+
+**Scalability**: Capable of handling an increase in student and university data volumes by up to 50% (e.g., 750 students) without significant degradation in performance.
+
+**Portability**: The application should be compatible with any system running Java 17, ensuring wide accessibility across environments.
+
+**Comprehensive User Guide**: The User Guide must be thoroughly documented, including multiple examples of usage to facilitate understanding.
+
+**High Availability**: The application must be available at all times with minimal dependency on the internet or other APIs.
+
+
 
 ## Glossary
 
-* *glossary item* - Definition
+* *SEP* (Student Exchange Programme): NUS’s largest global exchange initiative, enabling students to study at over 300 partner universities in 40+ countries. *FindOurSEP* project is designed specifically to assist in the SEP allocation process for CompEng (Computer Engineering) students.
+* *GPA* (Grade Point Average): A numeric score ranging from 0.0 to 5.0, representing a student's academic performance, used for allocation.
+* *CSV* (Comma-Separated Values): A file format used to store tabular data, such as student records.
+* *JSON* (JavaScript Object Notation): A lightweight data-interchange format used for storing student and university data.
+* *Allocator*: Class responsible for assigning students to universities based on GPA and preferences.
+* *Command*: A specific action or function executed by the program, such as `add`, `delete`, or `allocate`.
+* *Parser*: Class that interprets and processes user input commands.
+* *StudentList*: Data structure containing records of all students in the SEP system.
+* *UniversityRepository*: A repository containing information on partner universities available for SEP.
 
-## Instructions for manual testing
+## Instructions for Manual Testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+- Do refer to our [User Guide](https://ay2425s1-cs2113-w12-2.github.io/tp/UserGuide.html) for quick start details.
+
+- When running the app, you can key in the command `help` for a list of executable commands and their usage on the application.
