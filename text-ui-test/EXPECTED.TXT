@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
-Hi! Welcome to FindOurSEP! Enter 'help' for the list of commands.
+Hi! Welcome to FindOurSEP!
 Would you like to:
 1. Manually input students data
 2. Upload a file (.csv, .txt, .json)
