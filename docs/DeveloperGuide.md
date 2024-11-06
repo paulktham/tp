@@ -194,6 +194,17 @@ Given below is an example usage scenario and how the find mechanism behaves at e
 
 #### List Command
 
+The `ListCommand` is used to print the current student list to the console. 
+
+1. A `ListCommand` object is instantiated when a `list` command is parsed.
+2. `ListCommand` calls `printStudentList()` in the `StudentList` object.
+3. `StudentList` calls `printStudentList()` in the `UI` object, using the `students` array list.
+4. `UI` iterates over **ALL** students in the `students` array list, getting their `Id`, `Gpa` and `uniPreferences`.
+5. `UI` invokes its own `printResponse()` function, to print a templated message, and the info of all the students as a 
+nicely formatted ASCII table.
+
+![ListCommandSequenceDiagram](UML_Diagrams/ListCommand.drawio.svg)
+
 #### Stats Command
 
 The `StatCommand` class implements the `stats` command, which provides GPA-related statistics (average GPA or minimum GPA) for students who have chosen a specified university. The command syntax is `stats <stat_type> <UNI_INDEX>`, where `<stat_type>` can be `-avggpa` for average GPA or `-mingpa` for minimum GPA.
