@@ -11,6 +11,7 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
     - [Manual Input](#manual-input)
     - [File Input](#file-input)
   - [Add Command](#add-student-application-add)
+  - [Delete Command](#delete-student-application-delete)
   - [Help Command](#view-help-help)
   - [List Command](#print-current-student-list-list)
   - [Criteria Command](#set-minimum-gpa-criteria-minimum)
@@ -106,6 +107,15 @@ Format: `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}`
 e.g.
 `add id/A1234567I gpa/5.0 p/{13,61,43}`
 
+### Delete Student Application: `delete` 
+
+Deletes a student from the student list.
+
+Format: `delete STUDENT_ID`​
+- Deletes the student with the specified id.
+- The id to be deleted must match the id in the student records.
+e.g.
+`delete A1234567I`
 
 ### View help: `help`
 Shows a message explaining how to use the program. (Commands, etc.)  
