@@ -20,10 +20,13 @@
     - [Help Command](#help-command)
     - [Exit Command](#exit-command)
     - [Unknown Command](#unknown-command)
-  - [Components]()
+  - [Components](#components)
     - [Frontend / User Interface](#frontend--user-interface)
     - [Parser](#parser)
     - [Allocator](#allocator)
+    - [Student](#student)
+    - [StudentList](#studentlist)
+    - [University and UniversityRepository](#university-and-universityrepository)
     - [FileHandler](#filehandler)
 - [Product scope](#product-scope)
   * [Target user profile](#target-user-profile)
@@ -31,7 +34,7 @@
 - [User Stories](#user-stories)
 - [Non-Functional Requirements](#non-functional-requirements)
 - [Glossary](#glossary)
-- [Instructions for manual testing](#instructions-for-manual-testing)
+- [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 
 ## Acknowledgements
@@ -89,7 +92,9 @@ Add Command adds a new student into the StudentList. Users need to provide the f
 * GPA (a valid float with a maximum of 2 decimal places, greater than 0.0 but lesser than 5.0)
 * Preferences (three integers ranging from 1 to 92, representing the partner universities, enclosed in curly brackets)
 
-You could refer to [Parser](#parser) section to check the detailed workflow of `AddCommand`.
+![AddCommandSequence](./UML_Diagrams/AddCommand.drawio.svg)
+
+You can also refer to [Parser](#parser) section to check the detailed workflow of `AddCommand`.
 
 #### Delete Command
 
@@ -99,7 +104,7 @@ Delete Command removes an existing Student in the StudentList.
 
 #### Criteria Command
 
-Criteria Command sets a minimum GPA every student must acheieve before they can be allocated to a university.
+Criteria Command sets a minimum GPA every student must achieve before they can be allocated to a university.
 
 ![CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
 
@@ -264,7 +269,7 @@ in the `UI` using the student array list, which prints an ASCII table representi
 
 - Subsequently, the `saveAllocationResults` method is called on the `FileHandler` class to save the results before the `UI` class prints a lovely goodbye message to the user.
 
-Note: For further details on the `FileHandler` class, please refer to [this](#filehandler).
+Note: For further details on the `FileHandler` class / `setUpFileHandler()` method, please refer to [this](#filehandler).
 
 ![ExitSequence](UML_Diagrams/ExitSequence.drawio.svg)
 
@@ -409,7 +414,7 @@ The sequence diagram above showcases the program workflow when a user inputs the
 
 #### Student
 
-The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status.
+The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status. Please refer to diagrams in [!StudentList](#studentlist) to see a detailed sequence diagram and class diagram.
 
 #### StudentList
 
@@ -419,9 +424,17 @@ The sequence below illustrates the interactions between ```StudentList``` and ``
 
 ![StudentListSequence](UML_Diagrams/StudentList.drawio.svg)
 
+This diagram below shows the class diagram of Student and StudentList.
+
+![StudentandStudentListClassDiagram](./UML_Diagrams/StudentAndStudentList.drawio.svg)
+
 #### University and UniversityRepository
 
 These two classes have a composition relationship, where ```UniversityRepository``` is composed of ```University``` objects. The ```University``` object holds the various crucial information of any single university that is provided in the list of available universities. The ```UniversityRepository``` class then creates a static HashMap and statically inputs the list of universities into this HashMap. This HashMap is then easily accessible by other classes to get any information which may be necessary from the universities. 
+
+The diagram below shows the class diagram of University and UniversityRepository.
+
+![UniversityAndUniversityRepositoryClassDiagram](./UML_Diagrams/University.drawio.svg)
 
 ### FileHandler
 
@@ -435,20 +448,42 @@ The program continues to run afterward, prompting the user for commands.
 
 ## Product scope
 
-### Target user profile
+### Target User Profile
 
-This was designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS.
+This application is designed for administrators responsible for handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at the National University of Singapore (NUS). These admins oversee the complex process of assigning students to various international exchange programs, ensuring that each student receives an appropriate placement based on their preferences and qualifications.
 
-### Value proposition
+### Value Proposition
 
-The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making. Giving the administrators greater convenience when allocating students for their SEP.
+The application provides a comprehensive solution to streamline the SEP allocation process. By leveraging automated workflows and data-driven decision-making, it allows administrators to manage the allocation process with greater efficiency and accuracy. The key benefits include:
+
+- **Efficiency**: Automated workflows reduce the time and effort required to match students with available SEP locations, freeing up administrators to focus on more strategic tasks.
+- **Accuracy**: Data-driven decision-making ensures that allocations are based on objective criteria, minimizing errors and bias.
+- **Convenience**: The user-friendly interface and clear documentation make it easy for administrators to navigate the system and carry out their tasks effectively.
+- **Scalability**: The application can handle a large number of student applications and SEP locations, making it suitable for both small and large cohorts.
+- **Transparency**: Detailed tracking and reporting features provide visibility into the allocation process, allowing for better oversight and accountability.
+- **Support**: Comprehensive support and maintenance services ensure that the application remains reliable and up-to-date, adapting to any changes in the SEP process or requirements.
+
+By integrating these features, the application significantly enhances the convenience and effectiveness of managing SEP allocations, ultimately benefiting both administrators and students.
+
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ...      | I want to ...                                                                  | So that I can ...                                             |
+|---------|---------------|--------------------------------------------------------------------------------|---------------------------------------------------------------|
+| v1.0    | Administrator | Upload and reference student data                                              | Easily access necessary information for each application      |
+| v1.0    | Administrator | Generate report on CLI for applications submitted, approved, and rejected      | Conveniently release results to students.                     |
+| v1.0    | Administrator | Upload data sources for university capacity reports and student records        | Ensure data accuracy.                                         |
+| v1.0    | Administrator | View list of all student applications                                          | See the current status of each application.                   |
+| v1.0    | Administrator | Designate alternate universities for students without first-choice slots       | Provide backup options in case of slot unavailability.        |
+|         |               |                                                                                |                                                               |
+| v2.0    | Administrator | Search for student applications by ID or destination                           | Quickly locate specific applications.                         |
+| v2.0    | Administrator | Access average GPA and minimum GPA for students choosing a partner university  | Evaluate university performance over time.                    |
+| v2.0    | Administrator | Set criteria for SEP allocation                                                | Ensure fair distribution of program slots.                    |
+| v2.0    | Administrator | Filter applications by GPA, destination, or priority                           | View targeted subsets of student applications easily.         |
+| v2.0    | Administrator | View university spot availability                                              | Make informed allocation decisions.                           |
+| v2.0    | Administrator | Export allocation data in user-based format                                    | Use data for offline analysis and reporting.                  |
+| v2.0    | Administrator | Be able to undo allocations                                                    | Correct allocations if needed due to mistakes or updates.     |
+| v2.0    | Administrator | Upload student and allocation data in various formats (e.g., CSV, TXT)         | Present data flexibly across different platforms or settings. |
 
 ## Non-Functional Requirements
 
@@ -464,6 +499,12 @@ The app allows administrators to efficiently manage the allocation process using
 
 **Portability**: The application should be compatible with any system running Java 17, ensuring wide accessibility across environments.
 
+**Comprehensive User Guide**: The User Guide must be thoroughly documented, including multiple examples of usage to facilitate understanding.
+
+**High Availability**: The application must be available at all times with minimal dependency on the internet or other APIs.
+
+
+
 ## Glossary
 
 * *SEP* (Student Exchange Programme): NUS’s largest global exchange initiative, enabling students to study at over 300 partner universities in 40+ countries. *FindOurSEP* project is designed specifically to assist in the SEP allocation process for CompEng (Computer Engineering) students.
@@ -476,6 +517,8 @@ The app allows administrators to efficiently manage the allocation process using
 * *StudentList*: Data structure containing records of all students in the SEP system.
 * *UniversityRepository*: A repository containing information on partner universities available for SEP.
 
-## Instructions for manual testing
+## Instructions for Manual Testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+- Do refer to our [User Guide](https://ay2425s1-cs2113-w12-2.github.io/tp/UserGuide.html) for quick start details.
+
+- When running the app, you can key in the command `help` for a list of executable commands and their usage on the application.
