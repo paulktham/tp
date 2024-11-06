@@ -45,7 +45,7 @@ public class SEPIOException extends SEPException {
      */
     public static SEPIOException rejectCSVDataFormat(String[] line) {
         return new SEPIOException(String.join(",", line) + "\" is not in correct format! " +
-                "Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.");
+                "\nPlease ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.");
     }
 
     /**

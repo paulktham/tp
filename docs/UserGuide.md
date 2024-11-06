@@ -27,7 +27,7 @@ FindMySEP is a Command Line Interface (CLI) tool designed for admins handling th
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed. ([Installation Guide](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html))
-2. Download the latest version (v2.0) of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
+2. Download the latest version v2.0 of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
 3. **Copy the `.jar` file:**
    - Move the downloaded `.jar` file into a designated folder on your computer.
 4. **Run the `.jar` file:**
@@ -85,9 +85,11 @@ However, if the file has any abnormality, an error message will be displayed to 
 
 For e.g, the following is the error message shown when the user's CSV file contains data with wrong formatting.
 ```shell
-A1234567I,5, {12,61,43}, ] is not in correct format! Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.
+A1234567I,5, {12,61,43}, ]" is not in correct format! 
+Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.
 --------------------------------------------------------------------------------
-Process error! Please ensure file is formatted correctly before retrying. You can continue to use the program.
+Process error! Please ensure file is formatted correctly before retrying. 
+You can continue to use the program.
 --------------------------------------------------------------------------------
 ```
 For further support, please take a look at [Accepted File Format](#accepted-file-format).
