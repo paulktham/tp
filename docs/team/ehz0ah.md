@@ -1,7 +1,7 @@
 # Lee Hao Zhe - Project Portfolio Page
 
 ## Overview
-FindMySEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange
+FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange
 Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows administrators to efficiently
 manage the allocation process using automated workflows and data-driven decision-making.
 
