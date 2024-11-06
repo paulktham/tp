@@ -96,7 +96,8 @@ class FileHandlerTest {
         fileHandler = new FileHandler("test.xml", parser);
 
         SEPException exception = assertThrows(SEPUnknownException.class, fileHandler::hasProcessFileSuccessfully);
-        assertEquals("Unknown/Unsupported file type detected! \nYou can continue to use the program.", exception.getMessage());
+        assertEquals("Unknown/Unsupported file type detected! " +
+                "\nYou can continue to use the program.", exception.getMessage());
     }
 
 
