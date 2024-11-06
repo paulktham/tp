@@ -88,7 +88,8 @@ For e.g, the following is the error message shown when the user's CSV file conta
 A1234567I,5, {12,61,43}, ]" is not in correct format! 
 Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.
 --------------------------------------------------------------------------------
-Process error! Please ensure file is formatted correctly before retrying. You can continue to use the program.
+Process error! Please ensure file is formatted correctly before retrying. 
+You can continue to use the program.
 --------------------------------------------------------------------------------
 ```
 For further support, please take a look at [Accepted File Format](#accepted-file-format).
