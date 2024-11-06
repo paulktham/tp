@@ -129,7 +129,7 @@ Given below is an example usage scenario and how the find mechanism behaves at e
 3. The command is parsed by `Parser`, which creates a `FindCommand` object with the keywords passed as 
    the input parameter.
 
-4. The `FindCommand` constructor stores the `input` string and initializes `StudentList` and `UI` for managing 
+4. The `FindCommand` constructor stores the `input` string and initialises `StudentList` and `UI` for managing 
    search and output, respectively.
 
 5. When `run()` is called on `FindCommand`, it invokes the `findStudent()` method in `StudentList`, 
@@ -173,7 +173,7 @@ Given below is an example usage scenario and how the find mechanism behaves at e
 3. The command is parsed by `Parser`, which creates a `FilterCommand` object with the criteria passed as
    the input parameter.
 
-4. The `FilterCommand` constructor stores the `input` string and initializes `StudentList` and `UI` for managing
+4. The `FilterCommand` constructor stores the `input` string and initialises `StudentList` and `UI` for managing
    filter and output, respectively.
 
 5. When `run()` is called on `FilterCommand`, it invokes the `filterStudent()` method in `StudentList`,
@@ -285,14 +285,14 @@ FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. T
 `findoursep.FindOurSEP`. How it works:
 1. The user launches the application, which creates an instance of the `FindOurSEP` class.
 
-2. During initialization, the FindOurSEP constructor instantiates `UI`, `StudentList`, and `Parser` components,
+2. During initialisation, the FindOurSEP constructor instantiates `UI`, `StudentList`, and `Parser` components,
    preparing them for managing user input, student data, and command parsing.
 
 3. After launching, the `start()` method calls `setUpFileHandler()`, where the user is prompted to provide a file path
    (e.g., a `.csv`, `.json`, or `.txt`) containing student data, if the user selects 2, which is to upload student
    data.
 
-4. The `FileHandler` class is then initialized with the file path and `Parser` instance.
+4. The `FileHandler` class is then initialised with the file path and `Parser` instance.
 
 5. If the file loads successfully, a success message is displayed. If there is an error, such as an incorrect format or
    missing data, an appropriate error message is shown.
@@ -376,7 +376,7 @@ NEW_MESSAGE("Your custom message text here");
 
 ### Parser
 
-The `Parser` class is a crucial component instantiated as soon as FindOurSEP is initialized. Its responsibility is to process the user’s input into commands and invoking the correct command object for the rest of the program.
+The `Parser` class is a crucial component instantiated as soon as FindOurSEP is initialised. Its responsibility is to process the user’s input into commands and invoking the correct command object for the rest of the program.
 
 Some of its core features include:
 - Breaking down user input and extracting the relevant command and data for further processing.
