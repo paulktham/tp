@@ -5,6 +5,9 @@ import exceptions.SEPException;
 import studentlist.StudentList;
 import ui.UI;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class CriteriaCommand extends Command {
     private String input;
     private UI ui;
@@ -30,7 +33,8 @@ public class CriteriaCommand extends Command {
     public void run() {
         try {
             allocator.setMinimumGPA(input);
-            ui.printResponse("Minimum requirement of GPA set to " + allocator.getMinimumGPA() + " successfully.");
+            BigDecimal roundedGPA = BigDecimal.valueOf(allocator.getMinimumGPA()).setScale(2, RoundingMode.HALF_UP);
+            ui.printResponse("Minimum requirement of GPA set to " + roundedGPA + " successfully.");
         } catch (SEPException e) {
             ui.printResponse(e.getMessage());
         }
