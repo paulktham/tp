@@ -12,6 +12,6 @@ public class SEPUnknownException extends SEPException {
      * @return A SEPUnknownException with the appropriate message.
      */
     public static SEPUnknownException rejectUnknownFileType() {
-        return new SEPUnknownException("Unknown/Unsupported file type detected!");
+        return new SEPUnknownException("Unknown/Unsupported file type detected! You can continue to use the program.");
     }
 }
