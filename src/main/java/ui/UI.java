@@ -148,6 +148,11 @@ public class UI {
         }
         at.addRule();
 
+        at.setTextAlignment(TextAlignment.LEFT);
+        at.setPaddingLeft(1);
+        at.setPaddingRight(1);
+
+        at.getRenderer().setCWC(new CWC_LongestLine());
         printResponse("Here is the allocation report:\n" + at.render());
     }
 
