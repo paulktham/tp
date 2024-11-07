@@ -40,6 +40,6 @@ manage the allocation process using automated workflows and data-driven decision
 
 - Explained the `find` and `filter` commands.
 
-- Added `saveAllocationResults` sequence diagram.
+- Added `saveAllocationResults()` sequence diagram.
 
 - Added `FindOurSEP` main class component.
