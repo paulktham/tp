@@ -11,7 +11,7 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling t
     - [Manual Input](#manual-input)
     - [File Input](#file-input)
   - [Add Command](#add-student-application-add)
-  - [Delete Command](#delete-student-application-delete-)
+  - [Delete Command](#delete-student-application-delete)
   - [Help Command](#view-help-help)
   - [List Command](#print-current-student-list-list)
   - [Find Command](#find-student-find)
