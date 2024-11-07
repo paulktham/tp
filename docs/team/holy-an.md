@@ -1,7 +1,7 @@
 # Anderson Lim - Project Portfolio Page
 
 ## Overview
-FindMySEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange
+FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange
 Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows administrators to efficiently
 manage the allocation process using automated workflows and data-driven decision-making.
 
@@ -35,7 +35,11 @@ manage the allocation process using automated workflows and data-driven decision
 ### Developer Guide Contributions:
 - Along with the other group members, we drew the main high-level diagrams needed in our Developer guide.
 
-- Added `find` and `filter` sequence diagrams, as well as any methods inside it, such as
+- Added `find` and `filter` sequence and class diagrams, as well as any methods inside it, such as
   `printStudentList()` and `generateReport`.
 
 - Explained the `find` and `filter` commands.
+
+- Added `saveAllocationResults` sequence diagram.
+
+- Added `FindOurSEP` main class component.

@@ -194,9 +194,20 @@ Given below is an example usage scenario and how the find mechanism behaves at e
 
 #### List Command
 
+The `ListCommand` is used to print the current student list to the console. 
+
+1. A `ListCommand` object is instantiated when a `list` command is parsed.
+2. `ListCommand` calls `printStudentList()` in the `StudentList` object.
+3. `StudentList` calls `printStudentList()` in the `UI` object, using the `students` array list.
+4. `UI` iterates over **ALL** students in the `students` array list, getting their `Id`, `Gpa` and `uniPreferences`.
+5. `UI` invokes its own `printResponse()` function, to print a templated message, and the info of all the students as a 
+nicely formatted ASCII table.
+
+![ListCommandSequenceDiagram](UML_Diagrams/ListCommand.drawio.svg)
+
 #### Stats Command
 
-The `StatCommand` class implements the `stats` command, which provides GPA-related statistics (average GPA or minimum GPA) for students associated with a specified university. The command syntax is `stats <stat_type> <UNI_INDEX>`, where `<stat_type>` can be `-avggpa` for average GPA or `-mingpa` for minimum GPA.
+The `StatCommand` class implements the `stats` command, which provides GPA-related statistics (average GPA or minimum GPA) for students who have chosen a specified university. The command syntax is `stats <stat_type> <UNI_INDEX>`, where `<stat_type>` can be `-avggpa` for average GPA or `-mingpa` for minimum GPA.
 
 ![StatSequence](UML_Diagrams/StatSequence.drawio.svg)
 
@@ -534,7 +545,7 @@ By integrating these features, the application significantly enhances the conven
 
 ## Glossary
 
-* *SEP* (Student Exchange Programme): NUS’s largest global exchange initiative, enabling students to study at over 300 partner universities in 40+ countries. *FindOurSEP* project is designed specifically to assist in the SEP allocation process for CompEng (Computer Engineering) students.
+* *SEP* (Student Exchange Programme): NUS’s largest global exchange initiative, enabling students to study at over 300 partner universities in 40+ countries. *FindOurSEP* project is designed specifically to assist in the SEP allocation process for CEG (Computer Engineering) students.
 * *GPA* (Grade Point Average): A numeric score ranging from 0.0 to 5.0, representing a student's academic performance, used for allocation.
 * *CSV* (Comma-Separated Values): A file format used to store tabular data, such as student records.
 * *JSON* (JavaScript Object Notation): A lightweight data-interchange format used for storing student and university data.

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-FindMySEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making.
+FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making.
 
 ## Table of Contents
 - [Quick Start](#quick-start)
@@ -200,13 +200,15 @@ Here is the list:
 
 ### View allocation statistics: ``stats``
 
-Displays the average or minimum GPA for the specified partner university.  
+Displays the average or minimum GPA for the students who have chosen the specified partner university.  
 Format: `stats -avggpa UNI_INDEX` or `stats -mingpa UNI_INDEX`   
 Example output:  
 
 ```bash
 > stats -avggpa 36
+--------------------------------------------------------------------------------
 The average GPA for university index 36 (The University of Hong Kong) is: 3.80
+--------------------------------------------------------------------------------
 ```
 
 ### View remaining quota: ``viewQuota``
@@ -216,10 +218,12 @@ Format: `viewQuota UNI_INDEX`
 Example output:  
 
 ```bash
-> viewQuota 
+> viewQuota 58
+--------------------------------------------------------------------------------
  Index: 58
  Name:  ETH Zurich
  Quota: 1
+--------------------------------------------------------------------------------
 ```
 
 ### Run allocation algorithm: ``allocate``
@@ -282,23 +286,27 @@ Adios, amigo!
 >
 > A: FindOurSEP is an open-source application, and we welcome developers to share their ideas. You may find the source code on [GitHub](https://github.com/AY2425S1-CS2113-W12-2/tp).
 
+> **Q: How does FindOurSEP decide who should be allocated first?**
+>
+> A: In FindOurSEP, students are prioritized based on their GPA, with higher GPAs sorted first. When two students share the same GPA, priority is given to the one listed earlier, following a first-come-first-serve basis.
+
 ## Command Summary
 
-| Action    | Format/Example                                                                                                                          |
-|-----------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| Add       | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}`                                   |
-| Delete    | `delete STUDENT_ID` <br> e.g. `delete A1234567I`                                                                                        |
-| Find      | `find <list/report> STUDENT_ID` <br> e.g. `find list A1234567I`                                                                         |
-| Filter    | `filter <list/report> <allocated/unallocated>` or `filter <list> <gpa/id> <ascending/descending>`<br/> e.g. `filter list gpa ascending` |
-| List      | `list`                                                                                                                                  |
-| Statistic | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42``                                              |
-| viewQuota | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``                                                                                      |
-| Allocate  | `allocate`                                                                                                                              |
-| Minimum   | `minimum 4.0`                                                                                                                           |
-| Revert    | `revert`                                                                                                                                |
-| GetReport | `generate`                                                                                                                              |
-| Exit      | `bye`, `exit`, `quit`                                                                                                                   |
-| Help      | `help`                                                                                                                                  |
+| Action     | Format/Example                                               |
+| ---------- | ------------------------------------------------------------ |
+| Add        | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}` |
+| Delete     | `delete STUDENT_ID` <br> e.g. `delete A1234567I`             |
+| Find       | `find <list/report> STUDENT_ID` <br> e.g. `find list A1234567I` |
+| Filter     | `filter <list/report> <allocated/unallocated>` or `filter <list> <gpa/id> <ascending/descending>`<br/> e.g. `filter list gpa ascending` |
+| List       | `list`                                                       |
+| Statistics | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42`` |
+| ViewQuota  | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``           |
+| Allocate   | `allocate`                                                   |
+| Minimum    | `minimum GPA_CRITERIA`. <br> e.g., ``minimum 4.0``           |
+| Revert     | `revert`                                                     |
+| GetReport  | `generate`                                                   |
+| Exit       | `bye`, `exit`, `quit`                                        |
+| Help       | `help`                                                       |
 
 ## Accepted File Format
 The program supports files input in `.JSON`, `.CSV`, and `.TXT` formats.
