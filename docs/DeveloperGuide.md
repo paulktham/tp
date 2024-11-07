@@ -5,6 +5,7 @@
 - [Installation](#Installation)
 - [Design & Implementation](#design--implementation)
   - [Architecture](#architecture)
+  - [FindOurSEP](#findoursep)
   - [Commands](#commands)
     - [Add Command](#add-command)
     - [Delete Command](#delete-command)
@@ -81,6 +82,33 @@ To get started with this project, follow these steps:
 ### Architecture
 
 ![Architecture](UML_Diagrams/Architecture.drawio.svg)
+
+### FindOurSEP
+
+FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. The entry point to our application is
+`findoursep.FindOurSEP`. How it works:
+1. The user launches the application, which creates an instance of the `FindOurSEP` class.
+
+2. During initialisation, the FindOurSEP constructor instantiates `UI`, `StudentList`, and `Parser` components,
+   preparing them for managing user input, student data, and command parsing.
+
+3. After launching, the `start()` method calls `setUpFileHandler()`, where the user is prompted to provide a file path
+   (e.g., a `.csv`, `.json`, or `.txt`) containing student data, if the user selects 2, which is to upload student
+   data.
+
+4. The `FileHandler` class is then initialised with the file path and `Parser` instance.
+
+5. If the file loads successfully, a success message is displayed. If there is an error, such as an incorrect format or
+   missing data, an appropriate error message is shown.
+
+6. The program enters a loop where it waits for user commands, which will be processed by `Parser`. If an invalid
+   command or incorrect format is detected, a `SEPException` is raised, and an error message is displayed.
+
+7. When the user decides to exit, the program checks if the user wants to save their data. If the user chooses to save,
+   they can select the save format (e.g., `.csv`, `.json` or `.txt`), and `FileHandler` saves the current `StudentList`
+   data accordingly.
+
+8. A farewell message is displayed, and the application terminates.
 
 ### Commands
 
@@ -300,30 +328,6 @@ Note: For further details on the `FileHandler` class / `setUpFileHandler()` meth
 
 
 ## Components
-FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. The entry point to our application is
-`findoursep.FindOurSEP`. How it works:
-1. The user launches the application, which creates an instance of the `FindOurSEP` class.
-
-2. During initialisation, the FindOurSEP constructor instantiates `UI`, `StudentList`, and `Parser` components,
-   preparing them for managing user input, student data, and command parsing.
-
-3. After launching, the `start()` method calls `setUpFileHandler()`, where the user is prompted to provide a file path
-   (e.g., a `.csv`, `.json`, or `.txt`) containing student data, if the user selects 2, which is to upload student
-   data.
-
-4. The `FileHandler` class is then initialised with the file path and `Parser` instance.
-
-5. If the file loads successfully, a success message is displayed. If there is an error, such as an incorrect format or
-   missing data, an appropriate error message is shown.
-
-6. The program enters a loop where it waits for user commands, which will be processed by `Parser`. If an invalid
-   command or incorrect format is detected, a `SEPException` is raised, and an error message is displayed.
-
-7. When the user decides to exit, the program checks if the user wants to save their data. If the user chooses to save,
-   they can select the save format (e.g., `.csv`, `.json` or `.txt`), and `FileHandler` saves the current `StudentList`
-   data accordingly.
-
-8. A farewell message is displayed, and the application terminates.
 
 ### Frontend / User Interface
 The frontend currently consists of 2 main components:
