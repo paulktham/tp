@@ -116,7 +116,7 @@ e.g.
 
 Deletes a student from the student list.
 
-Format: `delete STUDENT_ID`​
+Format: `delete STUDENT_ID`
 - Deletes the student with the specified id.
 - The id to be deleted must match the id in the student records.
 e.g.
