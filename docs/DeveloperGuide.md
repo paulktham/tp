@@ -113,6 +113,10 @@ Criteria Command sets a minimum GPA every student must achieve before they can b
 The find mechanism is facilitated by `StudentList`. Every instance of `FindCommand` is created with a string `input`,
 which contains the keywords for finding a student, and a `UI` instance for output handling.
 
+Below is a class diagram for the find command.
+
+![FindCommandClass](./UML_Diagrams/FindCommandClass.drawio.svg)
+
 The following sequence diagram shows how the find command works.
 
 ![FindCommandSequence](./UML_Diagrams/FindSequence.drawio.svg)
@@ -149,7 +153,11 @@ Given below is an example usage scenario and how the find mechanism behaves at e
 The filter mechanism is facilitated by `StudentList`. Every instance of `FilterCommand` is created 
 with a string `input`, which contains the filter criteria, and a `UI` instance for output handling.
 
-The following sequence diagram shows how the find command works.
+Below is a class diagram for the filter command.
+
+![FilterCommandClass](./UML_Diagrams/FilterCommandClass.drawio.svg)
+
+The following sequence diagram shows how the filter command works.
 
 ![FilterCommandSequence](./UML_Diagrams/FilterSequence.drawio.svg)
 
