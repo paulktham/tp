@@ -1,8 +1,8 @@
 # Developer Guide
 
 ## Table of Contents
-- [Acknowledgements](#Acknowledgements)
-- [Installation](#Installation)
+- [Acknowledgements](#acknowledgements)
+- [Installation](#installation)
 - [Design & Implementation](#design--implementation)
   - [Architecture](#architecture)
   - [FindOurSEP](#findoursep)
