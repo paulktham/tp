@@ -14,16 +14,20 @@ public enum Messages {
             delete      Deletes the student with the specified ID from the list.
                         Example: delete A1234567I
 
+            help        Displays this help message.
+
+            list        Lists all students currently in the system.
+
             find        Finds the student with the keyword, returning either a list or report.
                         Example: find list A1234567I
+
+            minimum     Sets the minimum GPA to be considered for exchange.
         
             filter      Filters student data with a keyword, returning either a list or report.
                         User can choose between ascending/descending id/gpa and allocation status.
                         The format is: 'filter <list/report> <allocated/unallocated>',
                                        or 'filter <list> <gpa/id> <ascending/descending>'
                         Example: filter list gpa ascending
-
-            list        Lists all students currently in the system.
 
             stats       Displays GPA statistics for students who have chosen a specific partner university.
                         Usage:
@@ -40,8 +44,6 @@ public enum Messages {
             generate    Generates a report of allocations and student data.
 
             exit        Exits the application.
-
-            help        Displays this help message.
         """),
     ERROR("An error occurred. Please try again.");
 

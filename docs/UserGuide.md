@@ -11,14 +11,17 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling t
     - [Manual Input](#manual-input)
     - [File Input](#file-input)
   - [Add Command](#add-student-application-add)
-  - [Delete Command](#delete-student-application-delete)
+  - [Delete Command](#delete-student-application-delete-)
   - [Help Command](#view-help-help)
   - [List Command](#print-current-student-list-list)
-  - [Criteria Command](#set-minimum-gpa-criteria-minimum)
+  - [Find Command](#find-student-find)
+  - [Minimum Command](#set-minimum-gpa-criteria-minimum)
+  - [Filter Command](#filter-student-filter)
   - [Stats Command](#view-allocation-statistics-stats)
   - [ViewQuota Command](#view-remaining-quota-viewquota)
   - [Allocate Command](#run-allocation-algorithm-allocate)
   - [Revert Command](#revert-allocation-outcome-revert)
+  - [Generate Command](#generate-report-of-allocation-generate)
   - [Exit Command](#exit-program-bye-exit-quit)
 - [FAQ](#faq)  
 - [Command Summary](#command-summary)
@@ -101,6 +104,57 @@ For further support, please take a look at [Accepted File Format](#accepted-file
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple 
 lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
+### View help: `help`
+Shows a message explaining how to use the program. (Commands, etc.)  
+Format: `help`
+Expected output:
+
+```shell
+> help 
+--------------------------------------------------------------------------------
+Here is the list of possible commands:
+    add         Adds a student with the specified ID, GPA, and preference rankings.
+                Example: add id/A1234567I gpa/5.0 p/{13,61,43}
+                Note: PREFERENCE_RANKINGS should be enclosed in curly braces
+
+    delete      Deletes the student with the specified ID from the list.
+                Example: delete A1234567I
+
+    help        Displays this help message.
+
+    list        Lists all students currently in the system.
+
+    find        Finds the student with the keyword, returning either a list or report.
+                Example: find list A1234567I
+
+    minimum     Sets the minimum GPA to be considered for exchange.
+
+    filter      Filters student data with a keyword, returning either a list or report.
+                User can choose between ascending/descending id/gpa and allocation status.
+                The format is: 'filter <list/report> <allocated/unallocated>',
+                               or 'filter <list> <gpa/id> <ascending/descending>'
+                Example: filter list gpa ascending
+
+    stats       Displays GPA statistics for students who have chosen a specific partner university.
+                Usage:
+                stats -avggpa <UNI_INDEX>  Displays the average GPA for the specified university.
+                stats -mingpa <UNI_INDEX>  Displays the minimum GPA for the specified university.
+
+    viewQuota   Displays the index, name, and remaining quota for the specified university.
+                Usage: viewQuota <UNI_INDEX>
+
+    allocate    Allocates students to available slots based on their preferences.
+
+    revert      Reverts the student list to original, pre-allocation state.
+
+    generate    Generates a report of allocations and student data.
+
+    exit        Exits the application.
+
+--------------------------------------------------------------------------------
+
+```
+
 ### Add Student Application: `add`
 
 Adds a student to the student list. `PREFERENCE_RANKINGS`  should be enclosed in curly braces. We allow students to have a preference of up to 3 universities, and they are ranked left to right, with the HIGHEST priority starting on the left.
@@ -113,15 +167,17 @@ e.g.
 
 Deletes a student from the student list.
 
-Format: `delete STUDENT_ID`​
-- Deletes the student with the specified id.
-- The id to be deleted must match the id in the student records.
-e.g.
-`delete A1234567I`
-
-### View help: `help`
-Shows a message explaining how to use the program. (Commands, etc.)  
-Format: `help`
+Format: `delete STUDENT_ID`
+Deletes the student with the specified id.
+The id to be deleted must match the id in the student records.  
+e.g. `delete A1234567I`  
+Example output: 
+```shell
+> delete A1234567I
+--------------------------------------------------------------------------------
+Removed student, 1 student(s) left
+--------------------------------------------------------------------------------
+```
 
 ### Print current student list: `list`
 Outputs a list of all current students in the student list.  
@@ -149,7 +205,6 @@ e.g.
 `find list A123`
 
 Example output:
-
 ```shell
 --------------------------------------------------------------------------------
 Finding for students... student(s) found.
@@ -229,12 +284,40 @@ Example output:
 ### Run allocation algorithm: ``allocate``
 
 Start the allocation algorithm. It will allocate universities to the current student list based on each student's preferences and GPA.  
-Format: `allocate`
+Format: `allocate`  
+Upon successful completion, the console should output:  
+```shell
+--------------------------------------------------------------------------------
+Allocation algorithm complete! Run generate command to view.
+--------------------------------------------------------------------------------
+```  
+After which, the user can run the `generate` command to view the results, or `revert` command to undo the allocation.
 
 ### Revert allocation outcome: `revert`
 
 Reverses the allocation algorithm. To be used when changes need to be made to the student list.  
 Format: `revert`
+Upon successful completion, the console should output:  
+```shell
+--------------------------------------------------------------------------------
+Revert complete! Run the allocate command whenever you are ready.
+--------------------------------------------------------------------------------
+```
+
+### Generate report of allocation: `generate`
+Outputs all students' ID and allocated university in an ASCII table. 
+Used for viewing the results of the allocation process.
+Format: `generate`
+Example output:
+```shell
+Here is the allocation report:
+┌───────────┬───────────────────────────────┐
+│ Student   │ University Granted            │
+├───────────┼───────────────────────────────┤
+│ A1234567I │ Chongqing University          │
+│ A2113113X │ National Tsing Hua University │
+└───────────┴───────────────────────────────┘
+```
 
 ### Exit Program: `bye`, `exit`, `quit`
 When any of the exit commands (bye, exit, quit) are entered, the program will prompt the user (`Do you want to save your results?`) to save their allocation results. If the user choose `yes`, they will be prompted to enter the desired file format (CSV, JSON, TXT).
@@ -320,5 +403,7 @@ Please make sure your file matches one of these formats:
 
 ### TXT:
 ![CorrectTXTFormat](images/TXTFormat.png)
+
+**IMPORTANT**: Please take note that the `.CSV` file is **ONLY** opened, created, and edited using Microsoft Excel. Do not use an IDE or any other application to modify this file.
 
 Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.
