@@ -14,11 +14,14 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling t
   - [Delete Command](#delete-student-application-delete)
   - [Help Command](#view-help-help)
   - [List Command](#print-current-student-list-list)
-  - [Criteria Command](#set-minimum-gpa-criteria-minimum)
+  - [Find Command](#find-student-find)
+  - [Minimum Command](#set-minimum-gpa-criteria-minimum)
+  - [Filter Command](#filter-student-filter)
   - [Stats Command](#view-allocation-statistics-stats)
   - [ViewQuota Command](#view-remaining-quota-viewquota)
   - [Allocate Command](#run-allocation-algorithm-allocate)
   - [Revert Command](#revert-allocation-outcome-revert)
+  - [Generate Command](#generate-report-of-allocation-generate)
   - [Exit Command](#exit-program-bye-exit-quit)
 - [FAQ](#faq)  
 - [Command Summary](#command-summary)
@@ -113,7 +116,7 @@ e.g.
 
 Deletes a student from the student list.
 
-Format: `delete STUDENT_ID`​
+Format: `delete STUDENT_ID`
 - Deletes the student with the specified id.
 - The id to be deleted must match the id in the student records.
 e.g.
@@ -236,6 +239,9 @@ Format: `allocate`
 Reverses the allocation algorithm. To be used when changes need to be made to the student list.  
 Format: `revert`
 
+### Generate report of allocation: `generate`
+
+
 ### Exit Program: `bye`, `exit`, `quit`
 When any of the exit commands (bye, exit, quit) are entered, the program will prompt the user (`Do you want to save your results?`) to save their allocation results. If the user choose `yes`, they will be prompted to enter the desired file format (CSV, JSON, TXT).
 Based on their selection, the program will save the results in the specified format.
@@ -320,5 +326,7 @@ Please make sure your file matches one of these formats:
 
 ### TXT:
 ![CorrectTXTFormat](images/TXTFormat.png)
+
+**IMPORTANT**: Please take note that the `.CSV` file is **ONLY** opened, created, and edited using Microsoft Excel. Do not use an IDE or any other application to modify this file.
 
 Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.
