@@ -5,6 +5,7 @@
 - [Installation](#Installation)
 - [Design & Implementation](#design--implementation)
   - [Architecture](#architecture)
+  - [FindOurSEP](#findoursep)
   - [Commands](#commands)
     - [Add Command](#add-command)
     - [Delete Command](#delete-command)
@@ -82,6 +83,33 @@ To get started with this project, follow these steps:
 
 ![Architecture](UML_Diagrams/Architecture.drawio.svg)
 
+### FindOurSEP
+
+FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. The entry point to our application is
+`findoursep.FindOurSEP`. How it works:
+1. The user launches the application, which creates an instance of the `FindOurSEP` class.
+
+2. During initialisation, the FindOurSEP constructor instantiates `UI`, `StudentList`, and `Parser` components,
+   preparing them for managing user input, student data, and command parsing.
+
+3. After launching, the `start()` method calls `setUpFileHandler()`, where the user is prompted to provide a file path
+   (e.g., a `.csv`, `.json`, or `.txt`) containing student data, if the user selects 2, which is to upload student
+   data.
+
+4. The `FileHandler` class is then initialised with the file path and `Parser` instance.
+
+5. If the file loads successfully, a success message is displayed. If there is an error, such as an incorrect format or
+   missing data, an appropriate error message is shown.
+
+6. The program enters a loop where it waits for user commands, which will be processed by `Parser`. If an invalid
+   command or incorrect format is detected, a `SEPException` is raised, and an error message is displayed.
+
+7. When the user decides to exit, the program checks if the user wants to save their data. If the user chooses to save,
+   they can select the save format (e.g., `.csv`, `.json` or `.txt`), and `FileHandler` saves the current `StudentList`
+   data accordingly.
+
+8. A farewell message is displayed, and the application terminates.
+
 ### Commands
 
 #### Add Command
@@ -113,6 +141,10 @@ Criteria Command sets a minimum GPA every student must achieve before they can b
 The find mechanism is facilitated by `StudentList`. Every instance of `FindCommand` is created with a string `input`,
 which contains the keywords for finding a student, and a `UI` instance for output handling.
 
+Below is a class diagram for the find command.
+
+![FindCommandClass](./UML_Diagrams/FindCommandClass.drawio.svg)
+
 The following sequence diagram shows how the find command works.
 
 ![FindCommandSequence](./UML_Diagrams/FindSequence.drawio.svg)
@@ -129,7 +161,7 @@ Given below is an example usage scenario and how the find mechanism behaves at e
 3. The command is parsed by `Parser`, which creates a `FindCommand` object with the keywords passed as 
    the input parameter.
 
-4. The `FindCommand` constructor stores the `input` string and initializes `StudentList` and `UI` for managing 
+4. The `FindCommand` constructor stores the `input` string and initialises `StudentList` and `UI` for managing 
    search and output, respectively.
 
 5. When `run()` is called on `FindCommand`, it invokes the `findStudent()` method in `StudentList`, 
@@ -149,7 +181,11 @@ Given below is an example usage scenario and how the find mechanism behaves at e
 The filter mechanism is facilitated by `StudentList`. Every instance of `FilterCommand` is created 
 with a string `input`, which contains the filter criteria, and a `UI` instance for output handling.
 
-The following sequence diagram shows how the find command works.
+Below is a class diagram for the filter command.
+
+![FilterCommandClass](./UML_Diagrams/FilterCommandClass.drawio.svg)
+
+The following sequence diagram shows how the filter command works.
 
 ![FilterCommandSequence](./UML_Diagrams/FilterSequence.drawio.svg)
 
@@ -173,7 +209,7 @@ Given below is an example usage scenario and how the find mechanism behaves at e
 3. The command is parsed by `Parser`, which creates a `FilterCommand` object with the criteria passed as
    the input parameter.
 
-4. The `FilterCommand` constructor stores the `input` string and initializes `StudentList` and `UI` for managing
+4. The `FilterCommand` constructor stores the `input` string and initialises `StudentList` and `UI` for managing
    filter and output, respectively.
 
 5. When `run()` is called on `FilterCommand`, it invokes the `filterStudent()` method in `StudentList`,
@@ -294,8 +330,7 @@ Note: For further details on the `FileHandler` class / `setUpFileHandler()` meth
 ## Components
 
 ### Frontend / User Interface
-FindOurSEP is primarily a Command-Line Interface (CLI) based Java Application. The frontend currently consists of 2 main
-components:
+The frontend currently consists of 2 main components:
 1. `UI` class - Manages interactions with the user, including printing messages, tables, and capturing user inputs.
 2. `Messages` enum - Stores standardized messages for consistent user prompts and feedback across the application.
 
@@ -364,7 +399,7 @@ NEW_MESSAGE("Your custom message text here");
 
 ### Parser
 
-The `Parser` class is a crucial component instantiated as soon as FindOurSEP is initialized. Its responsibility is to process the user’s input into commands and invoking the correct command object for the rest of the program.
+The `Parser` class is a crucial component instantiated as soon as FindOurSEP is initialised. Its responsibility is to process the user’s input into commands and invoking the correct command object for the rest of the program.
 
 Some of its core features include:
 - Breaking down user input and extracting the relevant command and data for further processing.
@@ -456,6 +491,10 @@ The `FileHandler` class is responsible for parsing file inputs from users as wel
 After successfully processing the file, the program compiles the student data into a comprehensive student list. This list serves as the foundational data structure upon which the program performs allocation operations, ensuring efficient and accurate data handling.
 
 The program continues to run afterward, prompting the user for commands.
+
+For file outputs, `saveAllocationResults()` will be called. Below is a further sequence diagram 
+
+![saveAllocationResultsSequence](UML_Diagrams/saveAllocationResultsSequence.drawio.svg)
 
 ## Product scope
 
