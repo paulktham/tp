@@ -321,4 +321,6 @@ Please make sure your file matches one of these formats:
 ### TXT:
 ![CorrectTXTFormat](images/TXTFormat.png)
 
+**IMPORTANT**: Please take note that the `.CSV` file is **ONLY** opened, created, and edited using Microsoft Excel. Do not use an IDE or any other application to modify this file.
+
 Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.

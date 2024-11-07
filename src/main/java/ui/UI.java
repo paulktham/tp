@@ -171,7 +171,7 @@ public class UI {
 
     public void printProcessError() {
         printResponse("Process error! Please ensure file is formatted correctly before retrying. " +
-                "You can continue to use the program.");
+                "\nYou can continue to use the program.");
     }
 
     public void printFileLoadSuccessMessage() {
