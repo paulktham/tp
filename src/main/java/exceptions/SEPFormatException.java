@@ -72,7 +72,7 @@ public class SEPFormatException extends SEPException {
      */
     public static SEPFormatException rejectViewQuotaFormat() {
         return new SEPFormatException("Invalid format for viewQuota command. "
-                + "Usage: ``viewQuota <UNI_INDEX>``.");
+                + "Usage: `viewQuota <UNI_INDEX>`.");
     }
 
     /**
