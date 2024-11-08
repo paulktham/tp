@@ -3,6 +3,7 @@ package command;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import exceptions.SEPEmptyException;
 import studentlist.StudentList;
 import ui.Messages;
 import ui.UI;
@@ -39,15 +40,19 @@ public class RevertCommand extends Command {
      * is displayed to the user. Also logs the start and completion of the revert operation.
      */
     @Override
-    public void run() {
+    public void run() throws SEPEmptyException {
         logger.log(Level.FINE, "Starting revert operation.");
 
         // Ensure studentList is initialized
         assert studentList != null : "StudentList cannot be null during revert operation";
 
-        // Perform the revert action on student list and uni repo
-        studentList.revertAllocation();
-        UniversityRepository.resetMap();
+        if (studentList.getAllocationStatus()) {
+            // Perform the revert action on student list and uni repo
+            studentList.revertAllocation();
+            UniversityRepository.resetMap();
+        } else {
+            throw SEPEmptyException.rejectAllocationIncomplete();
+        }
 
         // Log completion and notify the user
         logger.log(Level.FINE, "Revert operation completed.");

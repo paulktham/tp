@@ -27,6 +27,7 @@ public class StudentList {
 
     private ArrayList<Student> students;
     private UI ui;
+    private boolean isAllocationComplete;
 
     /**
      * Constructs a new StudentList with an empty list of students and the given UI object.
@@ -569,5 +570,9 @@ public class StudentList {
         for (Student student : students) {
             student.resetAllocationStatus();
         }
+    }
+
+    public boolean getAllocationStatus() {
+        return this.isAllocationComplete;
     }
 }
