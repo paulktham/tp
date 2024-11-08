@@ -38,4 +38,8 @@ public class SEPEmptyException extends SEPException {
     public static SEPEmptyException rejectAllocationIncomplete() {
         return new SEPEmptyException("Allocation incomplete, try running allocate before reverting! :>");
     }
+
+    public static SEPEmptyException rejectAllocateEmpty() {
+        return new SEPEmptyException("Unable to allocate with empty student list, try adding students! :>");
+    }
 }

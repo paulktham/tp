@@ -40,22 +40,22 @@ public class RevertCommand extends Command {
      * is displayed to the user. Also logs the start and completion of the revert operation.
      */
     @Override
-    public void run() throws SEPEmptyException {
+    public void run() {
         logger.log(Level.FINE, "Starting revert operation.");
 
         // Ensure studentList is initialized
         assert studentList != null : "StudentList cannot be null during revert operation";
 
-        if (studentList.getAllocationStatus()) {
+        try {
             // Perform the revert action on student list and uni repo
             studentList.revertAllocation();
             UniversityRepository.resetMap();
-        } else {
-            throw SEPEmptyException.rejectAllocationIncomplete();
-        }
 
-        // Log completion and notify the user
-        logger.log(Level.FINE, "Revert operation completed.");
-        ui.printResponse(Messages.REVERT_COMPLETE);
+            // Log completion and notify the user
+            logger.log(Level.FINE, "Revert operation completed.");
+            ui.printResponse(Messages.REVERT_COMPLETE);
+        } catch (SEPEmptyException e) {
+            ui.printResponse(e.getMessage());
+        }
     }
 }
