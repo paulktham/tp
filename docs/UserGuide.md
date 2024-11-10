@@ -31,9 +31,10 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling t
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed. ([Installation Guide](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html))
-2. Download the latest version v2.0 of `FindOurSEP` from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
-3. **Copy the `.jar` file:**
+2. Download the latest version v2.0 of `FindOurSEP` and the 3 test files from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
+3. **Copy the files:**
    - Move the downloaded `.jar` file into a designated folder on your computer.
+   - Move the 3 test files (test.csv/test.json/test.txt) to the same folder as the `.jar` file.
 4. **Run the `.jar` file:**
    - Open a terminal.
    - Navigate (`cd`) to the folder containing the `.jar` file.
@@ -93,14 +94,16 @@ If `2` is chosen instead, the users will be asked to upload files in CSV, JSON, 
 Then, the user will be prompted to input the file path to the file.
 ```shell
 --------------------------------------------------------------------------------
+Example: C:\Users\bob\OneDrive\Documents\tp\test.csv
 Please enter the ABSOLUTE path to the file: 
 --------------------------------------------------------------------------------
 ```
+**NOTE:** If the test files are in the same folder as the `.jar` file, you can just enter the name of the test file. E.g, `test.json`.
 
 If the file is uploaded successfully, the following will be displayed.
 ```shell
 --------------------------------------------------------------------------------
-File loaded successfully! Let's begin!
+File loaded successfully! Let's begin! Enter 'help' for available commands.
 --------------------------------------------------------------------------------
 ```
 However, if the file has any abnormality, an error message will be displayed to the user. The user will still be allowed to continue using the program but with no data uploaded. 
@@ -110,10 +113,14 @@ For e.g, the following is the error message shown when the user's CSV file conta
 A1234567I,5, {12,61,43}, ]" is not in correct format! 
 Please ensure that you only have 3 columns representing the ID, GPA and PREFERENCES.
 --------------------------------------------------------------------------------
-Process error! Please ensure file is formatted correctly before retrying. 
-You can continue to use the program.
+Process error! To re-upload a file, please restart the program by entering 'exit' 
+followed by 'no' and ensure file is formatted correctly before retrying. 
+Otherwise, you can continue to use the program. Enter 'help' for available commands.
 --------------------------------------------------------------------------------
 ```
+Upon file upload failure, users can continue using the program without any data uploaded. 
+To attempt to reload the data, enter `exit` to stop the program, and then restart it to try the upload again.
+
 For further support, please take a look at [Accepted File Format](#accepted-file-format).
 
 ### *Notes about the command format:*

@@ -170,12 +170,16 @@ public class UI {
     }
 
     public void printProcessError() {
-        printResponse("Process error! Please ensure file is formatted correctly before retrying. " +
-                "\nYou can continue to use the program.");
+        printResponse("""
+                Process error! To re-upload a file, please restart the program by entering 'exit'\s
+                followed by 'no' and \
+                ensure the file is formatted correctly before retrying. \
+                
+                Otherwise, you can continue to use the program. Enter 'help' for available commands.""");
     }
 
     public void printFileLoadSuccessMessage() {
-        printResponse("File loaded successfully! Let's begin!");
+        printResponse("File loaded successfully! Let's begin! Enter 'help' for available commands.");
     }
 
     /**
@@ -251,7 +255,8 @@ public class UI {
             System.exit(0);
         }
         if (input.equals("2")) {
-            printResponse("Please enter the ABSOLUTE path to the file: ");
+            printResponse("Example: C:\\Users\\bob\\OneDrive\\Documents\\tp\\test.csv" +
+                    "\nPlease enter the ABSOLUTE path to the file: ");
             return processFilePathInput();
         }
         sayHi();
