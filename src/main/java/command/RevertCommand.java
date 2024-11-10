@@ -3,6 +3,7 @@ package command;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import exceptions.SEPEmptyException;
 import studentlist.StudentList;
 import ui.Messages;
 import ui.UI;
@@ -45,12 +46,16 @@ public class RevertCommand extends Command {
         // Ensure studentList is initialized
         assert studentList != null : "StudentList cannot be null during revert operation";
 
-        // Perform the revert action on student list and uni repo
-        studentList.revertAllocation();
-        UniversityRepository.resetMap();
+        try {
+            // Perform the revert action on student list and uni repo
+            studentList.revertAllocation();
+            UniversityRepository.resetMap();
 
-        // Log completion and notify the user
-        logger.log(Level.FINE, "Revert operation completed.");
-        ui.printResponse(Messages.REVERT_COMPLETE);
+            // Log completion and notify the user
+            logger.log(Level.FINE, "Revert operation completed.");
+            ui.printResponse(Messages.REVERT_COMPLETE);
+        } catch (SEPEmptyException e) {
+            ui.printResponse(e.getMessage());
+        }
     }
 }

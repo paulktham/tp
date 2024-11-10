@@ -27,6 +27,7 @@ public class StudentList {
 
     private ArrayList<Student> students;
     private UI ui;
+    private boolean isAllocationComplete;
 
     /**
      * Constructs a new StudentList with an empty list of students and the given UI object.
@@ -565,9 +566,22 @@ public class StudentList {
     /**
      * Reverts the allocation status of all elements in StudentList.
      */
-    public void revertAllocation() {
+    public void revertAllocation() throws SEPEmptyException {
+        if (!isAllocationComplete) {
+            throw SEPEmptyException.rejectAllocationIncomplete();
+        }
+
         for (Student student : students) {
             student.resetAllocationStatus();
         }
+        this.isAllocationComplete = false;
+    }
+
+    public boolean getAllocationStatus() {
+        return this.isAllocationComplete;
+    }
+
+    public void setAllocationStatus(boolean status) {
+        this.isAllocationComplete = status;
     }
 }
