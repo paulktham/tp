@@ -74,8 +74,7 @@ Before we begin, would you like to:
 Please choose 1 or 2 or exit :)
 --------------------------------------------------------------------------------
 ```
-The program provides two methods for uploading student data, allowing flexibility in how you input and manage information.
-Below are the options:
+The program provides two methods for uploading student data, allowing flexibility in how you input and manage information. Below are the options:
 
 #### Manual Input
 By inputting `1`, users can directly enter student data into the program. This option is useful for adding individual records or performing quick updates without needing to upload an entire file.
@@ -98,7 +97,7 @@ Example: C:\Users\bob\OneDrive\Documents\tp\test.csv
 Please enter the ABSOLUTE path to the file: 
 --------------------------------------------------------------------------------
 ```
-**NOTE:** If the test files are in the same folder as the `.jar` file, you can just enter the name of the test file. E.g, `test.json`.
+**NOTE:** If the test files are in the same folder as the `.jar` file, users can just enter the name of the test file. E.g, `test.json`.
 
 If the file is uploaded successfully, the following will be displayed.
 ```shell
@@ -119,7 +118,7 @@ Otherwise, you can continue to use the program. Enter 'help' for available comma
 --------------------------------------------------------------------------------
 ```
 Upon file upload failure, users can continue using the program without any data uploaded. 
-To attempt to reload the data, enter `exit` to stop the program, and then restart it to try the upload again.
+To attempt to reload the data, exit and restart the program to try the upload again.
 
 For further support, please take a look at [Accepted File Format](#accepted-file-format).
 
