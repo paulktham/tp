@@ -185,7 +185,8 @@ public class UI {
      * @return A boolean that indicates validity of the input string
      */
     public boolean isValidOption(String option) {
-        return option.equals("1") || option.equals("2") || option.equals("exit");
+        return option.equals("1") || option.equals("2") || option.equals("exit")
+                || option.equals("bye") || option.equals("quit");
     }
 
     /**
@@ -209,7 +210,7 @@ public class UI {
             printResponse("Boss, type 1 or 2 or exit only leh!");
             input = getUserInput().toLowerCase();
         }
-        if (input.equals("exit")) {
+        if (input.equals("exit") || input.equals("quit") || input.equals("bye")) {
             sayBye();
             System.exit(0);
         }
