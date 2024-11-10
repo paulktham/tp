@@ -6,6 +6,7 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling t
 
 ## Table of Contents
 - [Quick Start](#quick-start)
+- [Pre-Usage Guidelines](#pre-usage-guidelines)
 - [Features](#features)
   - [Uploading Information](#uploading-information)
     - [Manual Input](#manual-input)
@@ -41,6 +42,24 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling t
      java -jar FindOurSEP.jar
      ```
 
+## Pre-Usage Guidelines
+Before using the program, please take note of the following <span style="color:red">IMPORTANT GUIDELINES</span>: 
+
+### Language Recognition 
+- **Only English language is recognized** in the program. Please ensure that all data inputs use English characters exclusively.
+
+### Data Upload 
+- Users can **ONLY upload data at the START of the program**. Please ensure that all necessary data is prepared and ready for upload before initiating the program.
+- For further support, please take a look at [Accepted File Format](#accepted-file-format).
+
+### Output Data 
+- The `allocation_results` file located under the `data` folder is **NOT meant to be re-inputted into the program**. It is intended solely for external usage by the users. 
+
+### Proper Exit Procedure
+- Please exit the program using the `exit` command. Avoid using other methods to terminate the program to ensure a clean and safe shutdown.
+
+Please adhere to these guidelines to ensure smooth and proper functionality of the program.
+
 ## Features
 
 ### Uploading Information
@@ -54,8 +73,8 @@ Before we begin, would you like to:
 Please choose 1 or 2 or exit :)
 --------------------------------------------------------------------------------
 ```
-The program provides two methods for uploading student data, allowing flexibility in how you input and manage information. Below are the options:
-
+The program provides two methods for uploading student data, allowing flexibility in how you input and manage information.
+Below are the options:
 
 #### Manual Input
 By inputting `1`, users can directly enter student data into the program. This option is useful for adding individual records or performing quick updates without needing to upload an entire file.
