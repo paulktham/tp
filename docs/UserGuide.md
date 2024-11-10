@@ -410,7 +410,7 @@ Adios, amigo!
 | Statistics | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42`` |
 | ViewQuota  | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``           |
 | Allocate   | `allocate`                                                   |
-| Minimum    | `minimum GPA_CRITERIA`. <br> e.g., ``minimum 4.0``           |
+| Minimum    | `minimum GPA_CRITERIA`. <br> e.g. ``minimum 4.0``           |
 | Revert     | `revert`                                                     |
 | GetReport  | `generate`                                                   |
 | Exit       | `bye`, `exit`, `quit`                                        |
