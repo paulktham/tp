@@ -400,21 +400,21 @@ Adios, amigo!
 
 ## Command Summary
 
-| Action     | Format/Example                                               |
-| ---------- | ------------------------------------------------------------ |
-| Add        | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}` |
-| Delete     | `delete STUDENT_ID` <br> e.g. `delete A1234567I`             |
-| Find       | `find <list/report> STUDENT_ID` <br> e.g. `find list A1234567I` |
-| Filter     | `filter <list/report> <allocated/unallocated>` or `filter <list> <gpa/id> <ascending/descending>`<br/> e.g. `filter list gpa ascending` |
-| List       | `list`                                                       |
-| Statistics | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42`` |
-| ViewQuota  | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``           |
-| Allocate   | `allocate`                                                   |
-| Minimum    | `minimum GPA_CRITERIA`. <br> e.g. ``minimum 4.0``           |
-| Revert     | `revert`                                                     |
-| GetReport  | `generate`                                                   |
-| Exit       | `bye`, `exit`, `quit`                                        |
-| Help       | `help`                                                       |
+| Action     | Description                                                         | Format/Example                                                                                                                          |
+|------------|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Add        | Adds new student to list, if not already present                    | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}`                                   |
+| Delete     | Removes student with specified ID                                   | `delete STUDENT_ID` <br> e.g. `delete A1234567I`                                                                                        |
+| Find       | Searches the student list for all matches to query                  | `find <list/report> STUDENT_ID` <br> e.g. `find list A1234567I`                                                                         |
+| Filter     | Prints a sorted student list                                        | `filter <list/report> <allocated/unallocated>` or `filter <list> <gpa/id> <ascending/descending>`<br/> e.g. `filter list gpa ascending` |
+| List       | Prints the current student list                                     | `list`                                                                                                                                  |
+| Statistics | Shows statistics for chosen university                              | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42``                                              |
+| ViewQuota  | Shows spots available in a university                               | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``                                                                                      |
+| Allocate   | Runs the allocation algorithm                                       | `allocate`                                                                                                                              |
+| Minimum    | Sets the minimum GPA for student to be considered for allocation    | `minimum GPA_CRITERIA`. <br> e.g. ``minimum 4.0``                                                                                       |
+| Revert     | Resets the allocation algorithm                                     | `revert`                                                                                                                                |
+| GetReport  | Returns the outcome of the allocation                               | `generate`                                                                                                                              |
+| Exit       | Ends the current session. User will be prompted about the save file | `bye`, `exit`, `quit`                                                                                                                   |
+| Help       | Prints a message containing all available commands                  | `help`                                                                                                                                  |
 
 ## Accepted File Format
 The program supports files input in `.JSON`, `.CSV`, and `.TXT` formats.
