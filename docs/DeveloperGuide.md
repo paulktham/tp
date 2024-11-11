@@ -126,13 +126,13 @@ You can also refer to [Parser](#parser) section to check the detailed workflow o
 
 #### Delete Command
 
-Delete Command removes an existing Student in the StudentList.
+Delete Command removes an existing Student in the StudentList. To do so, users must provide the ID of the student which they wish to delete.
 
 ![DeleteCommandSequence](./UML_Diagrams/DeleteCommand.drawio.svg)
 
 #### Criteria Command
 
-Criteria Command sets a minimum GPA every student must achieve before they can be allocated to a university.
+Criteria Command sets a minimum GPA every student must achieve before they can be allocated to a university. This GPA value must be between 0 and 5 with a maximum of 2 decimal places.
 
 ![CriteriaCommandSequence](./UML_Diagrams/CriteriaCommand.drawio.svg)
 
@@ -460,13 +460,13 @@ The sequence diagram above showcases the program workflow when a user inputs the
 
 #### Student
 
-The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status. Please refer to diagrams in [!StudentList](#studentlist) to see a detailed sequence diagram and class diagram.
+The `Student` class has a composition relationship with class StudentList. Its purpose is to store key information on the different students that have applied for the Student Exchange Program. Such information include their GPA and university preferences, which helps us allocate them to the various universities fairly, and also other information which helps the app track their allocation status. Please refer to diagrams in [StudentList](#studentlist) to see a detailed sequence diagram and class diagram.
 
 #### StudentList
 
 The ```StudentList``` is a fundamental component which is initiated as soon as FindOurSEP is initialised. Its purpose is to hold the necessary information of the different students that are applying for SEP. By having the list of students we are able to fairly allocate universities to the different students by comparing them to their cohort.
 
-The sequence above in ![AddCommand](#add-command) illustrates the interactions between ```StudentList``` and ```Student``` when an addCommand is called with the appropriate inputs.
+The sequence above in [AddCommand](#add-command) illustrates the interactions between ```StudentList``` and ```Student``` when an addCommand is called with the appropriate inputs.
 
 This diagram below shows the class diagram of Student and StudentList.
 
