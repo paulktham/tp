@@ -564,6 +564,11 @@ By integrating these features, the application significantly enhances the conven
 * *Parser*: Class that interprets and processes user input commands.
 * *StudentList*: Data structure containing records of all students in the SEP system.
 * *UniversityRepository*: A repository containing information on partner universities available for SEP.
+* *FindOurSEP*: The name of the project system designed to facilitate and optimize the SEP (Student Exchange Programme) allocation process specifically for Computer Engineering students at NUS.
+* *Java 17*: A version of the Java programming language and runtime environment. It’s important to have this or a more recent version installed to run certain Java applications.
+* *.jar file*: A Java ARchive file that contains Java classes and associated metadata and resources. It's used to distribute Java applications.
+* *Terminal*: A text-based interface used to interact with the computer’s operating system, allowing you to execute commands.
+* *Navigate (cd)*: A command used in the terminal to change the current directory to a different directory. cd stands for "change directory."
 
 ## Instructions for Manual Testing
 
