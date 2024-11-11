@@ -92,6 +92,7 @@ public class ParserTest {
         parser.parseInput("add id/A1234567I gpa/5.0 p/{36,61,43}");
         parser.parseInput("add id/A1234567J gpa/3.0 p/{36,61,43}");
         parser.parseInput("add id/A1234567K gpa/1.0 p/{36,61,43}");
+        parser.parseInput("allocate");
         String input = "stats -avggpa 36";
 
         // Set up the output stream to capture console output
@@ -108,7 +109,7 @@ public class ParserTest {
         // Verify the expected output
         String expectedOutput = HORIZONTAL_LINE 
                             + "\n" 
-                            + "The average GPA for university index 36 (The University of Hong Kong) is: 3.00" 
+                            + "The average GPA for university index 36 (The University of Hong Kong) is: 4.00" 
                             + "\n" 
                             + HORIZONTAL_LINE;
         assertEquals(expectedOutput,outContent.toString().trim());
@@ -120,10 +121,11 @@ public class ParserTest {
     @Test
     public void testStatMinCommand() {
         // Simulate user input for 'stats -avggpa' command
-        parser.parseInput("add id/A1234567I gpa/5.0 p/{36,61,43}");
-        parser.parseInput("add id/A1234567J gpa/3.0 p/{36,61,43}");
-        parser.parseInput("add id/A1234567K gpa/1.0 p/{36,61,43}");
-        String input = "stats -mingpa 36";
+        parser.parseInput("add id/A1234567I gpa/5.0 p/{37,61,43}");
+        parser.parseInput("add id/A1234567J gpa/3.0 p/{37,61,43}");
+        parser.parseInput("add id/A1234567K gpa/1.0 p/{37,61,43}");
+        parser.parseInput("allocate");
+        String input = "stats -mingpa 37";
 
         // Set up the output stream to capture console output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -139,7 +141,7 @@ public class ParserTest {
         // Verify the expected output
         String expectedOutput = HORIZONTAL_LINE 
                             + "\n" 
-                            + "The minimum GPA for university index 36 (The University of Hong Kong) is: 1.00" 
+                            + "The minimum GPA for university index 37 (The Chinese Uni of Hong Kong) is: 5.00" 
                             + "\n" 
                             + HORIZONTAL_LINE;
         assertEquals(expectedOutput,outContent.toString().trim());
@@ -183,7 +185,7 @@ public class ParserTest {
     @Test
     public void revertCommand_populatedStudentList_success() {
         // Simulate user input for allocating a list of students
-        parser.parseInput("add id/A1234567I gpa/5.0 p/{36,61,43}");
+        parser.parseInput("add id/A1234567I gpa/5.0 p/{38,61,43}");
         parser.parseInput("add id/A2468101J gpa/4.9 p/{32,50,8}");
         parser.parseInput("add id/A3691215K gpa/4.8 p/{29,61,17}");
         parser.parseInput("allocate");
