@@ -62,6 +62,9 @@ Before using the program, please take note of the following <span style="color:r
 
 Please adhere to these guidelines to ensure smooth and proper functionality of the program.
 
+
+<div style="page-break-after: always;"></div>
+
 ## Features
 
 ### Uploading Information
@@ -98,6 +101,9 @@ Example: C:\Users\bob\OneDrive\Documents\tp\test.csv
 Please enter the ABSOLUTE path to the file: 
 --------------------------------------------------------------------------------
 ```
+
+<div style="page-break-after: always;"></div>
+
 **NOTE:** If the test files are in the same folder as the `.jar` file, users can just enter the name of the test file. E.g, `test.json`.
 
 If the file is uploaded successfully, the following will be displayed.
@@ -129,6 +135,8 @@ For further support, please take a look at [Accepted File Format](#accepted-file
   - e.g. if the command specifies `help 123`, it will be interpreted as help.
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple 
 lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+<div style="page-break-after: always;"></div>
 
 ### View help: `help`
 Shows a message explaining how to use the program. (Commands, etc.)  
@@ -181,6 +189,8 @@ Here is the list of possible commands:
 
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Add Student Application: `add`
 
 Adds a student to the student list. `PREFERENCE_RANKINGS`  should be enclosed in curly braces. We allow students to have a preference of up to 3 universities, and they are ranked left to right, with the HIGHEST priority starting on the left.
@@ -222,6 +232,9 @@ Here is the list:
 └───────────────┴──────────┴─────────────────────────┘
 --------------------------------------------------------------------------------
 ```
+
+<div style="page-break-after: always;"></div>
+
 ### Find Student: `find`
 Finds the student with the keyword, returning either a list or report. Input is case-sensitive and 
 full IDs are not required, but merely keyword.
@@ -279,6 +292,8 @@ Here is the list:
 --------------------------------------------------------------------------------
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### View allocation statistics: ``stats``
 
 Displays the average or minimum GPA for the students who have been allocated to the specified partner university.  
@@ -330,6 +345,8 @@ Revert complete! Run the allocate command whenever you are ready.
 --------------------------------------------------------------------------------
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Generate report of allocation: `generate`
 Outputs all students' ID and allocated university in an ASCII table. 
 Used for viewing the results of the allocation process.
@@ -360,6 +377,8 @@ Once the save operation is complete, the program will exit gracefully.
 
 If the user choose not to save the results, the program will end immediately without saving any data.
 
+<div style="page-break-after: always;"></div>
+
 Below is an example of an `exit` scenario.
 ```shell
 > exit
@@ -379,6 +398,8 @@ Adios, amigo!
 In the above case, the data will be stored in the relative path: `.../data/allocation_results.json`. 
 
 **IMPORTANT**: Please note that if the file already exists, its contents will be overwritten.
+
+<div style="page-break-after: always;"></div>
 
 ## FAQ
 
@@ -404,6 +425,8 @@ In the above case, the data will be stored in the relative path: `.../data/alloc
 >
 > A: In FindOurSEP, students are prioritized based on their GPA, with higher GPAs sorted first. When two students share the same GPA, priority is given to the one listed earlier, following a first-come-first-serve basis.
 
+<div style="page-break-after: always;"></div>
+
 ## Glossary
 
 * *SEP* (Student Exchange Programme): NUS’s largest global exchange initiative, enabling students to study at over 300 partner universities in 40+ countries. *FindOurSEP* project is designed specifically to assist in the SEP allocation process for CEG (Computer Engineering) students.
@@ -420,6 +443,8 @@ In the above case, the data will be stored in the relative path: `.../data/alloc
 * *.jar file*: A Java ARchive file that contains Java classes and associated metadata and resources. It's used to distribute Java applications.
 * *Terminal*: A text-based interface used to interact with the computer’s operating system, allowing you to execute commands.
 * *Navigate (cd)*: A command used in the terminal to change the current directory to a different directory. cd stands for "change directory."
+
+<div style="page-break-after: always;"></div>
 
 ## Command Summary
 
@@ -438,6 +463,8 @@ In the above case, the data will be stored in the relative path: `.../data/alloc
 | GetReport  | Returns the outcome of the allocation                               | `generate`                                                                                                                              |
 | Exit       | Ends the current session. User will be prompted about the save file | `bye`, `exit`, `quit`                                                                                                                   |
 | Help       | Prints a message containing all available commands                  | `help`                                                                                                                                  |
+
+<div style="page-break-after: always;"></div>
 
 ## Accepted File Format
 The program supports files input in `.JSON`, `.CSV`, and `.TXT` formats.
