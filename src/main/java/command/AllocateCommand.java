@@ -7,6 +7,7 @@
 package command;
 
 import allocator.Allocator;
+import exceptions.SEPException;
 import studentlist.StudentList;
 import ui.UI;
 
@@ -37,7 +38,12 @@ public class AllocateCommand extends Command {
      */
     @Override
     public void run() {
-        this.studentList.setStudentList(allocator.allocate());
-        this.ui.printAllocatingMessage();
+        try {
+            this.studentList.setStudentList(allocator.allocate());
+            this.studentList.setAllocationStatus(true);
+            this.ui.printAllocatingMessage();
+        } catch (SEPException e) {
+            ui.printResponse(e.getMessage());
+        }
     }
 }

@@ -8,6 +8,8 @@ import exceptions.SEPDuplicateException;
 
 import student.Student;
 import ui.UI;
+import university.University;
+import university.UniversityRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +29,7 @@ public class StudentList {
 
     private ArrayList<Student> students;
     private UI ui;
+    private boolean isAllocationComplete;
 
     /**
      * Constructs a new StudentList with an empty list of students and the given UI object.
@@ -78,14 +81,26 @@ public class StudentList {
      */
     public void deleteStudent(String input) throws SEPException{
         String[] parts = input.split("delete", 2);
+        if (parts.length != 2) {
+            throw SEPFormatException.rejectIdFormat();
+        }
         String studentId = organiseId(parts[1]);
         if (!studentId.matches(ID_REGEX)) {
             throw SEPFormatException.rejectIdFormat();
         }
-        boolean isRemoved = students.removeIf(student -> student.getId().equals(studentId));
-        if (!isRemoved) {
+        Student student = students.stream()
+                                  .filter(s -> s.getId().equals(studentId))
+                                  .findFirst()
+                                  .orElse(null);
+        if (student == null) {
             throw SEPEmptyException.rejectStudentNotFound();
         }
+        if (student.getSuccessfullyAllocated()) {
+            int uni = student.getAllocatedUniversity();
+            University university = UniversityRepository.getUniversityByIndex(uni);
+            university.addASpot();
+        }
+        students.remove(student);
     }
 
     /**
@@ -466,12 +481,12 @@ public class StudentList {
     public List<Student> getStudentsByUniversityIndex(int uniIndex) throws SEPException {
         List<Student> filteredStudents = new ArrayList<>();
         for (Student student : this.students) {
-            if (student.getUniPreferences().contains(uniIndex)) {
+            if (student.getSuccessfullyAllocated() && student.getAllocatedUniversity() == uniIndex) {
                 filteredStudents.add(student);
             }
         }
         if (filteredStudents.isEmpty()) {
-            throw new SEPException("No students have chosen this university.");
+            throw new SEPException("No students have been allocated to this university.");
         }
         return filteredStudents;
     }
@@ -565,9 +580,22 @@ public class StudentList {
     /**
      * Reverts the allocation status of all elements in StudentList.
      */
-    public void revertAllocation() {
+    public void revertAllocation() throws SEPEmptyException {
+        if (!isAllocationComplete) {
+            throw SEPEmptyException.rejectAllocationIncomplete();
+        }
+
         for (Student student : students) {
             student.resetAllocationStatus();
         }
+        this.isAllocationComplete = false;
+    }
+
+    public boolean getAllocationStatus() {
+        return this.isAllocationComplete;
+    }
+
+    public void setAllocationStatus(boolean status) {
+        this.isAllocationComplete = status;
     }
 }

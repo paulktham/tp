@@ -1,5 +1,6 @@
 package allocator;
 
+import exceptions.SEPEmptyException;
 import student.Student;
 import studentlist.StudentList;
 import university.University;
@@ -90,7 +91,12 @@ public class Allocator {
      * @return the updated StudentList after allocation with each student's assigned university.
      */
 
-    public StudentList allocate() {
+    public StudentList allocate() throws SEPEmptyException {
+        if (studentList.getNumStudents() <= 0) {
+            throw SEPEmptyException.rejectAllocateEmpty();
+        }
+
+        boolean isChanged = false;
         studentList.sortStudentsByDescendingGPA(studentList.getList());
         for (Student student : studentList.getList()) {
             if (student.getSuccessfullyAllocated()) {
@@ -99,12 +105,16 @@ public class Allocator {
             for (int uni : student.getUniPreferences()) {
                 University university = UniversityRepository.getUniversityByIndex(uni);
                 if (university.getSpotsLeft() > 0 && student.getGpa() >= minimumGPA) {
+                    isChanged = true;
                     university.removeASpot();
                     student.setAllocatedUniversity(uni);
                     student.setSuccessfullyAllocated(true);
                     break;
                 }
             }
+        }
+        if (!isChanged) {
+            throw SEPEmptyException.rejectAllocateNoChange();
         }
         studentList.sortStudentsByAscendingId(studentList.getList());
         return studentList;

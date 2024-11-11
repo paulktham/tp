@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.SEPEmptyException;
 import studentlist.StudentList;
 
 /**
@@ -17,5 +18,5 @@ public abstract class Command {
     /**
      * Executes the command.
      */
-    public abstract void run();
+    public abstract void run() throws SEPEmptyException;
 }

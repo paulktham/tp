@@ -1,7 +1,7 @@
-package findoursep;
+package allocator;
 
-import allocator.Allocator;
 import exceptions.SEPDuplicateException;
+import exceptions.SEPEmptyException;
 import exceptions.SEPException;
 import student.Student;
 import studentlist.StudentList;
@@ -11,9 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AllocatorTest {
 
@@ -36,13 +38,13 @@ public class AllocatorTest {
     }
 
     @Test
-    public void testSetMinimumGPA() throws SEPException{
+    public void testSetMinimumGPA() throws SEPException {
         allocator.setMinimumGPA("minimum 4.0");
         assertEquals(4.0, allocator.getMinimumGPA());
     }
 
     @Test
-    public void testAllocate() {
+    public void testAllocate() throws SEPEmptyException {
         StudentList allocatedStudents = allocator.allocate();
 
         assertTrue(allocatedStudents.getList().get(0).getSuccessfullyAllocated());
@@ -63,15 +65,17 @@ public class AllocatorTest {
     }
 
     @Test
-    public void testAllocateWithCriteria() throws SEPException{
+    public void testAllocateWithCriteria() throws SEPException {
         allocator.setMinimumGPA("minimum 4.0");
-        StudentList allocatedStudents = allocator.allocate();
+        assertThrows(SEPEmptyException.class, () -> allocator.allocate());
+    }
 
-        assertEquals(-1, allocatedStudents.getList().get(0).getAllocatedUniversity());
-        assertEquals(-1, allocatedStudents.getList().get(1).getAllocatedUniversity());
-        assertEquals(-1, allocatedStudents.getList().get(2).getAllocatedUniversity());
-        assertEquals(-1, allocatedStudents.getList().get(3).getAllocatedUniversity());
+    @Test
+    public void allocate_emptyStudentList_throwsEmptyException() throws SEPException {
+        studentList.setStudentList(new StudentList(new UI()));
+        allocator = new Allocator(studentList);
+
+        assertThrows(SEPException.class, () -> allocator.allocate());
+        assertFalse(studentList.getAllocationStatus());
     }
 }
-
-
