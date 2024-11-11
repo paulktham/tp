@@ -268,6 +268,7 @@ The student must achieve the same or a higher GPA to be considered for exchange.
 e.g.
 `minimum 4.0`
 
+
 <div style="page-break-after: always;"></div>
 
 ### Filter Student: `filter`
@@ -307,6 +308,8 @@ The average GPA for university index 36 (The University of Hong Kong) is: 3.80
 --------------------------------------------------------------------------------
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### View remaining quota: ``viewQuota``
 
 Displays the index, name, and remaining quota for the specified partner university. 
@@ -321,8 +324,6 @@ Example output:
  Quota: 1
 --------------------------------------------------------------------------------
 ```
-
-<div style="page-break-after: always;"></div>
 
 ### Run allocation algorithm: ``allocate``
 
