@@ -89,9 +89,9 @@ public class ParserTest {
     @Test
     public void testStatAvgCommand() {
         // Simulate user input for 'stats -avggpa' command
-        parser.parseInput("add id/A1234567I gpa/5.0 p/{36,61,43}");
-        parser.parseInput("add id/A1234567J gpa/3.0 p/{36,61,43}");
-        parser.parseInput("add id/A1234567K gpa/1.0 p/{36,61,43}");
+        parser.parseInput("add id/A1234567I gpa/4.0 p/{36,61,43}");
+        parser.parseInput("add id/A1234567J gpa/3.5 p/{36,61,43}");
+        parser.parseInput("add id/A1234567K gpa/4.0 p/{36,61,43}");
         parser.parseInput("allocate");
         String input = "stats -avggpa 36";
 
