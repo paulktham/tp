@@ -468,12 +468,13 @@ Please make sure your file matches one of these formats:
 
 ### CSV:
 
-| ID         | GPA | PREFERENCES   |
-|------------|-----|---------------|
-| A1234567J  | 4.5 | {1,2,3}       |
-| A1234567I  | 5   | {12,61,43}    |
-| A7654321K  | 3.8 | {2,3,1}       |
-| A1357913L  | 4   | {3,1,2}       |
+| ID        | GPA | PREFERENCES |
+|-----------|-----|-------------|
+| A1234567J | 4.5 | {1,2,3}     |
+| A1234567I | 5   | {12,61,43}  |
+| A7654321K | 3.8 | {2,3,1}     |
+| A1357913L | 4   | {3,1,2}     |
+
 
 
 **IMPORTANT**: Please take note that the `.CSV` file is **ONLY** opened, created, and edited using Microsoft Excel. Do **NOT** use an IDE or any other application to modify this file.
