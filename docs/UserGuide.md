@@ -25,6 +25,7 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for an admin handling
   - [Generate Command](#generate-report-of-allocation-generate)
   - [Exit Command](#exit-program-bye-exit-quit)
 - [FAQ](#faq)  
+- [Glossary](#glossary)
 - [Command Summary](#command-summary)
 - [Accepted File Format](#accepted-file-format)
 
@@ -332,7 +333,9 @@ Revert complete! Run the allocate command whenever you are ready.
 ### Generate report of allocation: `generate`
 Outputs all students' ID and allocated university in an ASCII table. 
 Used for viewing the results of the allocation process.
+
 Format: `generate`
+
 Example output:
 ```shell
 Here is the allocation report:
@@ -401,6 +404,23 @@ In the above case, the data will be stored in the relative path: `.../data/alloc
 >
 > A: In FindOurSEP, students are prioritized based on their GPA, with higher GPAs sorted first. When two students share the same GPA, priority is given to the one listed earlier, following a first-come-first-serve basis.
 
+## Glossary
+
+* *SEP* (Student Exchange Programme): NUS’s largest global exchange initiative, enabling students to study at over 300 partner universities in 40+ countries. *FindOurSEP* project is designed specifically to assist in the SEP allocation process for CEG (Computer Engineering) students.
+* *GPA* (Grade Point Average): A numeric score ranging from 0.0 to 5.0, representing a student's academic performance, used for allocation.
+* *CSV* (Comma-Separated Values): A file format used to store tabular data, such as student records.
+* *JSON* (JavaScript Object Notation): A lightweight data-interchange format used for storing student and university data.
+* *Allocator*: Class responsible for assigning students to universities based on GPA and preferences.
+* *Command*: A specific action or function executed by the program, such as `add`, `delete`, or `allocate`.
+* *Parser*: Class that interprets and processes user input commands.
+* *StudentList*: Data structure containing records of all students in the SEP system.
+* *UniversityRepository*: A repository containing information on partner universities available for SEP.
+* *FindOurSEP*: The name of the project system designed to facilitate and optimize the SEP (Student Exchange Programme) allocation process specifically for Computer Engineering students at NUS.
+* *Java 17*: A version of the Java programming language and runtime environment. It’s important to have this or a more recent version installed to run certain Java applications.
+* *.jar file*: A Java ARchive file that contains Java classes and associated metadata and resources. It's used to distribute Java applications.
+* *Terminal*: A text-based interface used to interact with the computer’s operating system, allowing you to execute commands.
+* *Navigate (cd)*: A command used in the terminal to change the current directory to a different directory. cd stands for "change directory."
+
 ## Command Summary
 
 | Action     | Description                                                         | Format/Example                                                                                                                          |
@@ -424,14 +444,43 @@ The program supports files input in `.JSON`, `.CSV`, and `.TXT` formats.
 
 Please make sure your file matches one of these formats:
 ### JSON:
-![CorrectJSONFormat](images/JSONFormat.png)
+```json
+{
+  "students": [
+    {
+      "ID": "A1234567J",
+      "GPA": "4.5",
+      "PREFERENCES": "{1,2,3}"
+    },
+    {
+      "ID": "A7654321K",
+      "GPA": "3.8",
+      "PREFERENCES": "{2,3,1}"
+    },
+    {
+      "ID": "A1357913L",
+      "GPA": "5.0",
+      "PREFERENCES": "{3,1,2}"
+    }
+  ]
+}
+```
 
 ### CSV:
-![CorrectCSVFormat](images/CSVFormat.png)
+| ID         | GPA | PREFERENCES   |
+|------------|-----|---------------|
+| A1234567J  | 4.5 | {1,2,3}       |
+| A1234567I  | 5   | {12,61,43}    |
+| A7654321K  | 3.8 | {2,3,1}       |
+| A1357913L  | 4   | {3,1,2}       |
 
 **IMPORTANT**: Please take note that the `.CSV` file is **ONLY** opened, created, and edited using Microsoft Excel. Do **NOT** use an IDE or any other application to modify this file.
 
 ### TXT:
-![CorrectTXTFormat](images/TXTFormat.png)
+```text
+id/A1234567J, gpa/4.5, p/{1,2,3}
+id/A7654321K, gpa/3.8, p/{2,3,1}
+id/A1357913L, gpa/5.0, p/{3,1,2}
+```
 
-These images are for viewing purposes only. Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.
+These examples are for viewing purposes only. Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.
