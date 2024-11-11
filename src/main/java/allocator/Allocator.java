@@ -96,6 +96,7 @@ public class Allocator {
             throw SEPEmptyException.rejectAllocateEmpty();
         }
 
+        boolean isChanged = false;
         studentList.sortStudentsByDescendingGPA(studentList.getList());
         for (Student student : studentList.getList()) {
             if (student.getSuccessfullyAllocated()) {
@@ -104,12 +105,16 @@ public class Allocator {
             for (int uni : student.getUniPreferences()) {
                 University university = UniversityRepository.getUniversityByIndex(uni);
                 if (university.getSpotsLeft() > 0 && student.getGpa() >= minimumGPA) {
+                    isChanged = true;
                     university.removeASpot();
                     student.setAllocatedUniversity(uni);
                     student.setSuccessfullyAllocated(true);
                     break;
                 }
             }
+        }
+        if (!isChanged) {
+            throw SEPEmptyException.rejectAllocateNoChange();
         }
         studentList.sortStudentsByAscendingId(studentList.getList());
         return studentList;
