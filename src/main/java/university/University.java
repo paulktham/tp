@@ -53,6 +53,15 @@ public class University {
     }
 
     /**
+     * Increments the number of available spots by one, typically called when
+     * a student is deleted from this university.
+     */
+    public void addASpot(){
+        assert spotsLeft >= 0 : "spot left cannot be negative";
+        this.spotsLeft++;
+    }
+
+    /**
      * Returns a string representation of the university in the format:
      * "Full Name (Acronym)".
      * 

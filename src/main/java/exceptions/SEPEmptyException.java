@@ -42,4 +42,9 @@ public class SEPEmptyException extends SEPException {
     public static SEPEmptyException rejectAllocateEmpty() {
         return new SEPEmptyException("Unable to allocate with empty student list, try adding students! :>");
     }
+
+    public static SEPEmptyException rejectAllocateNoChange() {
+        return new SEPEmptyException("No changes made in the allocation. \n" +
+                "If you've edited the original student list, try run `revert` first then `allocate`! :>");
+    }
 }

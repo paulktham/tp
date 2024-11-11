@@ -243,11 +243,11 @@ nicely formatted ASCII table.
 
 #### Stats Command
 
-The `StatCommand` class implements the `stats` command, which provides GPA-related statistics (average GPA or minimum GPA) for students who have chosen a specified university. The command syntax is `stats <stat_type> <UNI_INDEX>`, where `<stat_type>` can be `-avggpa` for average GPA or `-mingpa` for minimum GPA.
+The `StatCommand` class implements the `stats` command, which provides GPA-related statistics (average GPA or minimum GPA) for students who have been allocated to a specified university. The command syntax is `stats <stat_type> <UNI_INDEX>`, where `<stat_type>` can be `-avggpa` for average GPA or `-mingpa` for minimum GPA.
 
 ![StatSequence](UML_Diagrams/StatSequence.drawio.svg)
 
-The above sequence diagram illustrates the execution of the `stats` command, specifically the `stats -avg` example, which calculates the average GPA for students who have chosen the specified university.
+The above sequence diagram illustrates the execution of the `stats` command, specifically the `stats -avg` example, which calculates the average GPA for students who have been allocated to the specified university.
 
 * The `StatCommand` class initiates the command with the syntax `stats -avg <UNI_INDEX>`, where `-avg` indicates that the average GPA calculation is required, and `<UNI_INDEX>` specifies the target university by its index.
 * `StatCommand` calls the `getUniversityByIndex()` method on `UniversityRepo`, passing the university index as an argument.

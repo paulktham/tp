@@ -8,6 +8,8 @@ import exceptions.SEPDuplicateException;
 
 import student.Student;
 import ui.UI;
+import university.University;
+import university.UniversityRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,10 +85,19 @@ public class StudentList {
         if (!studentId.matches(ID_REGEX)) {
             throw SEPFormatException.rejectIdFormat();
         }
-        boolean isRemoved = students.removeIf(student -> student.getId().equals(studentId));
-        if (!isRemoved) {
+        Student student = students.stream()
+                                  .filter(s -> s.getId().equals(studentId))
+                                  .findFirst()
+                                  .orElse(null);
+        if (student == null) {
             throw SEPEmptyException.rejectStudentNotFound();
         }
+        if (student.getSuccessfullyAllocated()) {
+            int uni = student.getAllocatedUniversity();
+            University university = UniversityRepository.getUniversityByIndex(uni);
+            university.addASpot();
+        }
+        students.remove(student);
     }
 
     /**
@@ -467,12 +478,12 @@ public class StudentList {
     public List<Student> getStudentsByUniversityIndex(int uniIndex) throws SEPException {
         List<Student> filteredStudents = new ArrayList<>();
         for (Student student : this.students) {
-            if (student.getUniPreferences().contains(uniIndex)) {
+            if (student.getSuccessfullyAllocated() && student.getAllocatedUniversity() == uniIndex) {
                 filteredStudents.add(student);
             }
         }
         if (filteredStudents.isEmpty()) {
-            throw new SEPException("No students have chosen this university.");
+            throw new SEPException("No students have been allocated to this university.");
         }
         return filteredStudents;
     }
