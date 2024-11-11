@@ -268,6 +268,8 @@ The student must achieve the same or a higher GPA to be considered for exchange.
 e.g.
 `minimum 4.0`
 
+<div style="page-break-after: always;"></div>
+
 ### Filter Student: `filter`
 
 Filters student data with a keyword, returning either a list or report.
@@ -291,8 +293,6 @@ Here is the list:
 └───────────────┴──────────┴─────────────────────────┘
 --------------------------------------------------------------------------------
 ```
-
-<div style="page-break-after: always;"></div>
 
 ### View allocation statistics: ``stats``
 
@@ -321,6 +321,8 @@ Example output:
  Quota: 1
 --------------------------------------------------------------------------------
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Run allocation algorithm: ``allocate``
 
@@ -464,7 +466,6 @@ In the above case, the data will be stored in the relative path: `.../data/alloc
 | Exit       | Ends the current session. User will be prompted about the save file | `bye`, `exit`, `quit`                                                                                                                   |
 | Help       | Prints a message containing all available commands                  | `help`                                                                                                                                  |
 
-<div style="page-break-after: always;"></div>
 
 ## Accepted File Format
 The program supports files input in `.JSON`, `.CSV`, and `.TXT` formats.
@@ -492,6 +493,8 @@ Please make sure your file matches one of these formats:
   ]
 }
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### CSV:
 
