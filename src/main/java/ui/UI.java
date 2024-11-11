@@ -138,10 +138,11 @@ public class UI {
         at.addRule();
 
         for (Student s : studentList) {
-            University allocated = UniversityRepository.getUniversityByIndex(s.getAllocatedUniversity());
+            int choice = s.getAllocatedUniversity();
+            University allocated = UniversityRepository.getUniversityByIndex(choice);
 
             if (allocated != null) {
-                at.addRow(s.getId(), allocated.getFullName());
+                at.addRow(s.getId(), choice + ". " + allocated.getFullName());
             } else {
                 at.addRow(s.getId(), "Not Allocated"); // Handle cases with no allocation
             }
