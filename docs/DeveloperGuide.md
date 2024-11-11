@@ -466,9 +466,7 @@ The `Student` class has a composition relationship with class StudentList. Its p
 
 The ```StudentList``` is a fundamental component which is initiated as soon as FindOurSEP is initialised. Its purpose is to hold the necessary information of the different students that are applying for SEP. By having the list of students we are able to fairly allocate universities to the different students by comparing them to their cohort.
 
-The sequence below illustrates the interactions between ```StudentList``` and ```Student``` when an addCommand is called with the appropriate inputs.
-
-![StudentListSequence](UML_Diagrams/StudentList.drawio.svg)
+The sequence above in ![AddCommand](#add-command) illustrates the interactions between ```StudentList``` and ```Student``` when an addCommand is called with the appropriate inputs.
 
 This diagram below shows the class diagram of Student and StudentList.
 
