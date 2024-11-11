@@ -176,11 +176,11 @@ public class UI {
                 followed by 'no' and \
                 ensure the file is formatted correctly before retrying. \
                 
-                Otherwise, you can continue to use the program. Enter 'help' for available commands.""");
+                Otherwise, you can continue to use the program. Enter help for available commands.""");
     }
 
     public void printFileLoadSuccessMessage() {
-        printResponse("File loaded successfully! Let's begin! Enter 'help' for available commands.");
+        printResponse("File loaded successfully! Let's begin! Enter help for available commands.");
     }
 
     /**

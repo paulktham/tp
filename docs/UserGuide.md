@@ -2,7 +2,7 @@
 
 ## Introduction
 
-FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making.
+FindOurSEP is a Command Line Interface (CLI) tool designed for an admin handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows the administrator to efficiently manage the allocation process using automated workflows and data-driven decision-making.
 
 ## Table of Contents
 - [Quick Start](#quick-start)
@@ -34,7 +34,7 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling t
 2. Download the latest version v2.0 of `FindOurSEP` and the 3 test files from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
 3. **Copy the files:**
    - Move the downloaded `.jar` file into a designated folder on your computer.
-   - Move the 3 test files (test.csv/test.json/test.txt) to the same folder as the `.jar` file.
+   - Move the 3 test files (test.csv, test.json, test.txt) to the same folder as the `.jar` file.
 4. **Run the `.jar` file:**
    - Open a terminal.
    - Navigate (`cd`) to the folder containing the `.jar` file.
@@ -82,7 +82,7 @@ By inputting `1`, users can directly enter student data into the program. This o
 Subsequently, the user will be met with the following:
 ```shell
 --------------------------------------------------------------------------------
-Hi! Welcome to FindOurSEP! Enter 'help' for the list of commands.
+Hi! Welcome to FindOurSEP! Enter help for the list of commands.
 --------------------------------------------------------------------------------
 ```
 The user can then begin using the program by inputting [commands](#notes-about-the-command-format).
@@ -102,7 +102,7 @@ Please enter the ABSOLUTE path to the file:
 If the file is uploaded successfully, the following will be displayed.
 ```shell
 --------------------------------------------------------------------------------
-File loaded successfully! Let's begin! Enter 'help' for available commands.
+File loaded successfully! Let's begin! Enter help for available commands.
 --------------------------------------------------------------------------------
 ```
 However, if the file has any abnormality, an error message will be displayed to the user. The user will still be allowed to continue using the program but with no data uploaded. 
@@ -114,7 +114,7 @@ Please ensure that you only have 3 columns representing the ID, GPA and PREFEREN
 --------------------------------------------------------------------------------
 Process error! To re-upload a file, please restart the program by entering 'exit' 
 followed by 'no' and ensure file is formatted correctly before retrying. 
-Otherwise, you can continue to use the program. Enter 'help' for available commands.
+Otherwise, you can continue to use the program. Enter help for available commands.
 --------------------------------------------------------------------------------
 ```
 Upon file upload failure, users can continue using the program without any data uploaded. 
@@ -373,6 +373,9 @@ Allocation results saved to JSON file at data/allocation_results.json
 Adios, amigo!
 --------------------------------------------------------------------------------
 ```
+In the above case, the data will be stored in the relative path: `.../data/allocation_results.json`. 
+
+**IMPORTANT**: Please note that if the file already exists, its contents will be overwritten.
 
 ## FAQ
 
@@ -426,9 +429,9 @@ Please make sure your file matches one of these formats:
 ### CSV:
 ![CorrectCSVFormat](images/CSVFormat.png)
 
+**IMPORTANT**: Please take note that the `.CSV` file is **ONLY** opened, created, and edited using Microsoft Excel. Do **NOT** use an IDE or any other application to modify this file.
+
 ### TXT:
 ![CorrectTXTFormat](images/TXTFormat.png)
 
-**IMPORTANT**: Please take note that the `.CSV` file is **ONLY** opened, created, and edited using Microsoft Excel. Do not use an IDE or any other application to modify this file.
-
-Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.
+These images are for viewing purposes only. Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.
