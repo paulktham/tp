@@ -21,16 +21,22 @@ manage the allocation process using automated workflows and data-driven decision
   - Designed and implemented the CriteriaCommand class to allow the admin handling these allocations to set a minimum GPA every student should attain before they can be considered to be eligible to be allocated to a university. This was done by changing the necessary code in `UI` and `allocator` class.
 
 ### User Guide Contributions:
-- Along with the other group members we discuss the structure of our User Guide.
-  - Content Table.
-  - Explained how to run our application through Quick Start.
-  - Added `Add` and `Minimum` Command.
+- Along with the other group members we discuss the structure of our User Guide. These were the areas which I was in charge of: (#85)
+  1. Content Table.
+  2. Explained how to run our application through Quick Start.
+  3. Add Command
+  4. Minimum Command.
 
 ### Developer Guide Contributions:
-- Along with the other group members we drew the different diagrams needed in our Developer guide. However, these were the areas which I was in charge of:
+- Along with the other group members we drew the different diagrams needed in our Developer guide. These were the areas which I was in charge of:
   1. Architecture diagram (#70)
   2. Add Command (#175)
   3. University and UniversityRepository (#119)
   4. Student and StudentList (#119)
   5. Criteria Command (#88)
-  6. Delete Command (#88)
+  6. Delete Command (#179)
+
+### Contribution to Team-Based Tasks
+1. Maintained Issue Tracker
+2. Constant feedback given through comments of issues and PRs
+3. [PRs reviewed](https://github.com/AY2425S1-CS2113-W12-2/tp/pulls?q=is%3Apr+reviewed-by%3A%40me+is%3Aclosed)
