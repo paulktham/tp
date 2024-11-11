@@ -81,6 +81,9 @@ public class StudentList {
      */
     public void deleteStudent(String input) throws SEPException{
         String[] parts = input.split("delete", 2);
+        if (parts.length != 2) {
+            throw SEPFormatException.rejectIdFormat();
+        }
         String studentId = organiseId(parts[1]);
         if (!studentId.matches(ID_REGEX)) {
             throw SEPFormatException.rejectIdFormat();
