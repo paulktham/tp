@@ -160,7 +160,7 @@ Here is the list of possible commands:
                                or 'filter <list> <gpa/id> <ascending/descending>'
                 Example: filter list gpa ascending
 
-    stats       Displays GPA statistics for students who have chosen a specific partner university.
+    stats       Displays GPA statistics for students who have been allocated a specified uni.
                 Usage:
                 stats -avggpa <UNI_INDEX>  Displays the average GPA for the specified university.
                 stats -mingpa <UNI_INDEX>  Displays the minimum GPA for the specified university.
@@ -280,7 +280,7 @@ Here is the list:
 
 ### View allocation statistics: ``stats``
 
-Displays the average or minimum GPA for the students who have chosen the specified partner university.  
+Displays the average or minimum GPA for the students who have been allocated to the specified partner university.  
 Format: `stats -avggpa UNI_INDEX` or `stats -mingpa UNI_INDEX`   
 Example output:  
 
