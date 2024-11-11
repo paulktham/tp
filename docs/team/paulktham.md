@@ -27,5 +27,10 @@ manage the allocation process using automated workflows and data-driven decision
   - Added `Add` and `Minimum` Command.
 
 ### Developer Guide Contributions:
-- Along with the other group members we drew the different diagrams needed in our Developer guide.
-  - Drew the Architecture diagram as well as the sequence diagram found under StudentList.
+- Along with the other group members we drew the different diagrams needed in our Developer guide. However, these were the areas which I was in charge of:
+  1. Architecture diagram (#70)
+  2. Add Command (#175)
+  3. University and UniversityRepository (#119)
+  4. Student and StudentList (#119)
+  5. Criteria Command (#88)
+  6. Delete Command (#88)
