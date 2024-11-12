@@ -174,7 +174,7 @@ Here is the list of possible commands:
                 stats -avggpa <UNI_INDEX>  Displays the average GPA for the specified uni.
                 stats -mingpa <UNI_INDEX>  Displays the minimum GPA for the specified uni.
 
-    viewQuota   Displays the index, name, and remaining quota for the specified university.
+    viewQuota   Displays the index, name, and remaining quota for the specified uni.
                 Usage: viewQuota <UNI_INDEX>
 
     allocate    Allocates students to available slots based on their preferences.
