@@ -28,6 +28,7 @@ manage the allocation process using automated workflows and data-driven decision
   * Designed and implemented the ``viewQuotaCommand`` class to check the remaining quota of the specified partner universities. Wrote JUnit tests for this command.
 - Criteria Command Bug Fix (program crashes if nothing is supplied to ``minimum`` command)
 - Allocator Bug Fix (run ``allocate`` multiple times will change the results)
+- ``DeleteCommand`` Bug Fix (quota is not released)
 - Enable Assertions in ``build.gradle`` File
 
 
