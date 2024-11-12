@@ -498,7 +498,7 @@ For file outputs, `saveAllocationResults()` will be called. Below is a further s
 
 ### Target User Profile
 
-This application is designed for administrators responsible for handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at the National University of Singapore (NUS). These admins oversee the complex process of assigning students to various international exchange programs, ensuring that each student receives an appropriate placement based on their preferences and qualifications.
+This application is designed for an administrator responsible for handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at the National University of Singapore (NUS). The admin overseeing the complex process of assigning students to various international exchange programs, ensuring that each student receives an appropriate placement based on their preferences and qualifications.
 
 ### Value Proposition
 
