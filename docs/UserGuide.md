@@ -2,7 +2,7 @@
 
 ## Introduction
 
-FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows administrators to efficiently manage the allocation process using automated workflows and data-driven decision-making.
+FindOurSEP is a Command Line Interface (CLI) tool designed for an admin handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows the administrator to efficiently manage the allocation process using automated workflows and data-driven decision-making.
 
 ## Table of Contents
 - [Quick Start](#quick-start)
@@ -25,6 +25,7 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling t
   - [Generate Command](#generate-report-of-allocation-generate)
   - [Exit Command](#exit-program-bye-exit-quit)
 - [FAQ](#faq)  
+- [Glossary](#glossary)
 - [Command Summary](#command-summary)
 - [Accepted File Format](#accepted-file-format)
 
@@ -34,7 +35,7 @@ FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling t
 2. Download the latest version v2.0 of `FindOurSEP` and the 3 test files from [here](https://github.com/AY2425S1-CS2113-W12-2/tp/releases).
 3. **Copy the files:**
    - Move the downloaded `.jar` file into a designated folder on your computer.
-   - Move the 3 test files (test.csv/test.json/test.txt) to the same folder as the `.jar` file.
+   - Move the 3 test files (test.csv, test.json, test.txt) to the same folder as the `.jar` file.
 4. **Run the `.jar` file:**
    - Open a terminal.
    - Navigate (`cd`) to the folder containing the `.jar` file.
@@ -61,6 +62,9 @@ Before using the program, please take note of the following <span style="color:r
 
 Please adhere to these guidelines to ensure smooth and proper functionality of the program.
 
+
+<div style="page-break-after: always;"></div>
+
 ## Features
 
 ### Uploading Information
@@ -82,7 +86,7 @@ By inputting `1`, users can directly enter student data into the program. This o
 Subsequently, the user will be met with the following:
 ```shell
 --------------------------------------------------------------------------------
-Hi! Welcome to FindOurSEP! Enter 'help' for the list of commands.
+Hi! Welcome to FindOurSEP! Enter help for the list of commands.
 --------------------------------------------------------------------------------
 ```
 The user can then begin using the program by inputting [commands](#notes-about-the-command-format).
@@ -97,12 +101,15 @@ Example: C:\Users\bob\OneDrive\Documents\tp\test.csv
 Please enter the ABSOLUTE path to the file: 
 --------------------------------------------------------------------------------
 ```
+
+<div style="page-break-after: always;"></div>
+
 **NOTE:** If the test files are in the same folder as the `.jar` file, users can just enter the name of the test file. E.g, `test.json`.
 
 If the file is uploaded successfully, the following will be displayed.
 ```shell
 --------------------------------------------------------------------------------
-File loaded successfully! Let's begin! Enter 'help' for available commands.
+File loaded successfully! Let's begin! Enter help for available commands.
 --------------------------------------------------------------------------------
 ```
 However, if the file has any abnormality, an error message will be displayed to the user. The user will still be allowed to continue using the program but with no data uploaded. 
@@ -114,7 +121,7 @@ Please ensure that you only have 3 columns representing the ID, GPA and PREFEREN
 --------------------------------------------------------------------------------
 Process error! To re-upload a file, please restart the program by entering 'exit' 
 followed by 'no' and ensure file is formatted correctly before retrying. 
-Otherwise, you can continue to use the program. Enter 'help' for available commands.
+Otherwise, you can continue to use the program. Enter help for available commands.
 --------------------------------------------------------------------------------
 ```
 Upon file upload failure, users can continue using the program without any data uploaded. 
@@ -128,6 +135,8 @@ For further support, please take a look at [Accepted File Format](#accepted-file
   - e.g. if the command specifies `help 123`, it will be interpreted as help.
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple 
 lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+<div style="page-break-after: always;"></div>
 
 ### View help: `help`
 Shows a message explaining how to use the program. (Commands, etc.)  
@@ -160,7 +169,7 @@ Here is the list of possible commands:
                                or 'filter <list> <gpa/id> <ascending/descending>'
                 Example: filter list gpa ascending
 
-    stats       Displays GPA statistics for students who have chosen a specific partner university.
+    stats       Displays GPA statistics for students who have been allocated a specified uni.
                 Usage:
                 stats -avggpa <UNI_INDEX>  Displays the average GPA for the specified university.
                 stats -mingpa <UNI_INDEX>  Displays the minimum GPA for the specified university.
@@ -179,6 +188,8 @@ Here is the list of possible commands:
 --------------------------------------------------------------------------------
 
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Add Student Application: `add`
 
@@ -221,6 +232,9 @@ Here is the list:
 └───────────────┴──────────┴─────────────────────────┘
 --------------------------------------------------------------------------------
 ```
+
+<div style="page-break-after: always;"></div>
+
 ### Find Student: `find`
 Finds the student with the keyword, returning either a list or report. Input is case-sensitive and 
 full IDs are not required, but merely keyword.
@@ -254,6 +268,9 @@ The student must achieve the same or a higher GPA to be considered for exchange.
 e.g.
 `minimum 4.0`
 
+
+<div style="page-break-after: always;"></div>
+
 ### Filter Student: `filter`
 
 Filters student data with a keyword, returning either a list or report.
@@ -280,7 +297,7 @@ Here is the list:
 
 ### View allocation statistics: ``stats``
 
-Displays the average or minimum GPA for the students who have chosen the specified partner university.  
+Displays the average or minimum GPA for the students who have been allocated to the specified partner university.  
 Format: `stats -avggpa UNI_INDEX` or `stats -mingpa UNI_INDEX`   
 Example output:  
 
@@ -290,6 +307,8 @@ Example output:
 The average GPA for university index 36 (The University of Hong Kong) is: 3.80
 --------------------------------------------------------------------------------
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### View remaining quota: ``viewQuota``
 
@@ -329,10 +348,14 @@ Revert complete! Run the allocate command whenever you are ready.
 --------------------------------------------------------------------------------
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Generate report of allocation: `generate`
 Outputs all students' ID and allocated university in an ASCII table. 
 Used for viewing the results of the allocation process.
+
 Format: `generate`
+
 Example output:
 ```shell
 Here is the allocation report:
@@ -357,6 +380,8 @@ Once the save operation is complete, the program will exit gracefully.
 
 If the user choose not to save the results, the program will end immediately without saving any data.
 
+<div style="page-break-after: always;"></div>
+
 Below is an example of an `exit` scenario.
 ```shell
 > exit
@@ -373,6 +398,11 @@ Allocation results saved to JSON file at data/allocation_results.json
 Adios, amigo!
 --------------------------------------------------------------------------------
 ```
+In the above case, the data will be stored in the relative path: `.../data/allocation_results.json`. 
+
+**IMPORTANT**: Please note that if the file already exists, its contents will be overwritten.
+
+<div style="page-break-after: always;"></div>
 
 ## FAQ
 
@@ -398,37 +428,93 @@ Adios, amigo!
 >
 > A: In FindOurSEP, students are prioritized based on their GPA, with higher GPAs sorted first. When two students share the same GPA, priority is given to the one listed earlier, following a first-come-first-serve basis.
 
+<div style="page-break-after: always;"></div>
+
+## Glossary
+
+* *SEP* (Student Exchange Programme): NUS’s largest global exchange initiative, enabling students to study at over 300 partner universities in 40+ countries. *FindOurSEP* project is designed specifically to assist in the SEP allocation process for CEG (Computer Engineering) students.
+* *GPA* (Grade Point Average): A numeric score ranging from 0.0 to 5.0, representing a student's academic performance, used for allocation.
+* *CSV* (Comma-Separated Values): A file format used to store tabular data, such as student records.
+* *JSON* (JavaScript Object Notation): A lightweight data-interchange format used for storing student and university data.
+* *Allocator*: Class responsible for assigning students to universities based on GPA and preferences.
+* *Command*: A specific action or function executed by the program, such as `add`, `delete`, or `allocate`.
+* *Parser*: Class that interprets and processes user input commands.
+* *StudentList*: Data structure containing records of all students in the SEP system.
+* *UniversityRepository*: A repository containing information on partner universities available for SEP.
+* *FindOurSEP*: The name of the project system designed to facilitate and optimize the SEP (Student Exchange Programme) allocation process specifically for Computer Engineering students at NUS.
+* *Java 17*: A version of the Java programming language and runtime environment. It’s important to have this or a more recent version installed to run certain Java applications.
+* *.jar file*: A Java ARchive file that contains Java classes and associated metadata and resources. It's used to distribute Java applications.
+* *Terminal*: A text-based interface used to interact with the computer’s operating system, allowing you to execute commands.
+* *Navigate (cd)*: A command used in the terminal to change the current directory to a different directory. cd stands for "change directory."
+
+<div style="page-break-after: always;"></div>
+
 ## Command Summary
 
-| Action     | Format/Example                                               |
-| ---------- | ------------------------------------------------------------ |
-| Add        | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}` |
-| Delete     | `delete STUDENT_ID` <br> e.g. `delete A1234567I`             |
-| Find       | `find <list/report> STUDENT_ID` <br> e.g. `find list A1234567I` |
-| Filter     | `filter <list/report> <allocated/unallocated>` or `filter <list> <gpa/id> <ascending/descending>`<br/> e.g. `filter list gpa ascending` |
-| List       | `list`                                                       |
-| Statistics | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42`` |
-| ViewQuota  | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``           |
-| Allocate   | `allocate`                                                   |
-| Minimum    | `minimum GPA_CRITERIA`. <br> e.g., ``minimum 4.0``           |
-| Revert     | `revert`                                                     |
-| GetReport  | `generate`                                                   |
-| Exit       | `bye`, `exit`, `quit`                                        |
-| Help       | `help`                                                       |
+| Action     | Description                                                         | Format/Example                                                                                                                          |
+|------------|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Add        | Adds new student to list, if not already present                    | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}`                                   |
+| Delete     | Removes student with specified ID                                   | `delete STUDENT_ID` <br> e.g. `delete A1234567I`                                                                                        |
+| Find       | Searches the student list for all matches to query                  | `find <list/report> STUDENT_ID` <br> e.g. `find list A1234567I`                                                                         |
+| Filter     | Prints a sorted student list                                        | `filter <list/report> <allocated/unallocated>` or `filter <list> <gpa/id> <ascending/descending>`<br/> e.g. `filter list gpa ascending` |
+| List       | Prints the current student list                                     | `list`                                                                                                                                  |
+| Statistics | Shows statistics for chosen university                              | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42``                                              |
+| ViewQuota  | Shows spots available in a university                               | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``                                                                                      |
+| Allocate   | Runs the allocation algorithm                                       | `allocate`                                                                                                                              |
+| Minimum    | Sets the minimum GPA for student to be considered for allocation    | `minimum GPA_CRITERIA`. <br> e.g. ``minimum 4.0``                                                                                       |
+| Revert     | Resets the allocation algorithm                                     | `revert`                                                                                                                                |
+| GetReport  | Returns the outcome of the allocation                               | `generate`                                                                                                                              |
+| Exit       | Ends the current session. User will be prompted about the save file | `bye`, `exit`, `quit`                                                                                                                   |
+| Help       | Prints a message containing all available commands                  | `help`                                                                                                                                  |
+
 
 ## Accepted File Format
 The program supports files input in `.JSON`, `.CSV`, and `.TXT` formats.
 
 Please make sure your file matches one of these formats:
 ### JSON:
-![CorrectJSONFormat](images/JSONFormat.png)
+```json
+{
+  "students": [
+    {
+      "ID": "A1234567J",
+      "GPA": "4.5",
+      "PREFERENCES": "{1,2,3}"
+    },
+    {
+      "ID": "A7654321K",
+      "GPA": "3.8",
+      "PREFERENCES": "{2,3,1}"
+    },
+    {
+      "ID": "A1357913L",
+      "GPA": "5.0",
+      "PREFERENCES": "{3,1,2}"
+    }
+  ]
+}
+```
+
+<div style="page-break-after: always;"></div>
 
 ### CSV:
-![CorrectCSVFormat](images/CSVFormat.png)
+
+| ID        | GPA | PREFERENCES |
+|-----------|-----|-------------|
+| A1234567J | 4.5 | {1,2,3}     |
+| A1234567I | 5   | {12,61,43}  |
+| A7654321K | 3.8 | {2,3,1}     |
+| A1357913L | 4   | {3,1,2}     |
+
+
+
+**IMPORTANT**: Please take note that the `.CSV` file is **ONLY** opened, created, and edited using Microsoft Excel. Do **NOT** use an IDE or any other application to modify this file.
 
 ### TXT:
-![CorrectTXTFormat](images/TXTFormat.png)
+```text
+id/A1234567J, gpa/4.5, p/{1,2,3}
+id/A7654321K, gpa/3.8, p/{2,3,1}
+id/A1357913L, gpa/5.0, p/{3,1,2}
+```
 
-**IMPORTANT**: Please take note that the `.CSV` file is **ONLY** opened, created, and edited using Microsoft Excel. Do not use an IDE or any other application to modify this file.
-
-Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.
+These examples are for viewing purposes only. Feel free to use the test.csv, test.json and test.txt files available in [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases) for testing.

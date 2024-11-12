@@ -138,10 +138,11 @@ public class UI {
         at.addRule();
 
         for (Student s : studentList) {
-            University allocated = UniversityRepository.getUniversityByIndex(s.getAllocatedUniversity());
+            int choice = s.getAllocatedUniversity();
+            University allocated = UniversityRepository.getUniversityByIndex(choice);
 
             if (allocated != null) {
-                at.addRow(s.getId(), allocated.getFullName());
+                at.addRow(s.getId(), choice + ". " + allocated.getFullName());
             } else {
                 at.addRow(s.getId(), "Not Allocated"); // Handle cases with no allocation
             }
@@ -175,11 +176,11 @@ public class UI {
                 followed by 'no' and \
                 ensure the file is formatted correctly before retrying. \
                 
-                Otherwise, you can continue to use the program. Enter 'help' for available commands.""");
+                Otherwise, you can continue to use the program. Enter help for available commands.""");
     }
 
     public void printFileLoadSuccessMessage() {
-        printResponse("File loaded successfully! Let's begin! Enter 'help' for available commands.");
+        printResponse("File loaded successfully! Let's begin! Enter help for available commands.");
     }
 
     /**

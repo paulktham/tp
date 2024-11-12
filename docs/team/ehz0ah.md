@@ -1,8 +1,8 @@
 # Lee Hao Zhe - Project Portfolio Page
 
 ## Overview
-FindOurSEP is a Command Line Interface (CLI) tool designed for admins handling the allocation of Student Exchange
-Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows administrators to efficiently
+FindOurSEP is a Command Line Interface (CLI) tool designed for an admin handling the allocation of Student Exchange
+Program (SEP) locations for Computer Engineering (CEG) students at NUS. The app allows the administrator to efficiently
 manage the allocation process using automated workflows and data-driven decision-making.
 
 
@@ -46,12 +46,15 @@ Code Contributed: [RepoSense (tP Code Dashboard)](https://nus-cs2113-ay2425s1.gi
 
 ### User Guide Contributions:
 
-Added documentation for the following: ([#90](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/90), [#122](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/122))
-1. Uploading Information
+Added documentation for the following: ([#90](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/90), [#122](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/122), [#174](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/174))
+1. Quick Start
+2. Pre-Usage Guidelines
+3. Uploading Information
    - Manual Input
    - File Input
-2. Exit Program
-3. Accepted File Format
+4. Exit Program
+5. Frequently Asked Questions (FAQs)
+6. Accepted File Format
 
 ### Developer Guide Contributions:
 
@@ -76,8 +79,8 @@ PR for 1-3: [#61](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/61)
 
 ### Contributions to Team-Based Tasks
 1. Set up team GitHub Organisation/Repository
-2. Managed release `v1.0` on GitHub ([v1.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases/tag/v1.0))
-3. Maintained issue tracker
+2. Managed release `v1.0` & `v2.1` on GitHub ([v1.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases/tag/v1.0), [v2.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases))
+3. Maintained issue and project tracker
 4. Incorporated third-party libraries (OpenCSV & Jackson)
 5. Updated `gradle.yml` to ensure smooth running of GitHub Continuous Integration Actions ([#38](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/38))
 6. PRs reviewed: [#97](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/97), [#70](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/70), [#49](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/49), [#40](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/40), [#30](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/30)
