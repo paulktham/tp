@@ -194,7 +194,7 @@ Here is the list of possible commands:
 ### Add Student Application: `add`
 
 Adds a student to the student list. `PREFERENCE_RANKINGS`  should be enclosed in curly braces. We allow students to have a preference of up to 3 universities, and they are ranked left to right, with the HIGHEST priority starting on the left.
-Duplicate preference rankings would imply the same preferences for following rounds of application.
+Duplicate preference rankings would imply the same preferences for following rounds of allocation.
 
 Format: `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}`
 e.g.
