@@ -469,7 +469,7 @@ The sequence above in [AddCommand](#add-command) illustrates the interactions be
 
 This diagram below shows the class diagram of Student and StudentList.
 
-![StudentandStudentListClassDiagram](./UML_Diagrams/StudentAndStudentList.drawio.svg)
+![StudentandStudentListClassDiagram](./UML_Diagrams/studentandstudentlist.drawio.svg)
 
 #### University and UniversityRepository
 
