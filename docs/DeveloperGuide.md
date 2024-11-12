@@ -51,8 +51,6 @@ Many thanks to the developers and maintainers of these libraries for their incre
 
 ## Installation
 
-To get started with this project, follow these steps:
-
 ### Prerequisites
 
 - Java 17
@@ -74,7 +72,6 @@ To get started with this project, follow these steps:
       java -jar FindOurSEP.jar
       ```
 
-
 🎉 Congratulations! You’re all set to dive into the wonders of this project. Enjoy the ride!
 
 ## Design & Implementation
@@ -82,6 +79,8 @@ To get started with this project, follow these steps:
 ### Architecture
 
 ![Architecture](UML_Diagrams/Architecture.drawio.svg)
+
+<div style="page-break-after: always;"></div>
 
 ### FindOurSEP
 
@@ -494,11 +493,13 @@ For file outputs, `saveAllocationResults()` will be called. Below is a further s
 
 ![saveAllocationResultsSequence](UML_Diagrams/saveAllocationResultsSequence.drawio.svg)
 
+<div style="page-break-after: always;"></div>
+
 ## Product scope
 
 ### Target User Profile
 
-This application is designed for administrators responsible for handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at the National University of Singapore (NUS). These admins oversee the complex process of assigning students to various international exchange programs, ensuring that each student receives an appropriate placement based on their preferences and qualifications.
+This application is designed for an administrator responsible for handling the allocation of Student Exchange Program (SEP) locations for Computer Engineering (CEG) students at the National University of Singapore (NUS). The admin overseeing the complex process of assigning students to various international exchange programs, ensuring that each student receives an appropriate placement based on their preferences and qualifications.
 
 ### Value Proposition
 
@@ -513,6 +514,7 @@ The application provides a comprehensive solution to streamline the SEP allocati
 
 By integrating these features, the application significantly enhances the convenience and effectiveness of managing SEP allocations, ultimately benefiting both administrators and students.
 
+<div style="page-break-after: always;"></div>
 
 ## User Stories
 
@@ -533,6 +535,8 @@ By integrating these features, the application significantly enhances the conven
 | v2.0    | Administrator | Be able to undo allocations                                                    | Correct allocations if needed due to mistakes or updates.     |
 | v2.0    | Administrator | Upload student and allocation data in various formats (e.g., CSV, TXT)         | Present data flexibly across different platforms or settings. |
 
+<div style="page-break-after: always;"></div>
+
 ## Non-Functional Requirements
 
 **Performance**: The application should process allocation commands and generate reports within 2 seconds under typical load conditions (e.g., 500 students).
@@ -551,7 +555,7 @@ By integrating these features, the application significantly enhances the conven
 
 **High Availability**: The application must be available at all times with minimal dependency on the internet or other APIs.
 
-
+<div style="page-break-after: always;"></div>
 
 ## Glossary
 
