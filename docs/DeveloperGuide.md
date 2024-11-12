@@ -493,7 +493,6 @@ For file outputs, `saveAllocationResults()` will be called. Below is a further s
 
 ![saveAllocationResultsSequence](UML_Diagrams/saveAllocationResultsSequence.drawio.svg)
 
-<div style="page-break-after: always;"></div>
 
 ## Product scope
 
