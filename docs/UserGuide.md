@@ -169,10 +169,10 @@ Here is the list of possible commands:
                                or 'filter <list> <gpa/id> <ascending/descending>'
                 Example: filter list gpa ascending
 
-    stats       Displays GPA statistics for students who have been allocated a specified uni.
+    stats       Displays GPA stats for students who have been allocated a uni.
                 Usage:
-                stats -avggpa <UNI_INDEX>  Displays the average GPA for the specified university.
-                stats -mingpa <UNI_INDEX>  Displays the minimum GPA for the specified university.
+                stats -avggpa <UNI_INDEX>  Displays the average GPA for the specified uni.
+                stats -mingpa <UNI_INDEX>  Displays the minimum GPA for the specified uni.
 
     viewQuota   Displays the index, name, and remaining quota for the specified university.
                 Usage: viewQuota <UNI_INDEX>
@@ -334,7 +334,7 @@ Upon successful completion, the console should output:
 --------------------------------------------------------------------------------
 Allocation algorithm complete! Run generate command to view.
 --------------------------------------------------------------------------------
-```  
+```
 After which, the user can run the `generate` command to view the results, or `revert` command to undo the allocation.
 
 ### Revert allocation outcome: `revert`
@@ -451,21 +451,21 @@ In the above case, the data will be stored in the relative path: `.../data/alloc
 
 ## Command Summary
 
-| Action     | Description                                                         | Format/Example                                                                                                                          |
-|------------|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| Add        | Adds new student to list, if not already present                    | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}`                                   |
-| Delete     | Removes student with specified ID                                   | `delete STUDENT_ID` <br> e.g. `delete A1234567I`                                                                                        |
-| Find       | Searches the student list for all matches to query                  | `find <list/report> STUDENT_ID` <br> e.g. `find list A1234567I`                                                                         |
-| Filter     | Prints a sorted student list                                        | `filter <list/report> <allocated/unallocated>` or `filter <list> <gpa/id> <ascending/descending>`<br/> e.g. `filter list gpa ascending` |
-| List       | Prints the current student list                                     | `list`                                                                                                                                  |
-| Statistics | Shows statistics for chosen university                              | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42``                                              |
-| ViewQuota  | Shows spots available in a university                               | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``                                                                                      |
-| Allocate   | Runs the allocation algorithm                                       | `allocate`                                                                                                                              |
-| Minimum    | Sets the minimum GPA for student to be considered for allocation    | `minimum GPA_CRITERIA`. <br> e.g. ``minimum 4.0``                                                                                       |
-| Revert     | Resets the allocation algorithm                                     | `revert`                                                                                                                                |
-| GetReport  | Returns the outcome of the allocation                               | `generate`                                                                                                                              |
-| Exit       | Ends the current session. User will be prompted about the save file | `bye`, `exit`, `quit`                                                                                                                   |
-| Help       | Prints a message containing all available commands                  | `help`                                                                                                                                  |
+| Action     | Description                                                  | Format/Example                                               |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Add        | Adds new student to list, if not already present             | `add id/STUDENT_ID gpa/GPA p/{PREFERENCE_RANKINGS}` <br> e.g. `add id/A1234567I gpa/5.0 p/{13,61,43}` |
+| Delete     | Removes student with specified ID                            | `delete STUDENT_ID` <br> e.g. `delete A1234567I`             |
+| Find       | Searches the student list for all matches to query           | `find <list/report> STUDENT_ID` <br> e.g. `find list A1234567I` |
+| Filter     | Prints a sorted student list                                 | `filter <list/report> <allocated/unallocated>` or `filter <list> <gpa/id> <ascending/descending>`<br/> e.g. `filter list gpa ascending` |
+| List       | Prints the current student list                              | `list`                                                       |
+| Statistics | Shows statistics for a university                            | ``stats -avggpa UNI_INDEX``  or ``stats -mingpa UNI_INDEX`` <br> e.g. ``stats -mingpa 42`` |
+| ViewQuota  | Shows spots available in a university                        | ``viewQuota UNI_INDEX`` <br> e.g. ``viewQuota 42``           |
+| Allocate   | Runs the allocation algorithm                                | `allocate`                                                   |
+| Minimum    | Sets the minimum GPA for student to be considered for allocation | `minimum GPA_CRITERIA`. <br> e.g. ``minimum 4.0``            |
+| Revert     | Resets the allocation algorithm                              | `revert`                                                     |
+| GetReport  | Returns the outcome of the allocation                        | `generate`                                                   |
+| Exit       | Ends the current session. User will be prompted about the save file | `bye`, `exit`, `quit`                                        |
+| Help       | Prints a message containing all available commands           | `help`                                                       |
 
 
 ## Accepted File Format
